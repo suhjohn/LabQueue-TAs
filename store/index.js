@@ -40,7 +40,13 @@ const store = () =>
     },
     getters: {
       /* Returns the appropriate LabTA based on the query */
-      getLabTa: state => query => {}
+      getLabTAs: state => query => {},
+      /* Returns the labta with the corresponding netid */
+      getLabTA: state => netid => {},
+      /* Returns the appropriate request based on the query */
+      getRequests: state => query => {},
+      /* Returns the request with the corresponding pk */
+      getRequest: state => netid => {}
     },
     mutations: {
       /* Sets each of the labTAs to the store */
@@ -49,12 +55,20 @@ const store = () =>
           context.commit("setLabTA", labTA);
         });
       },
-      /* Sets a LabTA to state. labTas with netid as key and the item itself as value */
+      /* Sets a LabTA to store. labTas with netid as key and the item itself as value */
       setLabTA(state, labTA) {
         state.labTAs[labTA.netid] = labTA;
       },
-      /* Sets a Request to state. Request with pk as key and the item itself as value */
-      setRequests(state, requests) {}
+      /* Sets each request in requests to the store */
+      setRequests(state, requests) {
+        requests.forEach(request => {
+          context.commit("setRequest", request);
+        });
+      },
+      /* Sets a request to store. */
+      setRequest(state, request) {
+        state.requests[request.pk] = request;
+      }
     },
     actions: {
       ...apis
