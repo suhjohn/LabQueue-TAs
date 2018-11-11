@@ -1,13 +1,7 @@
 <template>
-  <section class="container">
-    <body>
+  <nav>
       
-      <div>
-        <h1 id="title-main">LabQueue Statistics</h1>
-      </div>
-
-    </body>
-  </section>
+  </nav>
 </template>
 
 <script>
