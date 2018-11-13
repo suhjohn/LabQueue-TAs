@@ -15,13 +15,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getMostRecentShiftRequests", "getMostRecentShiftNumber"])
+    ...mapGetters(["getNRecentShiftsRequests", "getMostRecentShiftNumber"])
   },
   mounted() {
     this.showLine = true;
     const defaultCount = 5;
     const mostRecentShift = this.getMostRecentShiftNumber;
-    const shifts = this.getMostRecentShiftRequests(defaultCount);
+    const shifts = this.getNRecentShiftsRequests(defaultCount);
     // Generate array of [
     //  mostRecentShift - defaultCount,...,mostRecentShift
     // ]
@@ -30,17 +30,16 @@ export default {
     );
     const shiftsCount = shifts.map(x => x.length);
 
-    console.log(labels);
     const lineData = {
       labels: labels,
       datasets: [
         {
           label: "Requests",
           fill: false,
-          borderColor: "#30415d",
+          backgroundColor: "#b13938",
+          borderColor: "#b13938",
           pointBackgroundColor: "white",
           borderWidth: 1,
-          backgroundColor: "#30415d",
           data: shiftsCount,
           lineTension: 0
         }
