@@ -25,6 +25,17 @@ module.exports = {
         integrity:
           "sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU",
         crossorigin: "anonymous"
+      },
+      /* Font CDN
+       */
+      {
+        rel: "stylesheet",
+        href:
+          "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css?family=Domine:400,700"
       }
     ]
   },
@@ -32,18 +43,22 @@ module.exports = {
     baseURL: baseURL
   },
 
-  modules: ["@nuxtjs/axios"],
+  /*
+  CSS Options  
+  */
+  css: [{ src: "~/assets/scss/main.scss", lang: "scss" }],
+
   /*
    ** Axios module configuration
    */
   axios: {
     baseURL: `${baseProtocol}://${baseURL}/api/`
   },
-  plugins: [],
+  plugins: [{ src: "~plugins/vue-chartjs.js", ssr: false }],
   /*
    ** Customize the progress bar color
    */
-  loading: { color: "#3B8070" },
+  loading: { color: "#8eaebd" },
   /*
    ** Build configuration
    */
