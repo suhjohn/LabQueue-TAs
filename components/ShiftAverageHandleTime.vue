@@ -1,10 +1,10 @@
 <template>
     <div id="container">
         <div class="header">
-            <h2 class="header-text">Average Handle Time</h2>
+            <h2 class="header-text">My Average Handle Time</h2>
         </div>
         <div class="handle-time">
-            <h2 class="handle-time-text">{{ getAverageHandleTime }}</h2>
+            <h2 class="handle-time-text">{{ getShiftAverageHandleTime }}</h2>
         </div>
     </div>    
 </template>
@@ -12,7 +12,7 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["getAverageHandleTime"])
+    ...mapGetters(["getShiftAverageHandleTime"])
   }
 };
 </script>

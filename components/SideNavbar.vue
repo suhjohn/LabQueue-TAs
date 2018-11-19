@@ -42,6 +42,7 @@ hr {
 }
 
 li {
+  color: $color-grey-dark;
   display: block;
   padding-left: 3rem;
   margin-right: 2rem;
@@ -58,7 +59,7 @@ li {
     background-color: $color-grey-light;
   }
   &.nuxt-link-exact-active {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 1.6rem;
     color: $color-crimson-main;
     background-color: $color-crimson-main-light;

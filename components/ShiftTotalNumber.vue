@@ -34,7 +34,7 @@ export default {
       labels: labels,
       datasets: [
         {
-          label: "Requests",
+          label: "# of Requests",
           fill: false,
           backgroundColor: "#b13938",
           borderColor: "#b13938",
@@ -48,7 +48,16 @@ export default {
     const options = {
       responsive: true,
       maintainAspectRatio: false,
-      bezierCurve: false
+      bezierCurve: false,
+      scales: {
+        xAxes: [
+          {
+            gridLines: {
+              display: false
+            }
+          }
+        ]
+      }
     };
     this.lineData = lineData;
     this.options = options;

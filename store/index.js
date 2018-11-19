@@ -1479,7 +1479,7 @@ const store = () =>
           }
         ]
       ],
-      averageHandleTime: { min: 9, sec: 8 }
+      ShiftAverageHandleTime: { min: 9, sec: 8 }
     },
     getters: {
       /* Returns the appropriate LabTA based on the query */
@@ -1506,12 +1506,12 @@ const store = () =>
         return state.shiftRequests.length;
       },
       /* Returns the average handle time of the labTA */
-      getAverageHandleTime: state => {
+      getShiftAverageHandleTime: state => {
         return (
-          state.averageHandleTime.min +
-          "min " +
-          state.averageHandleTime.sec +
-          "sec"
+          state.ShiftAverageHandleTime.min +
+          " min " +
+          state.ShiftAverageHandleTime.sec +
+          " sec"
         );
       },
       /* Returns the total number of requests of the most recent n shifts */

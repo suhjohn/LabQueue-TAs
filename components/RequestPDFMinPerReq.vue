@@ -32,7 +32,13 @@ export default {
       [45, 60],
       [60, Number.MAX_VALUE]
     ];
-    const labels = ["0 ~ 15", "15 ~ 30", "30 ~ 45", "45 ~ 60", "60+"];
+    const labels = [
+      "0 ~ 15 min",
+      "15 ~ 30 min",
+      "30 ~ 45 min",
+      "45 ~ 60 min",
+      "60+ min"
+    ];
     const shiftsRequests = this.getNRecentShiftsRequests(defaultCount);
     const requestCount = this.getTotalRequestsOfNRecentShifts(defaultCount);
     const requests = shiftsRequests.flat([1]);
