@@ -5,6 +5,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import styles from "~/assets/scss/variables.scss";
 
 export default {
   data() {
@@ -19,16 +20,8 @@ export default {
   },
   mounted() {
     this.showLine = true;
-    const defaultCount = 5;
-    const mostRecentShift = this.getMostRecentShiftNumber;
-    const shifts = this.getNRecentShiftsRequests(defaultCount);
-    // Generate array of [
-    //  mostRecentShift - defaultCount,...,mostRecentShift
-    // ]
-    const labels = [...Array(defaultCount).keys()].map(
-      x => "Shift " + (x + mostRecentShift - defaultCount + 1)
-    );
-    const shiftsCount = shifts.map(x => x.length);
+    const labels = [];
+    const data = [];
 
     const lineData = {
       labels: labels,
@@ -36,11 +29,11 @@ export default {
         {
           label: "# of Requests",
           fill: false,
-          backgroundColor: "#b13938",
-          borderColor: "#b13938",
+          backgroundColor: styles.colorCrimsonMainDark,
+          borderColor: styles.colorCrimsonMainDark,
           pointBackgroundColor: "white",
           borderWidth: 1,
-          data: shiftsCount,
+          data: data,
           lineTension: 0
         }
       ]

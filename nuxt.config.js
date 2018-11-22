@@ -52,7 +52,7 @@ module.exports = {
    ** Axios module configuration
    */
   axios: {
-    baseURL: `${baseProtocol}://${baseURL}/api/`
+    baseURL: `${baseProtocol}://${baseURL}/api-proxy/v2/`
   },
   plugins: [{ src: "~plugins/vue-chartjs.js", ssr: false }],
   /*

@@ -1,3 +1,7 @@
+/* Raw values */
+$raw-default-font-size: 1.6;
+$raw-navbar-height: 7;
+
 /* Colors */
 $color-crimson-main-dark: #b13938;
 $color-crimson-main: #cf6766;
@@ -13,7 +17,14 @@ $color-grey-lightest: #fffdfd;
 $color-black: #222020;
 
 /* Font Settings */
-$default-font-size: 1.6rem;
+$default-font-size: $raw-default-font-size + 0rem;
 
 /* Navbar */
-$navbar-height: 7rem;
+$navbar-height: $raw-navbar-height + 0rem;
+
+/* export for JS */
+:export {
+  colorCrimsonMainDark: $color-crimson-main-dark;
+  colorCrimsonMain: $color-crimson-main;
+  colorCrimsonMainLight: $color-crimson-main-light;
+}

@@ -4,6 +4,7 @@
     </div>    
 </template>
 <script>
+import styles from "~/assets/scss/variables.scss";
 import { mapGetters } from "vuex";
 import moment from "moment";
 
@@ -24,36 +25,17 @@ export default {
   },
   mounted() {
     this.showLine = true;
-    const defaultCount = 5;
-    const minSeg = [
-      [0, 15],
-      [15, 30],
-      [30, 45],
-      [45, 60],
-      [60, Number.MAX_VALUE]
-    ];
-    const labels = [
-      "0 ~ 15 min",
-      "15 ~ 30 min",
-      "30 ~ 45 min",
-      "45 ~ 60 min",
-      "60+ min"
-    ];
-    const shiftsRequests = this.getNRecentShiftsRequests(defaultCount);
-    const requestCount = this.getTotalRequestsOfNRecentShifts(defaultCount);
-    const requests = shiftsRequests.flat([1]);
 
-    const reqCountByMinSegment = minSeg.map(seg =>
-      this.calcRequestCountPercent(requests, requestCount, seg[0], seg[1])
-    );
+    const labels = [];
+    const data = [];
     const barData = {
       labels: labels,
       datasets: [
         {
-          backgroundColor: "#b13938",
-          borderColor: "#b13938",
-          label: "% of requests handled per minute segments",
-          data: reqCountByMinSegment
+          backgroundColor: styles.colorCrimsonMainDark,
+          borderColor: styles.colorCrimsonMainDark,
+          label: "# of requests handled per minute segments",
+          data: data
         }
       ]
     };
@@ -74,17 +56,6 @@ export default {
   methods: {
     /* Given the list of requests, return the count 
        of requests that have been accepted and closed in minMin~maxMin. */
-    calcRequestCountPercent(requests, requestCount, minMin, maxMin) {
-      var count = 0;
-      const secPerMin = 60;
-      requests.forEach(request => {
-        const timeAccepted = moment(request["time_accepted"]);
-        const timeClosed = moment(request["time_closed"]);
-        const diff = timeClosed.diff(timeAccepted, "seconds");
-        if (minMin * secPerMin < diff && diff < maxMin * secPerMin) count++;
-      });
-      return Number((count / requestCount).toFixed(3));
-    }
   }
 };
 </script>

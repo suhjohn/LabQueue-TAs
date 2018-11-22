@@ -1,27 +1,18 @@
 /* 
-Gets the list of LabTAs. Save the result to the state. 
+Retrieves information about LabTA self. 
 */
-export async function getLabTAList(context) {
+export async function retrieveSelf(context) {
   try {
-    const labTAs = await this.$axios.$get("/labtas/");
-    context.commit("setLabTAs", labTAs);
-    return labTAs;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-/* 
-Queries LabTAs based on the params. Save the result to the state. 
-*/
-export async function queryLabTAList(context, params) {
-  try {
-    const kwargs = {
-      params: params
+    const requestParams = {
+      action: {
+        api_family: "lab_tas",
+        action_name: "get_self"
+      }
     };
-    const queriedLabTAs = await this.$axios.$get("/labtas/query", kwargs);
-    context.commit("setLabTAs", queriedLabTAs);
-    return queriedLabTAs;
+    const self = await this.$axios.$get("/", requestParams);
+    context.commit("setSelf", self);
+    console.log(self);
+    return self;
   } catch (error) {
     console.log(error);
   }

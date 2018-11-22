@@ -4,11 +4,12 @@
             <h2 class="header-text">My Average Handle Time</h2>
         </div>
         <div class="handle-time">
-            <h2 class="handle-time-text">{{ getShiftAverageHandleTime }}</h2>
+            <h2 class="handle-time-text"></h2>
         </div>
     </div>    
 </template>
 <script>
+import styles from "~/assets/scss/variables.scss";
 import { mapGetters } from "vuex";
 export default {
   computed: {

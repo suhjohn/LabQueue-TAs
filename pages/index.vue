@@ -8,7 +8,7 @@
           
          -->
       <div class="module-list-row">
-        <div class="module-list-row-header">
+        <div class="module-list-row-header">ƒ
           <h4 class="module-list-row-header-text">
             How am I doing in my shifts?
           </h4>
