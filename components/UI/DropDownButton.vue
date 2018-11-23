@@ -1,6 +1,7 @@
 <template>
-  <div class="dropdown clearfix" v-on-clickaway="away">
+  <div class="dropdown" v-on-clickaway="away">
     <button @click="showDropdown=!showDropdown" v-if="!showDropdown" class="dropdown-btn" :class="{'dropdown-btn-active': showDropdown}"><i class="fas fa-caret-down"></i> {{ options[selectedIndex] }} </button>
+    
     <ul class="dropdown-list" :style="styleObj.list" v-if="showDropdown">
       <li class="dropdown-list-title" :style="styleObj.title">
         <div class="dropdown-list-title-container">
@@ -93,7 +94,6 @@ $list-padding: 1.5rem;
   transition: all 0.25s;
   &:hover {
     cursor: pointer;
-    background-color: $color-grey-light;
   }
 }
 
@@ -108,7 +108,7 @@ $list-padding: 1.5rem;
 }
 
 .dropdown-list {
-  border: 1px solid $color-grey-light;
+  border: 1px solid $color-grey;
   border-top: none;
   border-radius: $contained-box-m-radius;
   box-sizing: border-box;

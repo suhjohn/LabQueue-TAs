@@ -20,9 +20,17 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 
+$header-height: 5rem;
+$container-width: 30rem;
+$container-width-mobile: 100%;
+$container-height: 45rem;
+$container-height-mobile: 20rem;
+$container-padding: 2rem;
+$graph-options-height: 4rem;
+
 #container {
-  width: 60rem;
-  height: 20rem;
+  width: $container-width-mobile;
+  height: $container-height-mobile;
   background-color: $color-crimson-main-dark;
   border-radius: $contained-box-m-radius;
   padding: 2rem;
@@ -45,14 +53,10 @@ export default {
   }
 }
 
-@media (min-width: 930px) {
+@media (min-width: 1270px) {
   #container {
-    width: 30rem;
-    height: 40rem;
-    background-color: $color-crimson-main-dark;
-    border-radius: $contained-box-m-radius;
-    padding: 2rem;
-    box-shadow: $contained-box-m-shadow;
+    width: $container-width;
+    height: $container-height;
   }
 }
 </style>

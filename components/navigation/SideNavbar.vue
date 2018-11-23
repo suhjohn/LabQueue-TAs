@@ -3,12 +3,19 @@
     <nuxt-link tag="li" id="logo" to="/">
       <img class="logo-img" src="~/assets/static/Logo.svg">
     </nuxt-link>
-    <ul>
-      <nuxt-link tag="li" class="sidenav-link" to="/"><i class="fas fa-home"></i>Home</nuxt-link>
-      <nuxt-link tag="li" class="sidenav-link" :to="{name: 'shift'}"><i class="fas fa-business-time"></i>Shift</nuxt-link>
-      <nuxt-link tag="li" class="sidenav-link" :to="{name: 'requests'}"><i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
-      <nuxt-link tag="li" class="sidenav-link" :to="{name: 'students'}"><i class="fas fa-user-graduate"></i>Students</nuxt-link>
-    </ul>
+    <div class="navbar-options">
+      <ul class="navbar-options-main">
+        <nuxt-link tag="li" class="navbar-options-main-option" to="/"><i class="fas fa-home"></i>Home</nuxt-link>
+        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'shift'}"><i class="fas fa-business-time"></i>Shift</nuxt-link>
+        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'requests'}"><i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
+        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'students'}"><i class="fas fa-user-graduate"></i>Students</nuxt-link>
+      </ul>
+      <ul class="navbar-options-sub">
+        <li class="navbar-options-sub-option">
+          <a class="navbar-options-sub-option-text" href="https://www.labqueue.io/queue/">Back to Queue</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>
 
@@ -26,6 +33,8 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 $li-height: 5rem;
+$logo-height: 15rem;
+
 #logo {
   display: none;
 }
@@ -39,11 +48,11 @@ nav {
   z-index: 1;
 }
 
-ul {
+.navbar-options-main {
   box-sizing: border-box;
   display: flex;
   justify-content: space-around;
-  & .sidenav-link {
+  & .navbar-options-main-option {
     width: 25%;
     padding: 2rem 0 1.5rem 0;
     display: flex;
@@ -66,16 +75,15 @@ ul {
       }
     }
   }
-
   & .nuxt-link-exact-active {
     font-weight: 700;
-    color: $color-crimson-main-dark;
+    color: $color-crimson-main;
     border-bottom: 0.5rem solid $color-crimson-main;
     & .fas {
       color: $color-crimson-main;
     }
     &:hover {
-      color: $color-crimson-main-dark;
+      color: $color-crimson-main;
       border-bottom: 0.5rem solid $color-crimson-main;
       & .fas {
         color: $color-crimson-main;
@@ -84,12 +92,16 @@ ul {
   }
 }
 
+.navbar-options-sub {
+  display: none;
+}
+
 @media only screen and (min-width: 930px) {
   #logo {
     display: block;
     text-align: center;
-    height: 15rem;
-    line-height: 15rem;
+    height: $logo-height;
+    line-height: $logo-height;
   }
   .logo-img {
     height: $navbar-height - 2rem;
@@ -106,18 +118,23 @@ ul {
     background-color: $color-white;
     border-right: 1px solid $color-grey-light;
   }
-  ul {
+  .navbar-options {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - #{$logo-height});
+    padding-bottom: 10rem;
+  }
+  .navbar-options-main {
     padding: 0;
-    display: block;
-    justify-content: initial;
-
-    & .sidenav-link {
+    display: flex;
+    flex-direction: column;
+    & .navbar-options-main-option {
       height: $li-height;
       width: 100%;
       line-height: $li-height;
       display: block;
       padding: 0;
-      padding-left: 1.5rem;
+      padding-left: 4rem;
       font-size: 1.4rem;
       transition: all 0.15s ease-in;
       border-bottom: none;
@@ -134,19 +151,31 @@ ul {
         border-left: 0.5rem solid $color-grey-dark;
       }
     }
-
     & .nuxt-link-exact-active {
       font-weight: 700;
-      color: $color-crimson-main-dark;
       border-bottom: none;
-      border-left: 0.5rem solid $color-crimson-main-dark;
+      border-left: 0.5rem solid $color-crimson-main;
       &:hover {
-        color: $color-crimson-main-dark;
         border-bottom: none;
-        border-left: 0.5rem solid $color-crimson-main-dark;
+        border-left: 0.5rem solid $color-crimson-main;
       }
       & .fas {
         color: $color-crimson-main;
+      }
+    }
+  }
+  .navbar-options-sub {
+    display: flex;
+    margin-top: auto;
+    &-option {
+      margin: 0 auto;
+      &-text {
+        font-size: 1.4rem;
+        color: $color-grey;
+        transition: all 0.15s;
+        &:hover {
+          color: $color-grey-dark;
+        }
       }
     }
   }

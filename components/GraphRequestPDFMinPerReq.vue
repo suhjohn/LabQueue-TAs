@@ -16,6 +16,7 @@ export default {
   components: {
     DropDownButton
   },
+  props: {},
   data() {
     return {
       showLine: false,
@@ -83,37 +84,46 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
+@import "@/assets/scss/grid.scss";
+
 $header-height: 5rem;
-$graph-container-width: 60rem;
-$container-height: 40rem;
+$container-width: 60rem;
+$container-width-mobile: 100%;
+$container-height: 45rem;
 $container-padding: 2rem;
 $graph-options-height: 4rem;
 
 #container {
-  padding-top: $container-padding;
+  width: $container-width-mobile;
+  height: $container-height;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 5px;
   border: 1px solid $color-grey-light;
   background-color: $color-white;
   box-shadow: $contained-box-m-shadow;
+  box-sizing: content-box;
 }
 
 .graph {
-  width: 100%;
   margin: auto;
+  width: $container-width-mobile;
 }
+
 .graph-options {
-  border-top: 0.5px solid $color-grey;
+  border-top: 1px solid $color-grey;
   box-sizing: content-box;
   height: $graph-options-height;
 }
-@media only screen and (min-width: 930px) {
-  #container {
-    width: $graph-container-width;
-  }
 
+@media only screen and (min-width: 1270px) {
+  #container {
+    width: $container-width;
+  }
   .graph {
-    width: $graph-container-width - (2 * $container-padding);
-    height: $container-height - (2 * $container-padding);
+    width: $container-width - (2 * $container-padding);
+    height: $container-height - $container-padding - $graph-options-height;
   }
 }
 </style>

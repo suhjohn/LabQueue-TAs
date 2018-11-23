@@ -4,9 +4,10 @@
       <nuxt-link  tag="li" id="logo" to="/">
         <img class="logo-img" src="~/assets/static/Logo.svg">
       </nuxt-link>
-      <li class="nav-item nav-item-divider">
-        <a href="https://www.labqueue.io/queue/">Back to Queue</a>
-      </li>
+
+        <li class="navbar-options-sub-option">
+          <a class="navbar-options-sub-option-text" href="https://www.labqueue.io/queue/">Back to Queue</a>
+        </li>
     </ul>
   </nav>
 </template>
@@ -48,12 +49,18 @@ li {
   cursor: pointer;
 }
 
-.nav-item {
-  font-size: 1.6rem;
-  color: $color-grey;
-}
-.nav-item-divider {
-  margin-left: auto;
+.navbar-options-sub {
+  &-option {
+    margin-left: auto;
+    &-text {
+      font-size: 1.4rem;
+      color: $color-grey;
+      transition: all 0.15s;
+      &:hover {
+        color: $color-grey-dark;
+      }
+    }
+  }
 }
 </style>
 
