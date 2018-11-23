@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <Navbar id="navbar-main" />
-    <div id="main">
-      <SideNavbar id="main-navbar-side" />
-      <nuxt/>
+  <div class="main">
+    <SideNavbar />
+    <div class="main-body">
+      <Navbar />
+      <nuxt id="page" />
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from "~/components/Navbar.vue";
-import SideNavbar from "~/components/SideNavbar.vue";
+import Navbar from "~/components/navigation/Navbar.vue";
+import SideNavbar from "~/components/navigation/SideNavbar.vue";
 export default {
   components: {
     Navbar,
@@ -26,16 +26,20 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-
-#main {
+$page-padding-top: 3rem;
+$page-padding-side: 3rem;
+$page-padding-bottom: 8rem;
+.main {
   display: flex;
   background-color: $color-grey-lightest;
 }
 
-#main-navbar-side {
-  flex: 0 0 25rem;
+.main-body {
+  width: 100%;
 }
-#__nuxt {
+#page {
+  padding: $page-padding-top $page-padding-side $page-padding-bottom
+    $page-padding-side;
 }
 </style>
 

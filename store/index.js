@@ -36,8 +36,23 @@ const store = () =>
       selfShiftRequestsArr: []
     },
     getters: {
-      /* Returns the current logged in TA's information */
-      getSelf: state => query => {}
+      /**
+       * Returns the current logged in TA's information
+       */
+      getSelf: state => query => {},
+
+      /**
+       * Returns the total number of requests in n recent
+       * shifts. Assumes that selfShiftRequests will
+       * have more than n shifts
+       */
+      getReqCountOfNRecentShifts: state => n => {
+        var reqCount = 0;
+        const semesters = Object.keys(state.selfShiftRequests);
+        semesters.forEach(semester => {
+          const semesterRequests = selfShiftRequests[semester];
+        });
+      }
     },
     mutations: {
       /**
@@ -76,7 +91,9 @@ const store = () =>
        * @param {Object} state                    Vuex state
        * @param {Object} shiftRequests
        * @param {Object} shiftRequests.<semester> Enum of ["F18", "S18", "F17"...] that denotes which semester the
-       *                                          request is from.
+       *                                          requests are from.
+       * @param {Object} shiftRequests.<semester> Shift is positive integer that is the key to the requests.
+       *                 .<shift>                 Denotes which shift of the semester the group of requests represent.
        * @return {null}
        */
       setSelfShiftRequests(context, selfShiftRequests) {

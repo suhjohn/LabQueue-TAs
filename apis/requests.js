@@ -1,8 +1,7 @@
-/*
-Query requests of the current TA by shift.
-
-Expected Response Format: 
-{
+/**
+ * Query requests of the current TA by shift.
+ * Expected Response Format: 
+ * {
     "F18": [
         <shift_obj: obj>, 
         <shift_obj: obj>, 
@@ -16,7 +15,9 @@ Expected Response Format:
     ],
     ...
 }
-*/
+ * 
+ * @return  {Object} 
+ */
 import { groupBy } from "@/utils.js";
 export async function querySelfRequestsBySemester(context, params) {
   try {
@@ -28,9 +29,9 @@ export async function querySelfRequestsBySemester(context, params) {
       }
     };
     const queriedSelfRequests = await this.$axios.$get("/", requestParams);
-    // Group the requests by the accepted day to
-    const DATETIMEDELIMITER = "T";
-    formatRequests(queriedSelfRequests, DATETIMEDELIMITER);
+
+    // Group the requests by self's shifts
+    formatRequests(queriedSelfRequests);
     context.dispatch("setSelfShiftRequests", queriedSelfRequests);
     return queriedSelfRequests;
   } catch (error) {
@@ -49,8 +50,10 @@ export async function querySelfRequestsBySemester(context, params) {
  *
  * @param {Object} queriedSelfRequests API response from query
  * @param {String} datetimeDelimiter   Delimiter for Python's datetime type
+ * @return {null}
  */
-function formatRequests(queriedSelfRequests, datetimeDelimiter) {
+function formatRequests(queriedSelfRequests) {
+  const datetimeDelimiter = "T";
   const queriedSelfRequestSemesters = Object.keys(queriedSelfRequests);
   queriedSelfRequestSemesters.forEach(semester => {
     const semesterRequests = queriedSelfRequests[semester];

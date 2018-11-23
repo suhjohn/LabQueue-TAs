@@ -19,14 +19,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
+
 #container {
-  width: 30rem;
-  height: 40rem;
+  width: 60rem;
+  height: 20rem;
   background-color: $color-crimson-main-dark;
-  border-radius: 5px;
+  border-radius: $contained-box-m-radius;
   padding: 2rem;
-  box-shadow: 0 3px 6px $color-grey, 0 3px 6px $color-grey;
+  box-shadow: $contained-box-m-shadow;
 }
+
 .header {
   padding: 1rem 0;
   &-text {
@@ -40,6 +42,17 @@ export default {
     color: $color-white;
     font-weight: 100;
     font-size: 3rem;
+  }
+}
+
+@media (min-width: 930px) {
+  #container {
+    width: 30rem;
+    height: 40rem;
+    background-color: $color-crimson-main-dark;
+    border-radius: $contained-box-m-radius;
+    padding: 2rem;
+    box-shadow: $contained-box-m-shadow;
   }
 }
 </style>

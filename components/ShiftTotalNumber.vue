@@ -60,27 +60,37 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 $header-height: 5rem;
-$container-width: 60rem;
+$graph-container-width: 60rem;
 $container-height: 40rem;
 $container-padding: 2rem;
+$graph-options-height: 4rem;
 
 #container {
-  width: $container-width;
-  height: $container-height;
+  padding-top: $container-padding;
   border-radius: 5px;
   border: 1px solid $color-grey-light;
-  padding: $container-padding;
   background-color: $color-white;
-  box-shadow: 0 3px 6px $color-grey, 0 3px 6px $color-grey;
+  box-shadow: $contained-box-m-shadow;
 }
-.header {
-  &-text {
-    font-weight: 200;
-    font-size: 1.6rem;
-  }
-}
+
 .graph {
-  height: $container-height - (2 * $container-padding);
+  width: 100%;
+  margin: auto;
+}
+.graph-options {
+  border-top: 0.5px solid $color-grey;
+  box-sizing: content-box;
+  height: $graph-options-height;
+}
+@media only screen and (min-width: 930px) {
+  #container {
+    width: $graph-container-width;
+  }
+
+  .graph {
+    width: $graph-container-width - (2 * $container-padding);
+    height: $container-height - (2 * $container-padding);
+  }
 }
 </style>
 

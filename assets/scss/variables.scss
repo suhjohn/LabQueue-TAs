@@ -1,10 +1,14 @@
 /* Raw values */
 $raw-default-font-size: 1.6;
 $raw-navbar-height: 7;
+$raw-contained-medium-radius: 5;
+$raw-side-navbar-xl-width: 25;
 
 /* Colors */
-$color-crimson-main-dark: #b13938;
-$color-crimson-main: #cf6766;
+$color-crimson-main-darkest: #832a29;
+$color-crimson-main-dark: #d10302;
+$color-crimson-main: #fd1211;
+$color-crimson-main-lighter: #d88584;
 $color-crimson-main-light: #f0cfcf;
 $color-indigo-main: #30415d;
 $color-ultramarine-main: #031424;
@@ -21,6 +25,11 @@ $default-font-size: $raw-default-font-size + 0rem;
 
 /* Navbar */
 $navbar-height: $raw-navbar-height + 0rem;
+$side-navbar-xl-width: $raw-side-navbar-xl-width + 0rem;
+
+/* Box design */
+$contained-box-m-radius: $raw-contained-medium-radius + 0px;
+$contained-box-m-shadow: 0 1px 2px $color-grey, 0 1px 2px $color-grey;
 
 /* export for JS */
 :export {
