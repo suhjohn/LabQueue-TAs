@@ -8,7 +8,6 @@
         <nuxt-link tag="li" class="navbar-options-main-option" to="/"><i class="fas fa-home"></i>Home</nuxt-link>
         <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'shift'}"><i class="fas fa-business-time"></i>Shift</nuxt-link>
         <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'requests'}"><i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
-        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'students'}"><i class="fas fa-user-graduate"></i>Students</nuxt-link>
       </ul>
       <ul class="navbar-options-sub">
         <li class="navbar-options-sub-option">
@@ -64,6 +63,7 @@ nav {
     transition: all 0.15s ease-in;
     border-bottom: 0.5rem solid $color-white;
     & .fas {
+      width: 3rem;
       display: block;
     }
     &:hover {
@@ -140,10 +140,10 @@ nav {
       border-bottom: none;
       border-left: 0.5rem solid $color-white;
       & .fas {
-        width: 4rem;
+        width: 3rem;
         color: $color-grey;
         padding-right: 1rem;
-        display: inline;
+        display: inline-block;
       }
       &:hover {
         border-bottom: none;

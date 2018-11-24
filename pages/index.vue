@@ -2,7 +2,7 @@
   <section>
     <div class="module-list">
       <h4 class="module-list-row-header">
-        How am I doing in my shifts?
+        Quick look at Shifts
       </h4>
       <ul class="module-list-row">
         <li class="module-list-row-item">
@@ -11,7 +11,7 @@
       </ul>
   
       <h4 class="module-list-row-header">
-        How am I doing with each request?
+        Quick look at Requests
       </h4>
       <ul class="module-list-row">
         <li class="module-list-row-item">
@@ -22,19 +22,6 @@
         </li>
       </ul>
     </div>
-  
-    <h4 class="module-list-row-header">
-      What are my students like?
-    </h4>
-    <ul class="module-list-row">
-      <li class="module-list-row-item">
-        <StudentCourseFilter/>
-      </li>
-      <li class="module-list-row-item">
-        <StudentMajorFilter/>
-      </li>
-    </ul>
-  
   </section>
 </template>
 
