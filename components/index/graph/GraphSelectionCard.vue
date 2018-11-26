@@ -11,13 +11,13 @@ export default {
       type: String
     },
     value: {},
-    selected:{
-        type: Boolean
+    selected: {
+      type: Boolean
     }
   },
-  methods:{
+  methods: {
     onClick() {
-    	this.$emit('click')
+      this.$emit("click");
     }
   }
 };
@@ -32,12 +32,13 @@ $card-height: 12rem;
   padding: 1.5rem;
   border: 0.5px solid $color-grey;
   border-radius: 1rem;
-  &-selected{
-      border: 0.5px solid $color-crimson-main;
+  &-selected {
+    border: 0.5px solid $color-crimson-main;
   }
 }
 .card-title {
   color: $color-grey-dark;
+  font-weight: 300;
 }
 .card-value {
   font-size: 1.8rem;

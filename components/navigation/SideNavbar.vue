@@ -5,8 +5,7 @@
     </nuxt-link>
     <div class="navbar-options">
       <ul class="navbar-options-main">
-        <nuxt-link tag="li" class="navbar-options-main-option" to="/"><i class="fas fa-home"></i>Home</nuxt-link>
-        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'shift'}"><i class="fas fa-business-time"></i>Shift</nuxt-link>
+        <nuxt-link tag="li" class="navbar-options-main-option" to="/"><i class="fas fa-chart-line"></i>Dashboard</nuxt-link>
         <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'requests'}"><i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
       </ul>
       <ul class="navbar-options-sub">
