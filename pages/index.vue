@@ -4,23 +4,34 @@
       
     </div>
     <div id="graph">
-      {{ selectedGraphIndex }}
+      {{selectedGraphData}}
+      <component v-bind:is="selectedGraphData.componentName"></component>
     </div>
     <ul class="row">
-      <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" :selected="index==selectedGraphIndex" @click="selectedGraphIndex = index" />
+      <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
     </ul>
   </section>
 </template>
 
 <script>
 import GraphSelectionCard from "~/components/UI/GraphSelectionCard";
+import GraphTotalRequest from "~/components/GraphTotalRequest";
+import GraphTotalTime from "~/components/GraphTotalTime";
+import GraphAvgTimePerReq from "~/components/GraphAvgTimePerReq";
+import GraphMinSegmentRatio from "~/components/GraphMinSegmentRatio";
+import GraphCourseRatio from "~/components/GraphCourseRatio";
 import moment from "moment";
 import { mapGetters } from "vuex";
 const minSegments = [15, 30, 45, 60, Infinity];
 const courses = ["cos126", "cos226", "cos217"];
 export default {
   components: {
-    GraphSelectionCard
+    GraphSelectionCard,
+    GraphTotalRequest,
+    GraphTotalTime,
+    GraphAvgTimePerReq,
+    GraphMinSegmentRatio,
+    GraphCourseRatio,
   },
   created() {
     this.graphDatas.push(this.getTotalRequestsData());
@@ -32,7 +43,8 @@ export default {
   data() {
     return {
       graphDatas: [],
-      selectedGraphIndex: 0
+      selectedGraphData: this.getTotalRequestsData(),
+      selectedGraphIndex: 0,
     };
   },
   computed: {
@@ -111,8 +123,14 @@ export default {
     }
   },
   methods: {
+    onClickHandle(index){
+      this.selectedGraphData = this.graphDatas[index];
+      this.selectedGraphIndex = index;
+    },
     getTotalRequestsData() {
       return {
+        componentName: "GraphTotalRequest",
+        label: "Total Requests",
         cardData: {
           title: "Total Requests",
           value: this.$store.getters.getSelfRequestsCount
@@ -121,6 +139,8 @@ export default {
     },
     getTotalTimeData() {
       return {
+        componentName: "GraphTotalTime",
+        label: "Total Time",
         cardData: {
           title: "Total Time",
           value: this.totalTimeString
@@ -129,6 +149,8 @@ export default {
     },
     getAverageTimePerReqData() {
       return {
+        componentName: "GraphAvgTimePerReq",
+        label: "Time/Req",
         cardData: {
           title: "Time/Req",
           value: (
@@ -140,6 +162,8 @@ export default {
     },
     getMinSegmentRatioData() {
       return {
+        componentName: "GraphMinSegmentRatio",
+        label: "% of Req completed in 15|30|45|60|60+ min",
         cardData: {
           title: "% of Req completed in 15|30|45|60|60+ min",
           value: this.reqByMinRatioString
@@ -148,6 +172,8 @@ export default {
     },
     getCourseRatioData() {
       return {
+        componentName: "GraphCourseRatio",
+        label: "Req from 126|226|217",
         cardData: {
           title: "Req from 126|226|217",
           value: this.reqByCoursesString
