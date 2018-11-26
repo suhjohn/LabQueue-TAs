@@ -29,16 +29,12 @@
 import GraphShiftTotalCount from "~/components/GraphShiftTotalCount";
 import ShiftAverageHandleTime from "~/components/ShiftAverageHandleTime";
 import GraphRequestPDFMinPerReq from "~/components/GraphRequestPDFMinPerReq";
-import StudentCourseFilter from "~/components/StudentCourseFilter";
-import StudentMajorFilter from "~/components/StudentMajorFilter";
 
 export default {
   components: {
     GraphShiftTotalCount,
     ShiftAverageHandleTime,
-    GraphRequestPDFMinPerReq,
-    StudentCourseFilter,
-    StudentMajorFilter
+    GraphRequestPDFMinPerReq
   },
   data() {
     return {
@@ -51,7 +47,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-@import "@/assets/scss/grid.scss";
 
 .module-list {
   &-row {

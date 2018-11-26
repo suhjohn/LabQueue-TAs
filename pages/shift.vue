@@ -1,11 +1,17 @@
 <template>
     <section>
-        <h1 id="title-main">Shift</h1>
+        
     </section>
 </template>
 
 <script>
-export default {};
+import GraphRequestPerShift from "@/components/GraphRequestPerShift.vue";
+export default {
+  components: {
+    GraphRequestPerShift
+  },
+  mounted() {}
+};
 </script>
 
 <style lang="scss" scoped>

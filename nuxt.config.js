@@ -7,7 +7,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: "LabQueue.io Statistics",
+    title: "LabQ LabTA",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -54,7 +54,10 @@ module.exports = {
   axios: {
     baseURL: `${baseProtocol}://${baseURL}/api-proxy/v2/`
   },
-  plugins: [{ src: "~plugins/vue-chartjs.js", ssr: false }],
+  plugins: [
+    { src: "~plugins/vue-chartjs.js", ssr: false },
+    { src: "~/plugins/nuxt-client-init.js", ssr: false }
+  ],
   /*
    ** Customize the progress bar color
    */

@@ -1,77 +1,42 @@
 /**
  * Query requests of the current TA by shift.
- * Expected Response Format: 
- * {
-    "F18": [
-        <shift_obj: obj>, 
-        <shift_obj: obj>, 
-        <shift_obj: obj>, 
-        <shift_obj: obj>
-        ],
-    },
-    "S18": [
-        <shift_obj:obj>,
-        ...
-    ],
-    ...
-}
- * 
- * @return  {Object} 
- */
-import { groupBy } from "@/utils.js";
-export async function querySelfRequestsBySemester(context, params) {
-  try {
-    const requestParams = {
-      action: {
-        api_family: "requests",
-        action_name: "query_self",
-        parameters: { group_by: "semester", count: params.semesterCount }
-      }
-    };
-    const queriedSelfRequests = await this.$axios.$get("/", requestParams);
-
-    // Group the requests by self's shifts
-    formatRequests(queriedSelfRequests);
-    context.dispatch("setSelfShiftRequests", queriedSelfRequests);
-    return queriedSelfRequests;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-/**
- * Takes the queried self's requests as parameter.
- * Groups each semester's request by time_accepted's date
- * (time_accepted's format: "yyyy-mm-ddTmm:ss"), and assigns the
- * shift number in order of the date.
  *
- * @access     private
+ * Refer to Backend Documentation for the API Proxy for params
  *
- * @param {Object} queriedSelfRequests API response from query
- * @param {String} datetimeDelimiter   Delimiter for Python's datetime type
+ * @access     public
+ *
+ * @param {Object} context             Vuex context object
+ * @param {String} params              Parameters for query
+ * @param {String} params.dateFrom     Start date of the query
+ * @param {String} params.dateTo       End date of the query
  * @return {null}
  */
-function formatRequests(queriedSelfRequests) {
-  const datetimeDelimiter = "T";
-  const queriedSelfRequestSemesters = Object.keys(queriedSelfRequests);
-  queriedSelfRequestSemesters.forEach(semester => {
-    const semesterRequests = queriedSelfRequests[semester];
-    // group the requests by their accepted day
-    for (let i = 0; i < semesterRequests.length; i++) {
-      semesterRequests[i]["time_accepted_day"] = semesterRequests[i][
-        "time_accepted"
-      ].split(datetimeDelimiter)[0];
-    }
-    const groupedReqs = groupBy(semesterRequests, "time_accepted_day");
+import { groupBy } from "@/utils.js";
+import queryData from "./dummydata.json";
 
-    // replace the dates by their relative order to represent shift #
-    const shifts = Object.keys(groupedReqs);
-    const shiftGroupedReqs = {};
-    shifts.sort();
-    shifts.forEach((shift, index) => {
-      shiftGroupedReqs[index + 1] = groupedReqs[shift];
-    });
-    queriedSelfRequests[semester] = shiftGroupedReqs;
-  });
+// export async function queryRequest(context, params) {
+//   try {
+//     const requestParams = {
+//       action: {
+//         api_family: "requests",
+//         action_name: "query",
+//         parameters: {
+//           accepted_after: params.dateFrom,
+//           accepted_before: params.dateTo,
+//           limit: -1
+//         }
+//       }
+//     };
+//     return await this.$axios.$get("/", requestParams);
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
+
+/**
+ * Temporary dummy query function
+ */
+export async function queryRequests(context, params) {
+  return queryData;
 }

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex, { mapActions } from "vuex";
 import apis from "@/apis/index";
+import moment from "moment";
 
 Vue.use(Vuex);
 const store = () =>
@@ -18,6 +19,12 @@ const store = () =>
         is_active: Bool
       */
       self: {},
+      selfShifts: [],
+      selfRequests: [],
+      shiftsRequestsArr: [],
+      shiftsRequestsObj: {},
+      shiftsRequestsObjTA: {},
+      shiftsRequestsObjShift: {}
       /* 
       request:
         pk: Int
@@ -32,26 +39,17 @@ const store = () =>
         closer_username: Str
         time_closed: DateTime in String: "2017-10-24T19:26"
       */
-      selfShiftRequests: {},
-      selfShiftRequestsArr: []
     },
     getters: {
       /**
        * Returns the current logged in TA's information
        */
       getSelf: state => query => {},
-
       /**
-       * Returns the total number of requests in n recent
-       * shifts. Assumes that selfShiftRequests will
-       * have more than n shifts
+       *
        */
-      getReqCountOfNRecentShifts: state => n => {
-        var reqCount = 0;
-        const semesters = Object.keys(state.selfShiftRequests);
-        semesters.forEach(semester => {
-          const semesterRequests = selfShiftRequests[semester];
-        });
+      getSelfRequestsCount: state => {
+        return state.selfRequests.length;
       }
     },
     mutations: {
@@ -59,50 +57,151 @@ const store = () =>
        * Sets self to store.
        */
       setSelf(state, self) {
-        state.self = labTA;
+        state.self = self;
+      },
+      setSelfRequests(state, requests) {
+        state.selfRequests = requests.filter(
+          request => request.acceptor_netid === state.self.netid
+        );
       },
       /**
-       * Sets a request to store.
+       * Sets the selfShifts based on selfRequest
        */
-      setRequest(state, request) {
-        state.selfShiftRequestsArr.push(request);
+      setShifts(state) {
+        state.selfShifts = new Set(
+          state.selfRequests.map(request => {
+            const time_accepted = moment(request.time_accepted);
+            return time_accepted.format("YYYY-MM-DD");
+          })
+        );
       },
       /**
-       * Sets self's shift requests to vuex.
+       * Sets the requests from self's shift days including other tas' requests
        */
-      setSelfShiftRequests(state, shiftRequests) {
-        state.selfShiftRequests = shiftRequests;
-      },
-      /* 
-      Sets each request in requests to the store 
-      requests: [{request}}]]
-      */
-      setRequests(state, requests) {
-        requests.forEach(request => {
-          state.selfShiftRequestsArr.push(request);
+      setShiftsRequests(state, requests) {
+        // [requests]
+        const shiftsRequests = requests.filter(request => {
+          const time_accepted = moment(request.time_accepted).format(
+            "YYYY-MM-DD"
+          );
+          return state.selfShifts.has(time_accepted);
         });
-      }
+        state.shiftsRequestsArr = shiftsRequests;
+
+        // {shift: [requests]}
+        let shiftsRequestsObj = {};
+        state.selfShifts.forEach(shift => {
+          shiftsRequestsObj[shift] = [];
+        });
+        requests.forEach(request => {
+          const time_accepted = moment(request.time_accepted).format(
+            "YYYY-MM-DD"
+          );
+          shiftsRequestsObj[time_accepted].push(request);
+        });
+        state.shiftsRequestsObj = shiftsRequestsObj;
+
+        // {ta: {shift1: [], shift2:[]}
+        let formattedShiftsRequestTA = {};
+        const shiftTas = [
+          ...new Set(shiftsRequests.map(request => request.acceptor_netid))
+        ];
+        shiftTas.forEach(ta => {
+          let shiftsData = {};
+          state.selfShifts.forEach(shift => {
+            shiftsData[shift] = [];
+          });
+          formattedShiftsRequestTA[ta] = shiftsData;
+        });
+        shiftsRequests.forEach(request => {
+          const ta = request.acceptor_netid;
+          const shift = moment(request.time_accepted).format("YYYY-MM-DD");
+          formattedShiftsRequestTA[ta][shift].push(request);
+        });
+        state.shiftsRequestsFormatted = formattedShiftsRequestTA;
+
+        // {shift1: {ta1:[], ta2:[]}}
+        const formattedShiftsRequestObj = {};
+        Object.keys(shiftsRequestsObj).forEach(shift => {
+          const requests = shiftsRequestsObj[shift];
+          // Create a reverse mapping of ta netid to hidden alias
+          let shiftTANetids = [
+            ...new Set(requests.map(request => request.acceptor_netid))
+          ];
+          let TANetidToIndexDict = {};
+          shiftTANetids.forEach((ta, index) => {
+            if (ta === state.self.netid) {
+              TANetidToIndexDict[ta] = ta;
+            } else {
+              TANetidToIndexDict[ta] = `TA ${index + 1}`;
+            }
+          });
+          // Fill the formattedShiftsRequestObj
+          formattedShiftsRequestObj[shift] = {};
+          requests.forEach(request => {
+            const reverseName = TANetidToIndexDict[request.acceptor_netid];
+            formattedShiftsRequestObj[shift][reverseName] =
+              formattedShiftsRequestObj[shift][reverseName] || [];
+            formattedShiftsRequestObj[shift][reverseName].push(request);
+          });
+        });
+        state.shiftsRequestsObjShift = formattedShiftsRequestObj;
+      },
+      /**
+       *
+       */
+      setRequestsByTime(state, requests) {},
+      /**
+       *
+       */
+      setRequestsByTimePerReq(state, requests) {},
+      /**
+       *
+       */
+      setRequestsByRatioForClass(state, requests) {}
     },
     actions: {
       ...apis,
       /**
+       * Custom implementation for nuxtServerInit-like behavior;
+       * Store data initialized on initial landing
+       * @param {*} context
+       */
+      async nuxtClientInit(context) {
+        const self = await context.dispatch("retrieveSelf");
+        context.commit("setSelf", self);
+        // Calculate dateFrom = current date - 1 month, dateTo = current date
+        const DEFAULT_MONTH = 1;
+        const DATE_FORMAT = "YYYY-MM-DD";
+        const currentDate = moment()
+          .utc()
+          .startOf("day");
+        const dateTo = currentDate.format(DATE_FORMAT);
+        const dateFrom = currentDate
+          .subtract(DEFAULT_MONTH, "months")
+          .format(DATE_FORMAT);
+
+        const defaultParams = {
+          dateFrom: dateFrom,
+          dateTo: dateTo
+        };
+        await context.dispatch("setRequests", defaultParams);
+      },
+
+      /**
        * Sets shift requests to vuex.
        *
-       * @param {Object} state                    Vuex state
-       * @param {Object} shiftRequests
-       * @param {Object} shiftRequests.<semester> Enum of ["F18", "S18", "F17"...] that denotes which semester the
-       *                                          requests are from.
-       * @param {Object} shiftRequests.<semester> Shift is positive integer that is the key to the requests.
-       *                 .<shift>                 Denotes which shift of the semester the group of requests represent.
+       * @param {Object} state              Vuex state
+       * @param {Object} params             Parameters for the API request
+       * @param {Object} params.dateFrom
+       * @param {Object} params.dateTo
        * @return {null}
        */
-      setSelfShiftRequests(context, selfShiftRequests) {
-        context.commit("setSelfShiftRequests", selfShiftRequests);
-        const shiftRequestsArr = Object.values(shiftRequests);
-        shiftRequestsArr.forEach(shift => {
-          const requests = Object.values(shift);
-          context.commit("setRequests", requests);
-        });
+      async setRequests(context, params) {
+        const requests = await context.dispatch("queryRequests", params);
+        context.commit("setSelfRequests", requests);
+        context.commit("setShifts");
+        context.commit("setShiftsRequests", requests);
       }
     }
   });
