@@ -20,11 +20,13 @@ const store = () =>
       */
       self: {},
       selfShifts: [],
+      selfShiftsTotalTime: 0,
       selfRequests: [],
       shiftsRequestsArr: [],
       shiftsRequestsObj: {},
       shiftsRequestsObjTA: {},
-      shiftsRequestsObjShift: {}
+      shiftsRequestsObjShift: {},
+      isFetchingData: true
       /* 
       request:
         pk: Int
@@ -48,11 +50,23 @@ const store = () =>
       /**
        *
        */
+      getSelfRequests: state => {
+        return state.selfRequests;
+      },
       getSelfRequestsCount: state => {
         return state.selfRequests.length;
+      },
+      getSelfRequestsObjShift: state => {
+        return state.shiftsRequestsObjShift;
+      },
+      getSelfTotalTime: state => {
+        return state.selfShiftsTotalTime;
       }
     },
     mutations: {
+      setFetchingState(state, flag) {
+        state.isFetchingData = flag;
+      },
       /**
        * Sets self to store.
        */
@@ -63,6 +77,16 @@ const store = () =>
         state.selfRequests = requests.filter(
           request => request.acceptor_netid === state.self.netid
         );
+      },
+      setSelfRequestsTotalTime(state, requests) {
+        let totalMin = 0;
+        state.selfRequests.forEach(req => {
+          var from = moment(req.time_accepted); //todays date
+          var to = moment(req.time_closed); // another date
+          var duration = moment.duration(to.diff(from));
+          totalMin += duration.asMinutes();
+        });
+        state.selfShiftsTotalTime = totalMin;
       },
       /**
        * Sets the selfShifts based on selfRequest
@@ -168,6 +192,7 @@ const store = () =>
        * @param {*} context
        */
       async nuxtClientInit(context) {
+        context.commit("setFetchingState", true);
         const self = await context.dispatch("retrieveSelf");
         context.commit("setSelf", self);
         // Calculate dateFrom = current date - 1 month, dateTo = current date
@@ -186,6 +211,7 @@ const store = () =>
           dateTo: dateTo
         };
         await context.dispatch("setRequests", defaultParams);
+        context.commit("setFetchingState", false);
       },
 
       /**
@@ -200,6 +226,7 @@ const store = () =>
       async setRequests(context, params) {
         const requests = await context.dispatch("queryRequests", params);
         context.commit("setSelfRequests", requests);
+        context.commit("setSelfRequestsTotalTime");
         context.commit("setShifts");
         context.commit("setShiftsRequests", requests);
       }

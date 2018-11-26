@@ -1,46 +1,159 @@
 <template>
   <section>
-    <div class="module-list">
-      <h4 class="module-list-row-header">
-        Quick look at Shifts
-      </h4>
-      <ul class="module-list-row">
-        <li class="module-list-row-item">
-          <GraphShiftTotalCount/>
-        </li>
-      </ul>
-  
-      <h4 class="module-list-row-header">
-        Quick look at Requests
-      </h4>
-      <ul class="module-list-row">
-        <li class="module-list-row-item">
-          <GraphRequestPDFMinPerReq/>
-        </li>
-        <li class="module-list-row-item">
-          <ShiftAverageHandleTime/>
-        </li>
-      </ul>
+    <div>
+      
     </div>
+    <div id="graph">
+      {{ selectedGraphIndex }}
+    </div>
+    <ul class="row">
+      <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" :selected="index==selectedGraphIndex" @click="selectedGraphIndex = index" />
+    </ul>
   </section>
 </template>
 
 <script>
-import GraphShiftTotalCount from "~/components/GraphShiftTotalCount";
-import ShiftAverageHandleTime from "~/components/ShiftAverageHandleTime";
-import GraphRequestPDFMinPerReq from "~/components/GraphRequestPDFMinPerReq";
-
+import GraphSelectionCard from "~/components/UI/GraphSelectionCard";
+import moment from "moment";
+import { mapGetters } from "vuex";
+const minSegments = [15, 30, 45, 60, Infinity];
+const courses = ["cos126", "cos226", "cos217"];
 export default {
   components: {
-    GraphShiftTotalCount,
-    ShiftAverageHandleTime,
-    GraphRequestPDFMinPerReq
+    GraphSelectionCard
+  },
+  created() {
+    this.graphDatas.push(this.getTotalRequestsData());
+    this.graphDatas.push(this.getTotalTimeData());
+    this.graphDatas.push(this.getAverageTimePerReqData());
+    this.graphDatas.push(this.getMinSegmentRatioData());
+    this.graphDatas.push(this.getCourseRatioData());
   },
   data() {
     return {
-      dropDownName: "",
-      dropDownList: []
+      graphDatas: [],
+      selectedGraphIndex: 0
     };
+  },
+  computed: {
+    ...mapGetters([
+      "getSelfRequestsCount",
+      "getSelfRequestsObjShift",
+      "getSelfTotalTime"
+    ]),
+    totalTimeString() {
+      const dur = moment.duration(
+        this.$store.getters.getSelfTotalTime,
+        "minutes"
+      );
+      return moment.utc(dur.asMilliseconds()).format("HH:mm");
+    },
+    reqByMinSegment() {
+      let reqByMinSegment = [[], [], [], [], []];
+
+      this.$store.getters.getSelfRequests.forEach(request => {
+        let time_accepted = moment(request.time_accepted);
+        let time_closed = moment(request.time_closed);
+        let diff = time_closed.subtract(time_accepted).minutes();
+        let index = 0;
+        if (diff < minSegments[0]) {
+          index = 0;
+        } else if (diff < minSegments[1]) {
+          index = 1;
+        } else if (diff < minSegments[2]) {
+          index = 2;
+        } else if (diff < minSegments[3]) {
+          index = 3;
+        } else {
+          index = 4;
+        }
+        reqByMinSegment[index].push(request);
+      });
+      return reqByMinSegment;
+    },
+    reqByMinRatioString() {
+      const reqByMinSeg = this.reqByMinSegment;
+      const totalReq = this.$store.getters.getSelfRequestsCount;
+      let reqRatio = [];
+      reqByMinSeg.forEach(reqArr => {
+        reqRatio.push((reqArr.length / totalReq).toFixed(2));
+      });
+      return reqRatio.join("|");
+    },
+    reqByCourse() {
+      let reqByCourses = [[], [], []];
+      this.$store.getters.getSelfRequests.forEach(request => {
+        let reqCourse = request.course;
+        let index = 0;
+        switch (reqCourse) {
+          case courses[0]:
+            index = 0;
+            break;
+          case courses[1]:
+            index = 1;
+            break;
+          case courses[2]:
+            index = 2;
+            break;
+        }
+        reqByCourses[index].push(request);
+      });
+      return reqByCourses;
+    },
+    reqByCoursesString() {
+      const reqByCourse = this.reqByCourse;
+      const totalReq = this.$store.getters.getSelfRequestsCount;
+      let reqRatio = [];
+      reqByCourse.forEach(reqArr => {
+        reqRatio.push((reqArr.length / totalReq).toFixed(2));
+      });
+      return reqRatio.join("|");
+    }
+  },
+  methods: {
+    getTotalRequestsData() {
+      return {
+        cardData: {
+          title: "Total Requests",
+          value: this.$store.getters.getSelfRequestsCount
+        }
+      };
+    },
+    getTotalTimeData() {
+      return {
+        cardData: {
+          title: "Total Time",
+          value: this.totalTimeString
+        }
+      };
+    },
+    getAverageTimePerReqData() {
+      return {
+        cardData: {
+          title: "Time/Req",
+          value: (
+            this.$store.getters.getSelfTotalTime /
+            this.$store.getters.getSelfRequestsCount
+          ).toFixed(2)
+        }
+      };
+    },
+    getMinSegmentRatioData() {
+      return {
+        cardData: {
+          title: "% of Req completed in 15|30|45|60|60+ min",
+          value: this.reqByMinRatioString
+        }
+      };
+    },
+    getCourseRatioData() {
+      return {
+        cardData: {
+          title: "Req from 126|226|217",
+          value: this.reqByCoursesString
+        }
+      };
+    }
   }
 };
 </script>
@@ -48,65 +161,19 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 
-.module-list {
-  &-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 3rem;
-    &-header {
-      line-height: 4rem;
-      color: $color-grey-dark;
-      font-weight: 700;
-      font-size: 1.6rem;
-    }
-    &-item {
-      width: 100%;
-      margin-bottom: 2rem;
-    }
+.row-container {
+  & :not(:last-child) {
+    margin-bottom: 1.5rem;
   }
 }
+.row {
+  z-index: -1;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
 
-// @media only screen and (min-width: 930px) {
-//   .module-list {
-//     &-row {
-//       display: flex;
-//       flex-wrap: nowrap;
-//       justify-content: space-between;
-//       margin-bottom: 3rem;
-//       &-header {
-//         line-height: 4rem;
-//         color: $color-grey-dark;
-//         font-weight: 700;
-//         font-size: 1.6rem;
-//       }
-//       &-item {
-//         margin-right: 2rem;
-//         width: auto;
-//       }
-//     }
-//   }
-// }
-
-@media only screen and (min-width: 1270px) {
-  .module-list {
-    &-row {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      margin-bottom: 3rem;
-      &-header {
-        line-height: 4rem;
-        color: $color-grey-dark;
-        font-weight: 700;
-        font-size: 1.6rem;
-      }
-      &-item {
-        margin-right: 2rem;
-        width: auto;
-      }
-    }
-  }
+@media only screen and (min-width: 1024px) {
 }
 </style>
 
