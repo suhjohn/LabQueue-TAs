@@ -1,11 +1,60 @@
 import Vue from "vue";
 import { Line, Bar } from "vue-chartjs";
+import styles from "~/assets/scss/variables.scss";
 
 Vue.component("LineGraph", {
   extends: Line,
-  props: ["data", "options"],
+  data() {
+    return {
+      gradient: undefined
+    };
+  },
+  props: {
+    data: {
+      type: Object
+    },
+    options: {
+      type: Object
+    },
+    enableGradient: {
+      type: Boolean,
+      default: true
+    }
+  },
   mounted() {
-    this.renderChart(this.data, this.options);
+    this.gradient = this.$refs.canvas
+      .getContext("2d")
+      .createLinearGradient(0, 0, 0, 450);
+    this.gradient.addColorStop(0, styles.colorCrimsonMain + "80");
+    this.gradient.addColorStop(0.5, styles.colorCrimsonMain + "40");
+    this.gradient.addColorStop(1, styles.colorCrimsonMain + "00");
+
+    const baseDataset = {
+      backgroundColor: styles.colorCrimsonMainDark,
+      borderColor: styles.colorCrimsonMainDark
+    };
+    if (this.enableGradient) {
+      baseDataset["backgroundColor"] = this.gradient;
+    }
+    const baseOptions = { responsive: true, maintainAspectRatio: false };
+
+    const _data = {};
+    _data["labels"] = this.data.labels;
+    _data["datasets"] = [];
+    this.data.datasets.forEach(dataItem => {
+      _data["datasets"].push({ ...baseDataset, ...dataItem });
+    });
+
+    const _options = {
+      ...baseOptions,
+      ...this.options
+    };
+
+    this.gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
+    this.gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
+    this.gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
+
+    this.renderChart(_data, _options);
   },
   methods: {}
 });

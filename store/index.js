@@ -22,8 +22,10 @@ const store = () =>
       // Array
       selfShifts: [],
       selfShiftsTotalTime: 0,
+      // [<req1>,<req2>,<req3>,...]
       selfRequests: [],
       shiftsRequestsArr: [],
+      // {shift1: [<req>, <req>,...]}
       shiftsRequestsObj: {},
       // {ta: {shift1: [], shift2:[]}
       shiftsRequestsObjTA: {},
@@ -49,7 +51,12 @@ const store = () =>
       /**
        * Returns the current logged in TA's information
        */
-      getSelf: state => query => {},
+      getSelf: state => {
+        return state.self;
+      },
+      getSelfShifts: state => {
+        return state.selfShifts;
+      },
       /**
        *
        */
@@ -110,23 +117,23 @@ const store = () =>
        * Sets the selfShifts based on selfRequest
        */
       setShifts(state) {
-        state.selfShifts = new Set(
-          state.selfRequests.map(request => {
-            const time_accepted = moment(request.time_accepted);
-            return time_accepted.format("YYYY-MM-DD");
-          })
-        );
+        const shifts = state.selfRequests.map(request => {
+          const time_accepted = moment(request.time_accepted);
+          return time_accepted.format("YYYY-MM-DD");
+        });
+        state.selfShifts = [...new Set(shifts)];
       },
       /**
        * Sets the requests from self's shift days including other tas' requests
        */
       setShiftsRequests(state, requests) {
         // [requests]
+        const shiftSet = new Set(state.selfShifts);
         const shiftsRequests = requests.filter(request => {
           const time_accepted = moment(request.time_accepted).format(
             "YYYY-MM-DD"
           );
-          return state.selfShifts.has(time_accepted);
+          return shiftSet.has(time_accepted);
         });
         state.shiftsRequestsArr = shiftsRequests;
 

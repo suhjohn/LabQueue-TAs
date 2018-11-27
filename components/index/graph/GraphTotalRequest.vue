@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <barGraph class="graph" :data="barData" :options="options" />
+    <!-- <barGraph class="graph" :data="barData" :options="options" /> -->
+    <lineGraph class="graph" :data="barData" :options="options" /> 
   </div>
 </template>
 
@@ -18,55 +19,49 @@ export default {
     // Shifts
     const labels = this.barLabels;
     // label: name, data: req in that shift
-    const dataSet = this.barDataSet;
+    const barDataObj = this.barDataSet;
 
-    const _datasets = [];
-    const baseDatasetObj = {
-      backgroundColor: styles.colorCrimsonMainDark,
-      borderColor: styles.colorCrimsonMainDark
+    let _datasets = [];
+    const selfData = {
+      label: barDataObj.label,
+      data: barDataObj.data
     };
-    dataSet.forEach(dataObj => {
-      _datasets.push({
-        ...baseDatasetObj,
-        label: dataObj.label,
-        data: dataObj.data
-      });
-    });
-
+    _datasets.push(selfData);
     this.barData = {
       labels: labels,
       datasets: _datasets
     };
     this.options = {
-      responsive: true,
-      maintainAspectRatio: false,
       scales: {
         yAxes: [
           {
             position: "right",
             ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              max: 20
             },
             gridLines: {
               display: false
             }
           }
         ],
-        xAxes: [
-          {
-            barThickness: 100
-          }
-        ]
+        xAxes: [{}]
       }
     };
   },
   computed: {
-    ...mapGetters(["getShiftRequestsObj", "getShiftRequestsArr"]),
+    ...mapGetters([
+      "getShiftRequestsObj",
+      "getShiftRequestsArr",
+      "getSelf",
+      "getSelfShifts"
+    ]),
     graphStyleClass() {
       return {};
     },
     // [{label: "", data: [<shift1 data>, <shift2 data>,...]}]
-    barDataSet() {
+    fullBarDataSet() {
+      const self = this.$store.getters.getSelf;
       const taRequests = this.$store.getters.getShiftRequestsObj("ta");
       const reqByShift = this.$store.getters.getShiftRequestsObj("shift");
       const shifts = Object.keys(reqByShift);
@@ -77,13 +72,17 @@ export default {
 
       // {"ta": [<shift1 data>,<shift2 data>,...]}
       const shiftData = {};
+      const widthData = {};
       tas.forEach(ta => {
         shiftData[ta] = [];
+        widthData[ta] = [];
       });
       shifts.forEach(shift => {
         tas.forEach(ta => {
           let reqs = reqByShift[shift][ta] || [];
           let reqCount = reqs.length;
+          let width = reqCount ? 50 : 0;
+          widthData[ta].push(width);
           shiftData[ta].push(reqCount);
         });
       });
@@ -91,21 +90,52 @@ export default {
       // Change the shiftData fit the required Dataset format
       const formattedData = [];
       tas.forEach(ta => {
+        const label = ta === self.netid ? self.netid : null;
         let taData = {};
-        taData["label"] = ta;
+        if (ta) {
+          taData["label"] = label;
+        }
         taData["data"] = shiftData[ta];
         formattedData.push(taData);
       });
       return formattedData;
     },
-    barLabels() {
+    barDataSet() {
       const reqByShift = this.$store.getters.getShiftRequestsObj("shift");
-      const shifts = Object.keys(reqByShift);
+      const shifts = this.$store.getters.getSelfShifts;
+      const selfNetid = this.$store.getters.getSelf.netid;
+      shifts.sort((a, b) => {
+        return b - a;
+      });
+      /**
+       * {label: "netid", data: []}
+       */
+      const data = [];
+      shifts.forEach(shift => {
+        let reqs = reqByShift[shift][selfNetid] || [];
+        let reqCount = reqs.length;
+        data.push(reqCount);
+      });
+      const formattedData = {
+        label: selfNetid,
+        data: data
+      };
+      return formattedData;
+    },
+    barLabels() {
+      const shifts = this.$store.getters.getSelfShifts;
       shifts.sort((a, b) => {
         return b - a;
       });
       return shifts;
     }
+  },
+  methods: {
+    /**
+     * dataset represents a chart.js format dataset.
+     * Returns a value that makes the current max being its 80%.
+     */
+    calculateYMax(dataset) {}
   }
 };
 </script>
