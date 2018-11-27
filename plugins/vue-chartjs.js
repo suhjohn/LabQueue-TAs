@@ -24,10 +24,17 @@ Vue.component("LineGraph", {
       const baseOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        legend: { display: false }, // Removes the title in the tooltip
+        legend: { display: false },
         tooltips: {
           mode: "nearest",
           callbacks: {
+            labelColor: function(tooltipItem, chart) {
+              const dataset =
+                chart.config.data.datasets[tooltipItem.datasetIndex];
+              return {
+                backgroundColor: dataset.borderColor.substring(0, 7)
+              };
+            },
             label: tooltipItem =>
               `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
             title: () => null
@@ -81,7 +88,20 @@ Vue.component("BarGraph", {
   },
   computed: {
     computedOptions() {
-      const baseOptions = { responsive: true, maintainAspectRatio: false };
+      const baseOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        tooltips: {
+          mode: "nearest",
+          callbacks: {
+            labelColor: function(tooltipItem, chart) {
+              const dataset =
+                chart.config.data.datasets[tooltipItem.datasetIndex];
+              return { backgroundColor: dataset.borderColor.substring(0, 7) };
+            }
+          }
+        }
+      };
       return { ...baseOptions, ...this.options };
     },
     computedData() {
