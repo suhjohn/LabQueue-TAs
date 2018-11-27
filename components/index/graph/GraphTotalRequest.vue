@@ -22,23 +22,27 @@ export default {
     const barDataObj = this.barDataSet;
 
     let _datasets = [];
-    const selfData = {
+    _datasets.push({
       label: barDataObj.label,
       data: barDataObj.data
-    };
-    _datasets.push(selfData);
+    });
     this.barData = {
       labels: labels,
       datasets: _datasets
     };
+
     this.options = {
       scales: {
         yAxes: [
           {
             position: "right",
+            scaleLabel: {
+              labelString: "Requests",
+              display: true
+            },
             ticks: {
               beginAtZero: true,
-              max: 20
+              max: this.calculateYMax(_datasets)
             },
             gridLines: {
               display: false
@@ -132,10 +136,20 @@ export default {
   },
   methods: {
     /**
-     * dataset represents a chart.js format dataset.
+     * datasets represents a chart.js format datasets.
      * Returns a value that makes the current max being its 80%.
      */
-    calculateYMax(dataset) {}
+    calculateYMax(datasets) {
+      const OFFSET = 0.25;
+      let minVal = 0;
+      let maxVal = 0;
+      datasets.forEach(dataset => {
+        maxVal = Math.max(maxVal, Math.max(...dataset.data));
+        minVal = Math.min(maxVal, Math.min(...dataset.data));
+      });
+
+      return (maxVal - minVal) * OFFSET + maxVal;
+    }
   }
 };
 </script>

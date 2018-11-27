@@ -31,13 +31,26 @@ Vue.component("LineGraph", {
 
     const baseDataset = {
       backgroundColor: styles.colorCrimsonMainDark,
+      pointBackgroundColor: styles.colorCrimsonMainDark,
       borderColor: styles.colorCrimsonMainDark
     };
     if (this.enableGradient) {
       baseDataset["backgroundColor"] = this.gradient;
     }
-    const baseOptions = { responsive: true, maintainAspectRatio: false };
+    const baseOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: { display: false },
+      // Removes the title in the tooltip
+      tooltips: {
+        callbacks: {
+          label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
+          title: () => null
+        }
+      }
+    };
 
+    // Set data with base data and provided data
     const _data = {};
     _data["labels"] = this.data.labels;
     _data["datasets"] = [];
@@ -45,15 +58,11 @@ Vue.component("LineGraph", {
       _data["datasets"].push({ ...baseDataset, ...dataItem });
     });
 
+    // Set options with base and provided
     const _options = {
       ...baseOptions,
       ...this.options
     };
-
-    this.gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
-    this.gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
-    this.gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
-
     this.renderChart(_data, _options);
   },
   methods: {}
