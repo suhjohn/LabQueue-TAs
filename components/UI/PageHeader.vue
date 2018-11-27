@@ -20,9 +20,9 @@ export default {
   margin-bottom: 2rem;
 }
 .header-text {
-  font-size: 1.6rem;
-  color: $color-grey;
-  font-weight: 400;
+  font-size: 2.4rem;
+  color: $color-grey-darkest;
+  font-weight: 700;
 }
 </style>
 

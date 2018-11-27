@@ -22,9 +22,13 @@ html {
 body {
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
-  color: $color-ultramarine-main;
+  color: $color-grey-dark;
 }
-
+input{
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
+  color: $color-grey-darkest;
+}
 li {
   list-style: none;
 }

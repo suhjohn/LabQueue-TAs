@@ -12,7 +12,7 @@
  * @return {null}
  */
 import { groupBy } from "@/utils.js";
-import queryData from "./dummydata.json";
+import queryData from "@/assets/static/dummydata.json";
 
 // export async function queryRequest(context, params) {
 //   try {

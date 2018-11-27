@@ -22,7 +22,8 @@
     "sass-loader": "^7.1.0",
     "tinycolor2": "^1.4.1",
     "vue-chartjs": "^3.4.0",
-    "vue-clickaway": "^2.2.2"
+    "vue-clickaway": "^2.2.2",
+    "vuejs-datepicker": "^1.5.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

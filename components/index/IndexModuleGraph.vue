@@ -1,10 +1,11 @@
 <template>
     <section>
-        <!-- <div class="graph-header">
-            <h1 class="graph-header-main">{{ selectedGraphData.cardData.value }}</h1>
-            <h4 class="graph-header-sub">{{ selectedGraphData.label }}</h4>
-        </div> -->
-        <ul class="row">
+        <ul class="datepicker-list" v-on-clickaway="away">
+
+          <datepicker @opened="calendarHandler(fromDateState, true)" @closed="calendarHandler(fromDateState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': fromDateState.calendarIsOpen, 'datepicker-closed': !fromDateState.calendarIsOpen}" v-model="fromDate" ></datepicker>
+          <datepicker @opened="calendarHandler(toDateState, true)" @closed="calendarHandler(toDateState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': toDateState.calendarIsOpen, 'datepicker-closed': !toDateState.calendarIsOpen}" v-model="toDate"></datepicker>
+        </ul>
+        <ul id="row">
             <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
         </ul>
         <div id="graph">
@@ -14,18 +15,29 @@
 </template>
 
 <script>
+/** Import */
+import moment from "moment";
+import Datepicker from "vuejs-datepicker";
+import { mixin as clickaway } from "vue-clickaway";
+import { mapGetters } from "vuex";
 import GraphSelectionCard from "~/components/index/graph/GraphSelectionCard";
 import GraphTotalRequest from "~/components/index/graph/GraphTotalRequest";
 import GraphTotalTime from "~/components/index/graph/GraphTotalTime";
 import GraphAvgTimePerReq from "~/components/index/graph/GraphAvgTimePerReq";
 import GraphMinSegmentRatio from "~/components/index/graph/GraphMinSegmentRatio";
 import GraphCourseRatio from "~/components/index/graph/GraphCourseRatio";
-import moment from "moment";
-import { mapGetters } from "vuex";
+
+/** Constants */
 const minSegments = [15, 30, 45, 60, Infinity];
 const courses = ["cos126", "cos226", "cos217"];
+const defaultDateRange = {
+  value: 1,
+  unit: "months"
+}; // useful for moment.js
+/** Export */
 export default {
   components: {
+    Datepicker,
     GraphSelectionCard,
     GraphTotalRequest,
     GraphTotalTime,
@@ -33,6 +45,7 @@ export default {
     GraphMinSegmentRatio,
     GraphCourseRatio
   },
+  mixins: [clickaway],
   created() {
     this.graphDatas.push(this.getTotalRequestsData());
     this.graphDatas.push(this.getTotalTimeData());
@@ -44,7 +57,20 @@ export default {
     return {
       graphDatas: [],
       selectedGraphData: this.getTotalRequestsData(),
-      selectedGraphIndex: 0
+      selectedGraphIndex: 0,
+      toDate: moment()
+        .startOf("day")
+        .toDate(),
+      fromDate: moment()
+        .subtract(defaultDateRange.value, defaultDateRange.unit)
+        .startOf("day")
+        .toDate(),
+      toDateState: {
+        calendarIsOpen: false
+      },
+      fromDateState: {
+        calendarIsOpen: false
+      }
     };
   },
   computed: {
@@ -118,10 +144,29 @@ export default {
     }
   },
   methods: {
+    /**
+     * Event Handlers
+     */
+    away() {
+      this.toDateState.calendarIsOpen = false;
+      this.fromDateState.calendarIsOpen = false;
+    },
+    calendarHandler(calendarState, isOpen) {
+      calendarState.calendarIsOpen = isOpen;
+      if (calendarState == this.toDateState){
+        this.fromDateState.calendarIsOpen = false;
+      }
+      else{
+        this.toDateState.calendarIsOpen = false
+      }
+    },
     onClickHandle(index) {
       this.selectedGraphData = this.graphDatas[index];
       this.selectedGraphIndex = index;
     },
+    /**
+     * Graph Tab Data getters
+     */
     getTotalRequestsData() {
       return {
         componentName: "GraphTotalRequest",
@@ -179,28 +224,47 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/variables.scss";
-.graph-header-main {
-  font-size: 3.6rem;
-  font-weight: 400;
-  color: $color-grey-darkest;
-}
-
-.graph-header-sub {
-  font-size: 2rem;
-  font-weight: 300;
-  color: $color-grey-dark;
-}
-
-.row-container {
-  & :not(:last-child) {
-    margin-bottom: 1.5rem;
+.datepicker {
+  &:not(:last-child){
+    margin-right: 2rem;
+  }
+  border: none;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 0px 1px $color-grey-light;
+  border-radius: 10px;
+  &-closed{
+    transition: 0.2s box-shadow;
+    &:hover{
+      box-shadow: 0px 0px 0px 1px $color-grey-dark;
+    }
+  }
+  &-opened {
+    box-shadow: 0px 0px 0px 1px $color-crimson-main;
+    
+  }
+  &-input {
+      padding-left: 1rem;
+      height: 4rem;
+      line-height: 4rem;
+      background-color: transparent;
+      border: none;
+  }
+  &-calendar{
+    right:0;
+  }
+  & div {
+    & input {
+      cursor: pointer;
+    }
   }
 }
-
-.row {
-  z-index: -1;
+.datepicker-list{
+  display: flex;
+  justify-content: flex-end;
+}
+#row {
   display: flex;
   justify-content: flex-start;
 }
