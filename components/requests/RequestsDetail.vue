@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="requests-detail">
 
     </section>
 </template>
@@ -7,6 +7,11 @@
 export default {};
 </script>
 <style lang="scss" scoped>
+@import "@/assets/scss/variables.scss";
+
+.requests-detail {
+  height: 100vh;
+}
 </style>
 
 

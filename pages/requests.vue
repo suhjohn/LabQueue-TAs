@@ -1,9 +1,8 @@
 <template>
-    <section>
-        <PageHeader headerText="Requests" />
-        <RequestList/>
-        <RequestDetail/>
-    </section>
+  <section class="container">
+    <RequestList/>
+    <RequestDetail/>
+  </section>
 </template>
 
 <script>
@@ -20,6 +19,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#page {
+  padding: 0;
+}
+.container {
+  display: flex;
+}
 </style>
 
 

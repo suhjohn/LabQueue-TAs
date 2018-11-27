@@ -39,7 +39,7 @@ const store = () =>
         author_full_name: Str
         author_username: Str
         location: Str
-        course: ?
+        course: Str
         description: Str
         time_created: DateTime(? String?)
         acceptor_netid: ?
