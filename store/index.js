@@ -19,12 +19,15 @@ const store = () =>
         is_active: Bool
       */
       self: {},
+      // Array
       selfShifts: [],
       selfShiftsTotalTime: 0,
       selfRequests: [],
       shiftsRequestsArr: [],
       shiftsRequestsObj: {},
+      // {ta: {shift1: [], shift2:[]}
       shiftsRequestsObjTA: {},
+      // {shift1: {ta1:[], ta2:[]}}
       shiftsRequestsObjShift: {},
       isFetchingData: true
       /* 
@@ -56,8 +59,23 @@ const store = () =>
       getSelfRequestsCount: state => {
         return state.selfRequests.length;
       },
-      getSelfRequestsObjShift: state => {
-        return state.shiftsRequestsObjShift;
+      getShiftRequestsArr: state => {
+        return state.shiftsRequestsArr;
+      },
+      getShiftRequestsObj: state => as => {
+        let ret = undefined;
+
+        switch (as) {
+          case "ta":
+            ret = state.shiftsRequestsObjTA;
+            break;
+          case "shift":
+            ret = state.shiftsRequestsObjShift;
+            break;
+          default:
+            ret = state.shiftsRequestsObj;
+        }
+        return ret;
       },
       getSelfTotalTime: state => {
         return state.selfShiftsTotalTime;
@@ -142,7 +160,7 @@ const store = () =>
           const shift = moment(request.time_accepted).format("YYYY-MM-DD");
           formattedShiftsRequestTA[ta][shift].push(request);
         });
-        state.shiftsRequestsFormatted = formattedShiftsRequestTA;
+        state.shiftsRequestsObjTA = formattedShiftsRequestTA;
 
         // {shift1: {ta1:[], ta2:[]}}
         const formattedShiftsRequestObj = {};
@@ -154,11 +172,7 @@ const store = () =>
           ];
           let TANetidToIndexDict = {};
           shiftTANetids.forEach((ta, index) => {
-            if (ta === state.self.netid) {
-              TANetidToIndexDict[ta] = ta;
-            } else {
-              TANetidToIndexDict[ta] = `TA ${index + 1}`;
-            }
+            TANetidToIndexDict[ta] = ta;
           });
           // Fill the formattedShiftsRequestObj
           formattedShiftsRequestObj[shift] = {};

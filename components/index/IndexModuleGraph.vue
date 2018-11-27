@@ -1,15 +1,15 @@
 <template>
     <section>
-        <div class="graph-header">
+        <!-- <div class="graph-header">
             <h1 class="graph-header-main">{{ selectedGraphData.cardData.value }}</h1>
             <h4 class="graph-header-sub">{{ selectedGraphData.label }}</h4>
-        </div>
-        <div id="graph">
-            <component v-bind:is="selectedGraphData.componentName"></component>
-        </div>
+        </div> -->
         <ul class="row">
             <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
         </ul>
+        <div id="graph">
+            <component v-bind:is="selectedGraphData.componentName"></component>
+        </div>
     </section>
 </template>
 
@@ -48,11 +48,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "getSelfRequestsCount",
-      "getSelfRequestsObjShift",
-      "getSelfTotalTime"
-    ]),
+    ...mapGetters(["getSelfRequestsCount", "getSelfTotalTime"]),
     totalTimeString() {
       const dur = moment.duration(
         this.$store.getters.getSelfTotalTime,
@@ -207,7 +203,6 @@ export default {
 .row {
   z-index: -1;
   display: flex;
-  flex-flow: row wrap;
   justify-content: flex-start;
 }
 
