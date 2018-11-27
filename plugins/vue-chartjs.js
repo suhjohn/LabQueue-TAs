@@ -26,6 +26,7 @@ Vue.component("LineGraph", {
         maintainAspectRatio: false,
         legend: { display: false }, // Removes the title in the tooltip
         tooltips: {
+          mode: "nearest",
           callbacks: {
             label: tooltipItem =>
               `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
@@ -104,11 +105,26 @@ Vue.component("BarGraph", {
             .monochromatic()[5]
             .toHexString() + "10"
         );
+        const hoverGradient = this.$refs.canvas
+          .getContext("2d")
+          .createLinearGradient(0, 0, 0, 500);
+        hoverGradient.addColorStop(0, baseColor + "99");
+        hoverGradient.addColorStop(0.5, baseColor + "20");
+        hoverGradient.addColorStop(
+          1,
+          tinycolor(baseColor)
+            .monochromatic()[5]
+            .toHexString() + "00"
+        );
+
         let configuredDataItem = {
           ...dataItem,
           borderWidth: 1,
           backgroundColor: gradient,
-          borderColor: baseColor + "CC"
+          borderColor: baseColor + "CC",
+          hoverBorderWidth: 1,
+          hoverBackgroundColor: hoverGradient,
+          hoverBorderColor: baseColor + "CC"
         };
         _data["datasets"].push(configuredDataItem);
       });

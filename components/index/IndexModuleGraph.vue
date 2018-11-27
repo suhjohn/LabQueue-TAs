@@ -11,7 +11,7 @@
       <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
     </ul>
     <div id="graph">
-      <component v-bind:is="selectedGraphData.componentName"></component>
+      <component v-bind:is="graphDatas[selectedGraphIndex].componentName"></component>
     </div>
   </section>
 </template>
@@ -48,17 +48,8 @@ export default {
     GraphCourseRatio
   },
   mixins: [clickaway],
-  created() {
-    this.graphDatas.push(this.getTotalRequestsData());
-    this.graphDatas.push(this.getTotalTimeData());
-    this.graphDatas.push(this.getAverageTimePerReqData());
-    this.graphDatas.push(this.getMinSegmentRatioData());
-    this.graphDatas.push(this.getCourseRatioData());
-  },
   data() {
     return {
-      graphDatas: [],
-      selectedGraphData: this.getTotalRequestsData(),
       selectedGraphIndex: 0,
       dateTo: moment()
         .startOf("day")
@@ -76,9 +67,81 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getSelfRequestsCount", "getSelfTotalTime"]),
+    /**
+     * Vuex
+     */
+    ...mapGetters({
+      getSelfRequestsCount: "getSelfRequestsCount",
+      getSelfTotalTime: "getSelfTotalTime",
+      getSelfRequests: "getSelfRequests"
+    }),
+    /**
+     * Top Level Data
+     */
+    /**
+     * Graph Tab Data getters
+     */
+    graphDatas() {
+      return [
+        { ...this.getTotalRequestsData },
+        { ...this.getTotalTimeData },
+        { ...this.getAverageTimePerReqData },
+        { ...this.getMinSegmentRatioData },
+        { ...this.getCourseRatioData }
+      ];
+    },
+    getTotalRequestsData() {
+      return {
+        componentName: "GraphTotalRequest",
+        label: "Total Requests",
+        cardData: {
+          title: "Total Requests",
+          value: this.getSelfRequestsCount
+        }
+      };
+    },
+    getTotalTimeData() {
+      return {
+        componentName: "GraphTotalTime",
+        label: "Total Time",
+        cardData: {
+          title: "Total Time",
+          value: this.totalTimeString
+        }
+      };
+    },
+    getAverageTimePerReqData() {
+      return {
+        componentName: "GraphAvgTimePerReq",
+        label: "Time/Req",
+        cardData: {
+          title: "Time/Req",
+          value: (this.getSelfTotalTime / this.getSelfRequestsCount).toFixed(2)
+        }
+      };
+    },
+    getMinSegmentRatioData() {
+      return {
+        componentName: "GraphMinSegmentRatio",
+        label: "% closed in 15|30|45|60|60+ min",
+        cardData: {
+          title: "% closed in 15|30|45|60|60+ min",
+          value: this.reqByMinRatioString
+        }
+      };
+    },
+    getCourseRatioData() {
+      return {
+        componentName: "GraphCourseRatio",
+        label: "% of 126|226|217",
+        cardData: {
+          title: "% of 126|226|217",
+          value: this.reqByCoursesString
+        }
+      };
+    },
     totalTimeString() {
-      const totalMin = this.$store.getters.getSelfTotalTime;
+      const totalMin = this.getSelfTotalTime;
       const totalHrs = Math.floor(totalMin / 60);
       const remainingMins = totalMin - totalHrs * 60;
       return `${totalHrs} hrs ${remainingMins} mins`;
@@ -86,7 +149,7 @@ export default {
     reqByMinSegment() {
       let reqByMinSegment = [[], [], [], [], []];
 
-      this.$store.getters.getSelfRequests.forEach(request => {
+      this.getSelfRequests.forEach(request => {
         let time_accepted = moment(request.time_accepted);
         let time_closed = moment(request.time_closed);
         let diff = time_closed.subtract(time_accepted).minutes();
@@ -108,7 +171,7 @@ export default {
     },
     reqByMinRatioString() {
       const reqByMinSeg = this.reqByMinSegment;
-      const totalReq = this.$store.getters.getSelfRequestsCount;
+      const totalReq = this.getSelfRequestsCount;
       let reqRatio = [];
       reqByMinSeg.forEach(reqArr => {
         reqRatio.push((reqArr.length / totalReq).toFixed(2));
@@ -117,7 +180,7 @@ export default {
     },
     reqByCourse() {
       let reqByCourses = [[], [], []];
-      this.$store.getters.getSelfRequests.forEach(request => {
+      this.getSelfRequests.forEach(request => {
         let reqCourse = request.course;
         let index = 0;
         switch (reqCourse) {
@@ -137,7 +200,7 @@ export default {
     },
     reqByCoursesString() {
       const reqByCourse = this.reqByCourse;
-      const totalReq = this.$store.getters.getSelfRequestsCount;
+      const totalReq = this.getSelfRequestsCount;
       let reqRatio = [];
       reqByCourse.forEach(reqArr => {
         reqRatio.push((reqArr.length / totalReq).toFixed(2));
@@ -150,7 +213,7 @@ export default {
      * Vuex
      * this.$store.dispatch(<name>, args)
      */
-    ...mapActions(["setRequests"]),
+    ...mapActions({ setRequests: "setRequests" }),
     ...mapMutations({ setFetchingState: "setFetchingState" }),
     /**
      * Event Handlers
@@ -195,63 +258,7 @@ export default {
     /**
      * Hacky fix to maintain state
      */
-    onClickDatepicker() {},
-    /**
-     * Graph Tab Data getters
-     */
-    getTotalRequestsData() {
-      return {
-        componentName: "GraphTotalRequest",
-        label: "Total Requests",
-        cardData: {
-          title: "Total Requests",
-          value: this.$store.getters.getSelfRequestsCount
-        }
-      };
-    },
-    getTotalTimeData() {
-      return {
-        componentName: "GraphTotalTime",
-        label: "Total Time",
-        cardData: {
-          title: "Total Time",
-          value: this.totalTimeString
-        }
-      };
-    },
-    getAverageTimePerReqData() {
-      return {
-        componentName: "GraphAvgTimePerReq",
-        label: "Time/Req",
-        cardData: {
-          title: "Time/Req",
-          value: (
-            this.$store.getters.getSelfTotalTime /
-            this.$store.getters.getSelfRequestsCount
-          ).toFixed(2)
-        }
-      };
-    },
-    getMinSegmentRatioData() {
-      return {
-        componentName: "GraphMinSegmentRatio",
-        label: "% closed in 15|30|45|60|60+ min",
-        cardData: {
-          title: "% closed in 15|30|45|60|60+ min",
-          value: this.reqByMinRatioString
-        }
-      };
-    },
-    getCourseRatioData() {
-      return {
-        componentName: "GraphCourseRatio",
-        label: "% of 126|226|217",
-        cardData: {
-          title: "% of 126|226|217",
-          value: this.reqByCoursesString
-        }
-      };
-    }
+    onClickDatepicker() {}
   }
 };
 </script>

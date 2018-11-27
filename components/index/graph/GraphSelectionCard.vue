@@ -1,8 +1,8 @@
 <template>
-    <button @click="onClick" class="card" :class="{'card-selected':selected, 'card-unselected':!selected}">
-        <h1 class="card-title">{{ title }}</h1>
-        <h3 class="card-value">{{ value }}</h3>
-    </button>    
+  <button @click="onClick" class="card" :class="{'card-selected':selected, 'card-unselected':!selected}">
+    <h1 class="card-title">{{ title }}</h1>
+    <h3 class="card-value">{{ value }}</h3>
+  </button>
 </template>
 <script>
 export default {
@@ -24,7 +24,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-$card-min-width: 13rem;
+$card-min-width: 18rem;
 $card-height: 8rem;
 .card-title {
   color: $color-grey-dark;
@@ -60,7 +60,7 @@ $card-height: 8rem;
     border-bottom: 5px solid $color-crimson-main;
 
     & .card-value {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
   }
 }

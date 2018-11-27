@@ -1,11 +1,22 @@
 <template>
     <section>
-        <h1 id="title-main">Requests</h1>
+        <PageHeader headerText="Requests" />
+        <RequestList/>
+        <RequestDetail/>
     </section>
 </template>
 
 <script>
-export default {};
+import PageHeader from "~/components/UI/PageHeader";
+import RequestList from "~/components/requests/RequestsList";
+import RequestDetail from "~/components/requests/RequestsDetail";
+export default {
+  components: {
+    PageHeader,
+    RequestList,
+    RequestDetail
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -57,7 +57,13 @@ export default {
       const selfNetid = this.$store.getters.getSelf.netid;
 
       const minSegments = [15, 30, 45, 60, Infinity];
-      const minSegmentsLiteral = ["0~15", "15~30", "30~45", "45~60", "60+"];
+      const minSegmentsLiteral = [
+        "0~15min",
+        "15~30min",
+        "30~45min",
+        "45~60min",
+        "60+min"
+      ];
       const segmentColor = [
         styles.colorMainCompRed,
         styles.colorMainCompMarine,
