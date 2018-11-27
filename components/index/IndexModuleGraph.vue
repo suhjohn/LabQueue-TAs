@@ -3,6 +3,7 @@
     <div class="datepicker-list-wrapper">
       <ul class="datepicker-list" v-on-clickaway="away" @click="onClickDatepicker">
         <datepicker @input="fetchData" :typeable="true" @opened="calendarHandler(dateToState, true)" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
+
         <datepicker @input="fetchData" :typeable="true" @opened="calendarHandler(dateFromState, true)" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
       </ul>
     </div>
@@ -185,7 +186,7 @@ export default {
       const dateToString = moment(dateTo).format("YYYY-MM-DD");
       await this.$store.dispatch("setRequests", {
         dateFrom: dateFromString,
-        dateToString
+        dateTo: dateToString
       });
     },
     /**

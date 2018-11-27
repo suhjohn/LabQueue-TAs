@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- <barGraph class="graph" :data="barData" :options="options" /> -->
-    <lineGraph class="graph" :chartData="barData" :options="options" />
+    <lineGraph class="graph" :data="barData" :options="options" />
   </div>
 </template>
 
@@ -12,67 +12,67 @@ import moment from "moment";
 
 export default {
   mixins: [calculateYMax],
-  data() {
-    return {
-      barData: undefined,
-      options: undefined
-    };
-  },
-  created() {
-    // Shifts
-    const _labels = this.barLabels;
-    // label: name, data: req in that shift
-    const _datasets = this.barDataSet;
-    this.barData = {
-      labels: _labels,
-      datasets: _datasets
-    };
-
-    this.options = {
-      tooltips: {
-        callbacks: {
-          title: () => null,
-          label: tooltipItem => {
-            const hours = tooltipItem.yLabel;
-            const minutes = (hours - Math.floor(hours)) * 60;
-            return `${Math.floor(hours)} hrs ${Math.floor(minutes)} mins: ${
-              tooltipItem.xLabel
-            }`;
-          }
-        }
-      },
-      scales: {
-        yAxes: [
-          {
-            position: "right",
-            scaleLabel: {
-              labelString: "Hours",
-              display: true
-            },
-            ticks: {
-              beginAtZero: true,
-              suggestedMax: this.calculateYMax(_datasets)
-            },
-            gridLines: {
-              display: false
+  computed: {
+    /**
+     * Vuex
+     */
+    ...mapGetters({
+      getShiftRequestsObj: "getShiftRequestsObj",
+      getShiftRequestsArr: "getShiftRequestsArr",
+      getSelf: "getSelf",
+      getSelfShifts: "getSelfShifts"
+    }),
+    /**
+     * Main Computed
+     */
+    barData() {
+      return {
+        labels: this.barLabels,
+        datasets: this.barDataSet
+      };
+    },
+    options() {
+      return {
+        tooltips: {
+          callbacks: {
+            title: () => null,
+            label: tooltipItem => {
+              const hours = tooltipItem.yLabel;
+              const minutes = (hours - Math.floor(hours)) * 60;
+              return `${Math.floor(hours)} hrs ${Math.floor(minutes)} mins: ${
+                tooltipItem.xLabel
+              }`;
             }
           }
-        ],
-        xAxes: [{}]
-      }
-    };
-  },
-  computed: {
-    ...mapGetters([
-      "getShiftRequestsObj",
-      "getShiftRequestsArr",
-      "getSelf",
-      "getSelfShifts"
-    ]),
+        },
+        scales: {
+          yAxes: [
+            {
+              position: "right",
+              scaleLabel: {
+                labelString: "Hours",
+                display: true
+              },
+              ticks: {
+                beginAtZero: true,
+                suggestedMax: this.calculateYMax(this.barDataSet)
+              },
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          xAxes: [{}]
+        }
+      };
+    },
+    /**
+     * Implementation
+     */
     barDataSet() {
-      const reqByShift = this.$store.getters.getShiftRequestsObj("shift");
-      const shifts = this.$store.getters.getSelfShifts;
-      const selfNetid = this.$store.getters.getSelf.netid;
+      const reqByShift = this.getShiftRequestsObj("shift");
+      const shifts = this.getSelfShifts;
+      const selfNetid = this.getSelf.netid;
       shifts.sort((a, b) => {
         return b - a;
       });
@@ -98,7 +98,7 @@ export default {
       return [formattedData];
     },
     barLabels() {
-      const shifts = this.$store.getters.getSelfShifts;
+      const shifts = this.getSelfShifts;
       shifts.sort((a, b) => {
         return b - a;
       });

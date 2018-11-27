@@ -96,12 +96,13 @@ const store = () =>
        * Sets self to store.
        */
       setSelf(state, self) {
-        state.self = self;
+        Vue.set(state, "self", { ...self });
       },
       setSelfRequests(state, requests) {
-        state.selfRequests = requests.filter(
+        const selfRequests = requests.filter(
           request => request.acceptor_netid === state.self.netid
         );
+        Vue.set(state, "selfRequests", selfRequests);
         state.selfRequests.sort((a, b) => {
           var base = moment(a.time_accepted);
           var comp = moment(b.time_closed);
@@ -116,7 +117,7 @@ const store = () =>
           let duration = moment.duration(to.diff(from)).asMinutes();
           totalMin += duration;
         });
-        state.selfShiftsTotalTime = totalMin;
+        Vue.set(state, "selfShiftsTotalTime", totalMin);
       },
       /**
        * Sets the selfShifts based on selfRequest
@@ -126,8 +127,8 @@ const store = () =>
           const time_accepted = moment(request.time_accepted);
           return time_accepted.format("YYYY-MM-DD");
         });
-        state.selfShifts = [...new Set(shifts)];
-        state.selfShifts.sort();
+        shifts.sort();
+        Vue.set(state, "selfShifts", [...new Set(shifts)]);
       },
       /**
        * Sets the requests from self's shift days including other tas' requests
@@ -141,7 +142,7 @@ const store = () =>
           );
           return shiftSet.has(time_accepted);
         });
-        state.shiftsRequestsArr = shiftsRequests;
+        Vue.set(state, "shiftsRequestsArr", [...shiftsRequests]);
 
         // {shift: [requests]}
         let shiftsRequestsObj = {};
@@ -154,7 +155,7 @@ const store = () =>
           );
           shiftsRequestsObj[time_accepted].push(request);
         });
-        state.shiftsRequestsObj = shiftsRequestsObj;
+        Vue.set(state, "shiftsRequestObj", { ...shiftsRequestsObj });
 
         // {ta: {shift1: [], shift2:[]}
         let formattedShiftsRequestTA = {};
@@ -173,7 +174,9 @@ const store = () =>
           const shift = moment(request.time_accepted).format("YYYY-MM-DD");
           formattedShiftsRequestTA[ta][shift].push(request);
         });
-        state.shiftsRequestsObjTA = formattedShiftsRequestTA;
+        Vue.set(state, "shiftsRequestsObjTA", {
+          ...formattedShiftsRequestTA
+        });
 
         // {shift1: {ta1:[], ta2:[]}}
         const formattedShiftsRequestObj = {};
@@ -196,7 +199,9 @@ const store = () =>
             formattedShiftsRequestObj[shift][reverseName].push(request);
           });
         });
-        state.shiftsRequestsObjShift = formattedShiftsRequestObj;
+        Vue.set(state, "shiftsRequestsObjShift", {
+          ...formattedShiftsRequestObj
+        });
       }
     },
     actions: {

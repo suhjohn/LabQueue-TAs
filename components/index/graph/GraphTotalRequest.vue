@@ -10,64 +10,50 @@ import { mapGetters } from "vuex";
 import { calculateYMax } from "~/mixins/calculateYMax";
 
 export default {
+  components: {},
   mixins: [calculateYMax],
-  data() {
-    return {
-      barData: undefined,
-      options: undefined
-    };
-  },
-  created() {
-    // Shifts
-    const labels = this.barLabels;
-    // label: name, data: req in that shift
-    const barDataObj = this.barDataSet;
-
-    let _datasets = [];
-    _datasets.push({
-      label: barDataObj.label,
-      data: barDataObj.data
-    });
-    this.barData = {
-      labels: labels,
-      datasets: _datasets
-    };
-
-    this.options = {
-      scales: {
-        yAxes: [
-          {
-            position: "right",
-            scaleLabel: {
-              labelString: "# of Requests",
-              display: true
-            },
-            ticks: {
-              beginAtZero: true,
-              suggestedMax: this.calculateYMax(_datasets)
-            },
-            gridLines: {
-              display: false
-            }
-          }
-        ],
-        xAxes: [{}]
-      }
-    };
-  },
   computed: {
-    ...mapGetters([
-      "getShiftRequestsObj",
-      "getShiftRequestsArr",
-      "getSelf",
-      "getSelfShifts"
-    ]),
+    ...mapGetters({
+      getShiftRequestsObj: "getShiftRequestsObj",
+      getShiftRequestsArr: "getShiftRequestsArr",
+      getSelf: "getSelf",
+      getSelfShifts: "getSelfShifts"
+    }),
+    barData() {
+      return {
+        labels: this.barLabels,
+        datasets: this.barDataSet
+      };
+    },
+    options() {
+      return {
+        scales: {
+          yAxes: [
+            {
+              position: "right",
+              scaleLabel: {
+                labelString: "# of Requests",
+                display: true
+              },
+              ticks: {
+                beginAtZero: true,
+                suggestedMax: this.calculateYMax(this.barDataSet)
+              },
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          xAxes: [{}]
+        }
+      };
+    },
     // [{label: "", data: [<shift1 data>, <shift2 data>,...]}]
     fullBarDataSet() {
-      const self = this.$store.getters.getSelf;
-      const taRequests = this.$store.getters.getShiftRequestsObj("ta");
-      const reqByShift = this.$store.getters.getShiftRequestsObj("shift");
-      const shifts = Object.keys(reqByShift);
+      const self = this.getSelf;
+      const taRequests = this.getShiftRequestsObj("ta");
+      const reqByShift = this.getShiftRequestsObj("shift");
+      const shifts = this.getSelfShifts;
       const tas = Object.keys(taRequests);
       shifts.sort((a, b) => {
         return b - a;
@@ -104,9 +90,9 @@ export default {
       return formattedData;
     },
     barDataSet() {
-      const reqByShift = this.$store.getters.getShiftRequestsObj("shift");
-      const shifts = this.$store.getters.getSelfShifts;
-      const selfNetid = this.$store.getters.getSelf.netid;
+      const reqByShift = this.getShiftRequestsObj("shift");
+      const shifts = this.getSelfShifts;
+      const selfNetid = this.getSelf.netid;
       shifts.sort((a, b) => {
         return b - a;
       });
@@ -123,10 +109,10 @@ export default {
         label: selfNetid,
         data: data
       };
-      return formattedData;
+      return [formattedData];
     },
     barLabels() {
-      const shifts = this.$store.getters.getSelfShifts;
+      const shifts = this.getSelfShifts;
       shifts.sort((a, b) => {
         return b - a;
       });

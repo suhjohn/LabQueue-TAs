@@ -10,9 +10,9 @@ export const calculateYMax = {
       let maxVal = 0;
       datasets.forEach(dataset => {
         maxVal = Math.max(maxVal, Math.max(...dataset.data));
-        minVal = Math.min(maxVal, Math.min(...dataset.data));
+        minVal = 0;
       });
-
+      console.log((maxVal - minVal) * OFFSET + maxVal);
       return (maxVal - minVal) * OFFSET + maxVal;
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- <barGraph class="graph" :data="barData" :options="options" /> -->
-    <lineGraph class="graph" :data="barData" :options="options" /> 
+    <lineGraph class="graph" :data="barData" :options="options" />
   </div>
 </template>
 
@@ -12,52 +12,6 @@ import moment from "moment";
 
 export default {
   mixins: [calculateYMax],
-  data() {
-    return {
-      barData: undefined,
-      options: undefined
-    };
-  },
-  created() {
-    // Shifts
-    const _labels = this.barLabels;
-    // label: name, data: req in that shift
-    const _datasets = this.barDataSet;
-    this.barData = {
-      labels: _labels,
-      datasets: _datasets
-    };
-
-    this.options = {
-      tooltips: {
-        callbacks: {
-          title: () => null,
-          label: tooltipItem => {
-            return `${tooltipItem.yLabel} min:${tooltipItem.xLabel}`;
-          }
-        }
-      },
-      scales: {
-        yAxes: [
-          {
-            position: "right",
-            scaleLabel: {
-              labelString: "Hours",
-              display: true
-            },
-            ticks: {
-              beginAtZero: true,
-              suggestedMax: this.calculateYMax(_datasets)
-            },
-            gridLines: {
-              display: false
-            }
-          }
-        ],
-        xAxes: [{}]
-      }
-    };
-  },
   computed: {
     ...mapGetters([
       "getShiftRequestsObj",
@@ -65,6 +19,46 @@ export default {
       "getSelf",
       "getSelfShifts"
     ]),
+    /**
+     * Main Computed
+     */
+    barData() {
+      return {
+        labels: this.barLabels,
+        datasets: this.barDataSet
+      };
+    },
+    options() {
+      return {
+        tooltips: {
+          callbacks: {
+            title: () => null,
+            label: tooltipItem => {
+              return `${tooltipItem.yLabel} min:${tooltipItem.xLabel}`;
+            }
+          }
+        },
+        scales: {
+          yAxes: [
+            {
+              position: "right",
+              scaleLabel: {
+                labelString: "Hours",
+                display: true
+              },
+              ticks: {
+                beginAtZero: true,
+                suggestedMax: this.calculateYMax(this.barDataSet)
+              },
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          xAxes: [{}]
+        }
+      };
+    },
     barDataSet() {
       const reqByShift = this.$store.getters.getShiftRequestsObj("shift");
       const shifts = this.$store.getters.getSelfShifts;
