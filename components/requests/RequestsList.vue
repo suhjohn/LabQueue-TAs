@@ -1,9 +1,6 @@
 <template>
   <ul ref="request-list" class="request-list">
-    <RequestsListItem v-for="(request, index) in selfRequests" :key="index" :authorFullname="request.author_full_name" :authorUsername="request.author_username" :course="request.course" :description="request.description" :timeAccepted="request.time_accepted" @click="onClickHandle(index)" :selected="index===selectedRequestItem" />
-    <no-ssr>
-      <!-- <infinite-loading></infinite-loading> -->
-    </no-ssr>
+    <RequestsListItem v-for="(request, index) in selfRequestsFormatted" :key="index" :authorFullname="request.author_full_name" :authorUsername="request.author_username" :course="request.course" :description="request.description" :timeAccepted="request.time_accepted" @click="onClickHandle(index)" :selected="index===selectedRequestItem" />
   </ul>
 
 </template>
@@ -11,8 +8,6 @@
 import RequestsListItem from "./RequestsListItem";
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
-import InfiniteLoading from "vue-infinite-loading";
-import NoSSR from "vue-no-ssr";
 
 export default {
   data() {
@@ -21,30 +16,32 @@ export default {
       scrolling: false
     };
   },
+  mounted() {
+    this.$emit("selected", this.selfRequestsFormatted[this.selectedRequestItem]);
+  },
   components: {
-    RequestsListItem,
-    InfiniteLoading,
-    "no-ssr": NoSSR
+    RequestsListItem
   },
   computed: {
     ...mapGetters({
       selfRequests: "getSelfRequests"
     }),
-    containerHeight() {
-      const container = this.$refs;
-      console.log(container);
-      return {};
+    selfRequestsFormatted(){
+      const req = [...this.selfRequests]
+      req.reverse()
+      return req;
     }
   },
   methods: {
     ...mapActions({ setRequests: "setRequests" }),
     onClickHandle(index) {
       this.selectedRequestItem = index;
+      this.$emit("selected", this.selfRequestsFormatted[this.selectedRequestItem]);
     },
     async loadMore() {
       this.busy = true;
-      const mostRecent = this.selfRequests[0];
-      const leastRecent = this.setRequests[this.setRequests.length - 1];
+      const mostRecent = this.selfRequestsFormatted[0];
+      const leastRecent = this.selfRequestsFormatted[this.selfRequestsFormatted.length - 1];
       const dateTo = mostRecent;
       const dateFrom = moment(leastRecent)
         .add(1, "months")
