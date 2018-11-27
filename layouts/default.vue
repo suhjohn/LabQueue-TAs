@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <loading :active.sync="isInitialFetch" :is-full-page="true"></loading>
     <SideNavbar />
     <div class="main-body">
       <PageTopNavbar id="page-top-navbar" />
@@ -9,17 +10,25 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 import PageTopNavbar from "~/components/navigation/PageTopNavbar.vue";
 import SideNavbar from "~/components/navigation/SideNavbar.vue";
 export default {
   components: {
     PageTopNavbar,
-    SideNavbar
+    SideNavbar,
+    Loading
   },
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      isInitialFetch: "getIsInitialFetch"
+    })
+  },
   methods: {}
 };
 </script>
@@ -43,6 +52,7 @@ $page-padding-bottom: 8rem;
   padding: $page-padding-top $page-padding-side-mobile $page-padding-bottom
     $page-padding-side-mobile;
   background-color: $color-grey-lightest;
+  position: relative;
 }
 
 @media only screen and (min-width: 930px) {

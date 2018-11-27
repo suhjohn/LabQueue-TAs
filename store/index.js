@@ -31,7 +31,8 @@ const store = () =>
       shiftsRequestsObjTA: {},
       // {shift1: {ta1:[], ta2:[]}}
       shiftsRequestsObjShift: {},
-      isFetchingData: true
+      isFetchingData: false,
+      isInitialFetch: true
       /* 
       request:
         pk: Int
@@ -56,6 +57,9 @@ const store = () =>
       },
       getSelfShifts: state => {
         return state.selfShifts;
+      },
+      getIsInitialFetch: state => {
+        return state.isInitialFetch;
       },
       /**
        *
@@ -86,11 +90,14 @@ const store = () =>
       },
       getSelfTotalTime: state => {
         return state.selfShiftsTotalTime;
+      },
+      getIsFetchingData: state => {
+        return state.isFetchingData;
       }
     },
     mutations: {
       setFetchingState(state, flag) {
-        state.isFetchingData = flag;
+        Vue.set(state, "isFetchingData", flag);
       },
       /**
        * Sets self to store.
@@ -212,6 +219,7 @@ const store = () =>
        * @param {*} context
        */
       async nuxtClientInit(context) {
+        context.state.isInitialFetch = true;
         const self = await context.dispatch("retrieveSelf");
         context.commit("setSelf", self);
         // Calculate dateFrom = current date - 1 month, dateTo = current date
@@ -230,6 +238,7 @@ const store = () =>
           dateTo: dateTo
         };
         await context.dispatch("setRequests", defaultParams);
+        context.state.isInitialFetch = false;
       },
 
       /**
@@ -242,13 +251,11 @@ const store = () =>
        * @return {null}
        */
       async setRequests(context, params) {
-        context.commit("setFetchingState", true);
         const requests = await context.dispatch("queryRequests", params);
         context.commit("setSelfRequests", requests);
         context.commit("setSelfRequestsTotalTime");
         context.commit("setShifts");
         context.commit("setShiftsRequests", requests);
-        context.commit("setFetchingState", false);
       }
     }
   });

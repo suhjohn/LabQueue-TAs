@@ -12,7 +12,6 @@ export const calculateYMax = {
         maxVal = Math.max(maxVal, Math.max(...dataset.data));
         minVal = 0;
       });
-      console.log((maxVal - minVal) * OFFSET + maxVal);
       return (maxVal - minVal) * OFFSET + maxVal;
     }
   }

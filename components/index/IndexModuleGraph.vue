@@ -21,7 +21,7 @@
 import moment from "moment";
 import Datepicker from "vuejs-datepicker";
 import { mixin as clickaway } from "vue-clickaway";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import GraphSelectionCard from "~/components/index/graph/GraphSelectionCard";
 import GraphTotalRequest from "~/components/index/graph/GraphTotalRequest";
 import GraphTotalTime from "~/components/index/graph/GraphTotalTime";
@@ -151,6 +151,7 @@ export default {
      * this.$store.dispatch(<name>, args)
      */
     ...mapActions(["setRequests"]),
+    ...mapMutations({ setFetchingState: "setFetchingState" }),
     /**
      * Event Handlers
      */
@@ -175,6 +176,7 @@ export default {
       // ascertain that the inputted value is relevant value
       const dateFrom = this.dateFrom;
       const dateTo = this.dateTo;
+      this.setFetchingState(true);
       await wait(2000);
       if (
         dateFrom.getTime() != this.dateFrom.getTime() ||
@@ -188,6 +190,7 @@ export default {
         dateFrom: dateFromString,
         dateTo: dateToString
       });
+      this.setFetchingState(false);
     },
     /**
      * Hacky fix to maintain state
@@ -293,6 +296,22 @@ export default {
   }
   &-calendar {
     right: 0;
+    & div {
+      .cell {
+        &:hover {
+          background-color: $color-grey-light;
+          border: none !important;
+        }
+        &.selected {
+          color: $color-white;
+          background-color: $color-crimson-main-lighter;
+          border: none !important;
+          &:hover {
+            background-color: $color-crimson-main-lighter;
+          }
+        }
+      }
+    }
   }
 }
 .datepicker-list {
