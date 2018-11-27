@@ -68,23 +68,39 @@ Vue.component("LineGraph", {
   methods: {}
 });
 
+/**
+ * Receives baseColor in each of the dataset in datasets to determine color
+ */
 Vue.component("BarGraph", {
   extends: Bar,
   props: ["data", "options"],
   mounted() {
     const baseOptions = {
       responsive: true,
-      maintainAspectRatio: false,
-      legend: { display: false }, // Removes the title in the tooltip
-      tooltips: {
-        callbacks: {
-          label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
-          title: () => null
-        }
-      }
+      maintainAspectRatio: false
     };
     const _options = { ...baseOptions, ...this.options };
-
-    this.renderChart(this.data, _options);
+    const _data = {};
+    _data["labels"] = this.data.labels;
+    _data["datasets"] = [];
+    this.data.datasets.forEach(dataItem => {
+      let baseColor = dataItem.baseColor
+        ? dataItem.baseColor
+        : styles.colorCrimsonMainDark;
+      const gradient = this.$refs.canvas
+        .getContext("2d")
+        .createLinearGradient(0, 0, 0, 450);
+      gradient.addColorStop(0, baseColor + "A0");
+      gradient.addColorStop(0.5, baseColor + "60");
+      gradient.addColorStop(1, baseColor + "30");
+      let configuredDataItem = {
+        ...dataItem,
+        borderWidth: 1,
+        backgroundColor: gradient,
+        borderColor: baseColor + "CC"
+      };
+      _data["datasets"].push(configuredDataItem);
+    });
+    this.renderChart(_data, _options);
   }
 });

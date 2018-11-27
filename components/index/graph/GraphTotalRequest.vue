@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import styles from "~/assets/scss/variables.scss";
 import { mapGetters } from "vuex";
 import { calculateYMax } from "~/mixins/calculateYMax";
 

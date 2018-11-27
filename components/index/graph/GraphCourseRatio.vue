@@ -26,7 +26,7 @@ export default {
       labels: labels,
       datasets: _datasets
     };
-
+    console.log(_datasets);
     this.options = {
       scales: {
         yAxes: [
@@ -64,6 +64,11 @@ export default {
       const selfNetid = this.$store.getters.getSelf.netid;
 
       const courses = ["cos226", "cos217", "cos126"];
+      const courseColor = [
+        styles.colorMainCompRed,
+        styles.colorMainCompMarine,
+        styles.colorMainCompGreen
+      ];
       shifts.sort((a, b) => {
         return b - a;
       });
@@ -72,7 +77,7 @@ export default {
        * [{label: "cos 226", data: []}, {label:"cos 217", data: []}, {label:"cos 126", data: []}]
        */
       const dataSet = {};
-      courses.forEach(course => {
+      courses.forEach((course, index) => {
         dataSet[course] = [];
       });
       shifts.forEach(shift => {
@@ -86,9 +91,15 @@ export default {
         });
       });
 
-      return courses.map(course => {
-        return { label: course, data: dataSet[course] };
+      const formattedData = courses.map((course, index) => {
+        let obj = {
+          label: course,
+          data: dataSet[course],
+          baseColor: courseColor[index]
+        };
+        return obj;
       });
+      return formattedData;
     },
     barLabels() {
       const shifts = this.$store.getters.getSelfShifts;

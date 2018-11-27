@@ -18,8 +18,14 @@ $color-grey-dark: #7f7f7f;
 $color-grey: #c2c2c2;
 $color-grey-light: #ebe7e7;
 $color-grey-lightest: #fbfbfb;
-
 $color-black: #0f0000;
+
+/* Contrast Color Options */
+$color-main-comp-blue: #1186fd;
+$color-main-comp-green: #11fd88;
+$color-main-comp-marine: #1211fd;
+$color-main-comp-violet: #8811fd;
+$color-main-comp-red: #fd1186;
 
 /* Font Settings */
 $default-font-size: $raw-default-font-size + 0rem;
@@ -37,4 +43,9 @@ $contained-box-m-shadow: 0 1px 2px $color-grey, 0 1px 2px $color-grey;
   colorCrimsonMainDark: $color-crimson-main-dark;
   colorCrimsonMain: $color-crimson-main;
   colorCrimsonMainLight: $color-crimson-main-light;
+  colorMainCompBlue: $color-main-comp-blue;
+  colorMainCompGreen: $color-main-comp-green;
+  colorMainCompMarine: $color-main-comp-marine;
+  colorMainCompViolet: $color-main-comp-violet;
+  colorMainCompRed: $color-main-comp-red;
 }
