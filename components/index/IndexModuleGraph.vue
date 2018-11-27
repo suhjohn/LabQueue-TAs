@@ -50,11 +50,10 @@ export default {
   computed: {
     ...mapGetters(["getSelfRequestsCount", "getSelfTotalTime"]),
     totalTimeString() {
-      const dur = moment.duration(
-        this.$store.getters.getSelfTotalTime,
-        "minutes"
-      );
-      return moment.utc(dur.asMilliseconds()).format("HH:mm");
+      const totalMin = this.$store.getters.getSelfTotalTime;
+      const totalHrs = Math.floor(totalMin / 60);
+      const remainingMins = totalMin - totalHrs * 60;
+      return `${totalHrs} hrs ${remainingMins} mins`;
     },
     reqByMinSegment() {
       let reqByMinSegment = [[], [], [], [], []];

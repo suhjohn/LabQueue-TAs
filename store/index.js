@@ -102,16 +102,22 @@ const store = () =>
         state.selfRequests = requests.filter(
           request => request.acceptor_netid === state.self.netid
         );
+        state.selfRequests.sort((a, b) => {
+          var base = moment(a.time_accepted);
+          var comp = moment(b.time_closed);
+          return base.diff(comp);
+        });
       },
       setSelfRequestsTotalTime(state, requests) {
         let totalMin = 0;
         state.selfRequests.forEach(req => {
-          var from = moment(req.time_accepted); //todays date
-          var to = moment(req.time_closed); // another date
-          var duration = moment.duration(to.diff(from));
-          totalMin += duration.asMinutes();
+          let from = moment(req.time_accepted); //todays date
+          let to = moment(req.time_closed); // another date
+          let duration = moment.duration(to.diff(from)).asMinutes();
+          totalMin += duration;
         });
         state.selfShiftsTotalTime = totalMin;
+        console.log(totalMin);
       },
       /**
        * Sets the selfShifts based on selfRequest
@@ -122,6 +128,7 @@ const store = () =>
           return time_accepted.format("YYYY-MM-DD");
         });
         state.selfShifts = [...new Set(shifts)];
+        state.selfShifts.sort();
       },
       /**
        * Sets the requests from self's shift days including other tas' requests

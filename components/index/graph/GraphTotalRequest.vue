@@ -39,7 +39,7 @@ export default {
           {
             position: "right",
             scaleLabel: {
-              labelString: "Requests",
+              labelString: "# of Requests",
               display: true
             },
             ticks: {
