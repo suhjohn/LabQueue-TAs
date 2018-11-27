@@ -158,9 +158,9 @@ export default {
     getMinSegmentRatioData() {
       return {
         componentName: "GraphMinSegmentRatio",
-        label: "% of Req completed in 15|30|45|60|60+ min",
+        label: "% closed in 15|30|45|60|60+ min",
         cardData: {
-          title: "% of Req completed in 15|30|45|60|60+ min",
+          title: "% closed in 15|30|45|60|60+ min",
           value: this.reqByMinRatioString
         }
       };
@@ -168,9 +168,9 @@ export default {
     getCourseRatioData() {
       return {
         componentName: "GraphCourseRatio",
-        label: "Req from 126|226|217",
+        label: "% of 126|226|217",
         cardData: {
-          title: "Req from 126|226|217",
+          title: "% of 126|226|217",
           value: this.reqByCoursesString
         }
       };

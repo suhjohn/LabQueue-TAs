@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { Line, Bar } from "vue-chartjs";
 import styles from "~/assets/scss/variables.scss";
+import tinycolor from "tinycolor2";
 
 Vue.component("LineGraph", {
   extends: Line,
@@ -83,12 +84,18 @@ Vue.component("BarGraph", {
       let baseColor = dataItem.baseColor
         ? dataItem.baseColor
         : styles.colorCrimsonMainDark;
+
       const gradient = this.$refs.canvas
         .getContext("2d")
-        .createLinearGradient(0, 0, 0, 450);
+        .createLinearGradient(0, 0, 0, 500);
       gradient.addColorStop(0, baseColor + "A0");
-      gradient.addColorStop(0.5, baseColor + "60");
-      gradient.addColorStop(1, baseColor + "30");
+      gradient.addColorStop(0.5, baseColor + "40");
+      gradient.addColorStop(
+        1,
+        tinycolor(baseColor)
+          .monochromatic()[5]
+          .toHexString() + "10"
+      );
       let configuredDataItem = {
         ...dataItem,
         borderWidth: 1,

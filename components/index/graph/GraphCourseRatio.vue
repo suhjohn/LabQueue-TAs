@@ -26,7 +26,6 @@ export default {
       labels: labels,
       datasets: _datasets
     };
-    console.log(this.calculateYMax(_datasets));
     this.options = {
       scales: {
         yAxes: [

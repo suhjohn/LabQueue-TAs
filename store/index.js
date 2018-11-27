@@ -117,7 +117,6 @@ const store = () =>
           totalMin += duration;
         });
         state.selfShiftsTotalTime = totalMin;
-        console.log(totalMin);
       },
       /**
        * Sets the selfShifts based on selfRequest
@@ -198,19 +197,7 @@ const store = () =>
           });
         });
         state.shiftsRequestsObjShift = formattedShiftsRequestObj;
-      },
-      /**
-       *
-       */
-      setRequestsByTime(state, requests) {},
-      /**
-       *
-       */
-      setRequestsByTimePerReq(state, requests) {},
-      /**
-       *
-       */
-      setRequestsByRatioForClass(state, requests) {}
+      }
     },
     actions: {
       ...apis,
