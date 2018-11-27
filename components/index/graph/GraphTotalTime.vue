@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- <barGraph class="graph" :data="barData" :options="options" /> -->
-    <lineGraph class="graph" :data="barData" :options="options" /> 
+    <lineGraph class="graph" :chartData="barData" :options="options" />
   </div>
 </template>
 

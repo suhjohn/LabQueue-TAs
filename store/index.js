@@ -207,7 +207,6 @@ const store = () =>
        * @param {*} context
        */
       async nuxtClientInit(context) {
-        context.commit("setFetchingState", true);
         const self = await context.dispatch("retrieveSelf");
         context.commit("setSelf", self);
         // Calculate dateFrom = current date - 1 month, dateTo = current date
@@ -226,7 +225,6 @@ const store = () =>
           dateTo: dateTo
         };
         await context.dispatch("setRequests", defaultParams);
-        context.commit("setFetchingState", false);
       },
 
       /**
@@ -239,11 +237,13 @@ const store = () =>
        * @return {null}
        */
       async setRequests(context, params) {
+        context.commit("setFetchingState", true);
         const requests = await context.dispatch("queryRequests", params);
         context.commit("setSelfRequests", requests);
         context.commit("setSelfRequestsTotalTime");
         context.commit("setShifts");
         context.commit("setShiftsRequests", requests);
+        context.commit("setFetchingState", false);
       }
     }
   });

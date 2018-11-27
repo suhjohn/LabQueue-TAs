@@ -1,10 +1,11 @@
 import Vue from "vue";
-import { Line, Bar } from "vue-chartjs";
+import { Line, Bar, mixins } from "vue-chartjs";
 import styles from "~/assets/scss/variables.scss";
 import tinycolor from "tinycolor2";
 
 Vue.component("LineGraph", {
   extends: Line,
+  mixins: [mixins.reactiveProp],
   data() {
     return {
       gradient: undefined

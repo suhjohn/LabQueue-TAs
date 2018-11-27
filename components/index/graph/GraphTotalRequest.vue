@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- <barGraph class="graph" :data="barData" :options="options" /> -->
-    <lineGraph class="graph" :data="barData" :options="options" /> 
+    <lineGraph class="graph" :data="barData" :options="options" />
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              max: this.calculateYMax(_datasets)
+              suggestedMax: this.calculateYMax(_datasets)
             },
             gridLines: {
               display: false

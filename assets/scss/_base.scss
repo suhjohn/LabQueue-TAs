@@ -24,11 +24,20 @@ body {
   box-sizing: border-box;
   color: $color-grey-dark;
 }
-input{
+input {
   font-family: "Roboto", sans-serif;
   font-size: 1.4rem;
   color: $color-grey-darkest;
+  &:hover &:active &:focus &:visited {
+    border: none;
+    outline: none;
+  }
 }
+input:focus {
+  border: none;
+  outline: none;
+}
+
 li {
   list-style: none;
 }

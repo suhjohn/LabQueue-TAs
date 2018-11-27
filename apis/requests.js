@@ -38,5 +38,9 @@ import queryData from "@/assets/static/dummydata.json";
  * Temporary dummy query function
  */
 export async function queryRequests(context, params) {
-  return queryData;
+  const dateFrom = params.dateFrom;
+  const dateTo = params.dateTo;
+  return queryData.filter(
+    data => dateFrom < data.time_accepted && data.time_accepted < dateTo
+  );
 }

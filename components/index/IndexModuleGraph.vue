@@ -1,17 +1,18 @@
 <template>
-    <section>
-        <ul class="datepicker-list" v-on-clickaway="away">
-
-          <datepicker @opened="calendarHandler(fromDateState, true)" @closed="calendarHandler(fromDateState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': fromDateState.calendarIsOpen, 'datepicker-closed': !fromDateState.calendarIsOpen}" v-model="fromDate" ></datepicker>
-          <datepicker @opened="calendarHandler(toDateState, true)" @closed="calendarHandler(toDateState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': toDateState.calendarIsOpen, 'datepicker-closed': !toDateState.calendarIsOpen}" v-model="toDate"></datepicker>
-        </ul>
-        <ul id="row">
-            <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
-        </ul>
-        <div id="graph">
-            <component v-bind:is="selectedGraphData.componentName"></component>
-        </div>
-    </section>
+  <section>
+    <div class="datepicker-list-wrapper">
+      <ul class="datepicker-list" v-on-clickaway="away" @click="onClickDatepicker">
+        <datepicker @input="fetchData" :typeable="true" @opened="calendarHandler(dateToState, true)" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
+        <datepicker @input="fetchData" :typeable="true" @opened="calendarHandler(dateFromState, true)" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
+      </ul>
+    </div>
+    <ul class="row">
+      <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
+    </ul>
+    <div id="graph">
+      <component v-bind:is="selectedGraphData.componentName"></component>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -19,7 +20,7 @@
 import moment from "moment";
 import Datepicker from "vuejs-datepicker";
 import { mixin as clickaway } from "vue-clickaway";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import GraphSelectionCard from "~/components/index/graph/GraphSelectionCard";
 import GraphTotalRequest from "~/components/index/graph/GraphTotalRequest";
 import GraphTotalTime from "~/components/index/graph/GraphTotalTime";
@@ -58,17 +59,17 @@ export default {
       graphDatas: [],
       selectedGraphData: this.getTotalRequestsData(),
       selectedGraphIndex: 0,
-      toDate: moment()
+      dateTo: moment()
         .startOf("day")
         .toDate(),
-      fromDate: moment()
+      dateFrom: moment()
         .subtract(defaultDateRange.value, defaultDateRange.unit)
         .startOf("day")
         .toDate(),
-      toDateState: {
+      dateFromState: {
         calendarIsOpen: false
       },
-      fromDateState: {
+      dateToState: {
         calendarIsOpen: false
       }
     };
@@ -145,25 +146,52 @@ export default {
   },
   methods: {
     /**
+     * Vuex
+     * this.$store.dispatch(<name>, args)
+     */
+    ...mapActions(["setRequests"]),
+    /**
      * Event Handlers
      */
     away() {
-      this.toDateState.calendarIsOpen = false;
-      this.fromDateState.calendarIsOpen = false;
+      this.dateFromState.calendarIsOpen = false;
+      this.dateToState.calendarIsOpen = false;
     },
     calendarHandler(calendarState, isOpen) {
       calendarState.calendarIsOpen = isOpen;
-      if (calendarState == this.toDateState){
-        this.fromDateState.calendarIsOpen = false;
-      }
-      else{
-        this.toDateState.calendarIsOpen = false
+      if (calendarState == this.dateFromState) {
+        this.dateToState.calendarIsOpen = false;
+      } else {
+        this.dateFromState.calendarIsOpen = false;
       }
     },
     onClickHandle(index) {
       this.selectedGraphData = this.graphDatas[index];
       this.selectedGraphIndex = index;
     },
+    async fetchData() {
+      var wait = ms => new Promise(r => setTimeout(r, ms));
+      // ascertain that the inputted value is relevant value
+      const dateFrom = this.dateFrom;
+      const dateTo = this.dateTo;
+      await wait(2000);
+      if (
+        dateFrom.getTime() != this.dateFrom.getTime() ||
+        dateTo.getTime() != this.dateTo.getTime()
+      ) {
+        return;
+      }
+      const dateFromString = moment(dateFrom).format("YYYY-MM-DD");
+      const dateToString = moment(dateTo).format("YYYY-MM-DD");
+      await this.$store.dispatch("setRequests", {
+        dateFrom: dateFromString,
+        dateToString
+      });
+    },
+    /**
+     * Hacky fix to maintain state
+     */
+    onClickDatepicker() {},
     /**
      * Graph Tab Data getters
      */
@@ -226,45 +254,54 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
+
 .datepicker {
-  &:not(:last-child){
+  &:not(:last-child) {
     margin-right: 2rem;
   }
   border: none;
   box-sizing: border-box;
   box-shadow: 0px 0px 0px 1px $color-grey-light;
   border-radius: 10px;
-  &-closed{
+  &-closed {
     transition: 0.2s box-shadow;
-    &:hover{
+    &:hover {
       box-shadow: 0px 0px 0px 1px $color-grey-dark;
     }
   }
   &-opened {
     box-shadow: 0px 0px 0px 1px $color-crimson-main;
-    
-  }
-  &-input {
-      padding-left: 1rem;
-      height: 4rem;
-      line-height: 4rem;
-      background-color: transparent;
-      border: none;
-  }
-  &-calendar{
-    right:0;
-  }
-  & div {
-    & input {
-      cursor: pointer;
+    & div {
+      & input {
+        & input {
+          cursor: text;
+        }
+      }
     }
   }
+  &-input {
+    padding-left: 1rem;
+    height: 4rem;
+    line-height: 4rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &:focus {
+      cursor: text;
+    }
+  }
+  &-calendar {
+    right: 0;
+  }
 }
-.datepicker-list{
+.datepicker-list {
   display: flex;
-  justify-content: flex-end;
+  &-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
-#row {
+.row {
   display: flex;
   justify-content: flex-start;
 }
