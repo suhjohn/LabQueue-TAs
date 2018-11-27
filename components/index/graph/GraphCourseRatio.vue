@@ -63,7 +63,7 @@ export default {
       const shifts = this.$store.getters.getSelfShifts;
       const selfNetid = this.$store.getters.getSelf.netid;
 
-      const courses = ["cos226", "cos217", "cos126"];
+      const courses = ["cos126", "cos226", "cos217"];
       const courseColor = [
         styles.colorMainCompRed,
         styles.colorMainCompMarine,

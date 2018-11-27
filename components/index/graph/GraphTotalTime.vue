@@ -51,7 +51,7 @@ export default {
             },
             ticks: {
               beginAtZero: true,
-              max: this.calculateYMax(_datasets)
+              suggestedMax: this.calculateYMax(_datasets)
             },
             gridLines: {
               display: false
