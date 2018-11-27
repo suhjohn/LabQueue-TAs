@@ -26,19 +26,19 @@ export default {
       labels: labels,
       datasets: _datasets
     };
-    console.log(_datasets);
+    console.log(this.calculateYMax(_datasets));
     this.options = {
       scales: {
         yAxes: [
           {
             position: "right",
             scaleLabel: {
-              labelString: "Requests",
+              labelString: "% Course Requests",
               display: true
             },
             ticks: {
               beginAtZero: true,
-              max: this.calculateYMax(_datasets)
+              suggestedMax: this.calculateYMax(_datasets)
             },
             gridLines: {
               display: false
@@ -87,7 +87,9 @@ export default {
           let courseReqCount = shiftReqs.filter(req => {
             return req.course === course;
           }).length;
-          dataSet[course].push((courseReqCount / shiftReqsCount).toFixed(2));
+          dataSet[course].push(
+            (courseReqCount * 100 / shiftReqsCount).toFixed(2)
+          );
         });
       });
 

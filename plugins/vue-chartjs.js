@@ -15,28 +15,9 @@ Vue.component("LineGraph", {
     },
     options: {
       type: Object
-    },
-    enableGradient: {
-      type: Boolean,
-      default: true
     }
   },
   mounted() {
-    this.gradient = this.$refs.canvas
-      .getContext("2d")
-      .createLinearGradient(0, 0, 0, 450);
-    this.gradient.addColorStop(0, styles.colorCrimsonMain + "80");
-    this.gradient.addColorStop(0.5, styles.colorCrimsonMain + "40");
-    this.gradient.addColorStop(1, styles.colorCrimsonMain + "00");
-
-    const baseDataset = {
-      backgroundColor: styles.colorCrimsonMainDark,
-      pointBackgroundColor: styles.colorCrimsonMainDark,
-      borderColor: styles.colorCrimsonMainDark
-    };
-    if (this.enableGradient) {
-      baseDataset["backgroundColor"] = this.gradient;
-    }
     const baseOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -55,7 +36,22 @@ Vue.component("LineGraph", {
     _data["labels"] = this.data.labels;
     _data["datasets"] = [];
     this.data.datasets.forEach(dataItem => {
-      _data["datasets"].push({ ...baseDataset, ...dataItem });
+      let baseColor = dataItem.baseColor
+        ? dataItem.baseColor
+        : styles.colorCrimsonMainDark;
+      const gradient = this.$refs.canvas
+        .getContext("2d")
+        .createLinearGradient(0, 0, 0, 450);
+      gradient.addColorStop(0, baseColor + "A0");
+      gradient.addColorStop(0.5, baseColor + "60");
+      gradient.addColorStop(1, baseColor + "10");
+      let configuredDataItem = {
+        ...dataItem,
+        borderWidth: 1,
+        backgroundColor: gradient,
+        borderColor: baseColor + "CC"
+      };
+      _data["datasets"].push(configuredDataItem);
     });
 
     // Set options with base and provided
@@ -75,11 +71,11 @@ Vue.component("BarGraph", {
   extends: Bar,
   props: ["data", "options"],
   mounted() {
-    const baseOptions = {
-      responsive: true,
-      maintainAspectRatio: false
-    };
+    const baseOptions = { responsive: true, maintainAspectRatio: false };
+    // Set Options
     const _options = { ...baseOptions, ...this.options };
+
+    // Set Data
     const _data = {};
     _data["labels"] = this.data.labels;
     _data["datasets"] = [];
