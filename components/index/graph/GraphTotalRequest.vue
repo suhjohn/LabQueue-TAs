@@ -8,7 +8,10 @@
 <script>
 import styles from "~/assets/scss/variables.scss";
 import { mapGetters } from "vuex";
+import { calculateYMax } from "~/mixins/calculateYMax";
+
 export default {
+  mixins: [calculateYMax],
   data() {
     return {
       barData: undefined,
@@ -60,9 +63,6 @@ export default {
       "getSelf",
       "getSelfShifts"
     ]),
-    graphStyleClass() {
-      return {};
-    },
     // [{label: "", data: [<shift1 data>, <shift2 data>,...]}]
     fullBarDataSet() {
       const self = this.$store.getters.getSelf;
@@ -132,23 +132,6 @@ export default {
         return b - a;
       });
       return shifts;
-    }
-  },
-  methods: {
-    /**
-     * datasets represents a chart.js format datasets.
-     * Returns a value that makes the current max being its 80%.
-     */
-    calculateYMax(datasets) {
-      const OFFSET = 0.25;
-      let minVal = 0;
-      let maxVal = 0;
-      datasets.forEach(dataset => {
-        maxVal = Math.max(maxVal, Math.max(...dataset.data));
-        minVal = Math.min(maxVal, Math.min(...dataset.data));
-      });
-
-      return (maxVal - minVal) * OFFSET + maxVal;
     }
   }
 };

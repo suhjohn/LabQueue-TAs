@@ -72,6 +72,19 @@ Vue.component("BarGraph", {
   extends: Bar,
   props: ["data", "options"],
   mounted() {
-    this.renderChart(this.data, this.options);
+    const baseOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: { display: false }, // Removes the title in the tooltip
+      tooltips: {
+        callbacks: {
+          label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
+          title: () => null
+        }
+      }
+    };
+    const _options = { ...baseOptions, ...this.options };
+
+    this.renderChart(this.data, _options);
   }
 });
