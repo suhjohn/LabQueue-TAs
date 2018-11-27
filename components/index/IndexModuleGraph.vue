@@ -316,14 +316,17 @@ export default {
 }
 .datepicker-list {
   display: flex;
+  flex-wrap: wrap;
   &-wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
   }
 }
 .row {
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-evenlygu;
 }
 
 @media only screen and (min-width: 1024px) {
