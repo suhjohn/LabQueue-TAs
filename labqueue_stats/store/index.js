@@ -93,6 +93,9 @@ const store = () =>
       },
       getIsFetchingData: state => {
         return state.isFetchingData;
+      },
+      isTAUser: state => {
+        return null;
       }
     },
     mutations: {

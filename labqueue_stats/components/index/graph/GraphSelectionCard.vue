@@ -24,7 +24,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-$card-min-width: 18rem;
+$card-min-width: 20rem;
 $card-height: 8rem;
 .card-title {
   color: $color-grey-dark;
@@ -32,8 +32,9 @@ $card-height: 8rem;
   padding-bottom: 0.5rem;
 }
 .card-value {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: $color-grey-darkest;
+  word-break: break-all;
 }
 
 .card {
@@ -42,7 +43,7 @@ $card-height: 8rem;
   padding: 1.5rem;
   transition: background-color 0.2s;
   box-sizing: border-box;
-  min-width: $card-min-width;
+  width: $card-min-width;
 
   &-unselected {
     padding-bottom: 2rem;
@@ -59,9 +60,6 @@ $card-height: 8rem;
     color: $color-grey-darkest;
     border-bottom: 5px solid $color-crimson-main;
 
-    & .card-value {
-      font-size: 2rem;
-    }
   }
 }
 

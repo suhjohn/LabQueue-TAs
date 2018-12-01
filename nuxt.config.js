@@ -69,6 +69,8 @@ module.exports = {
     /*
      ** Run ESLint on save
      */
+    vendor: ["axios"],
+    publicPath: `/${require("./secrets.json").NODE_ENV}/_nuxt/`,
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -79,5 +81,9 @@ module.exports = {
         });
       }
     }
+  },
+  srcDir: "labqueue_stats/",
+  performance: {
+    gzip: false
   }
 };

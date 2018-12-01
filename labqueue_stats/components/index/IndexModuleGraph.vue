@@ -174,7 +174,7 @@ export default {
       const totalReq = this.getSelfRequestsCount;
       let reqRatio = [];
       reqByMinSeg.forEach(reqArr => {
-        reqRatio.push((reqArr.length / totalReq).toFixed(2));
+        reqRatio.push((reqArr.length * 100 / totalReq).toFixed(2) + "%");
       });
       return reqRatio.join("|");
     },
@@ -203,7 +203,7 @@ export default {
       const totalReq = this.getSelfRequestsCount;
       let reqRatio = [];
       reqByCourse.forEach(reqArr => {
-        reqRatio.push((reqArr.length / totalReq).toFixed(2));
+        reqRatio.push((reqArr.length * 100 / totalReq).toFixed(2) + "%");
       });
       return reqRatio.join("|");
     }
