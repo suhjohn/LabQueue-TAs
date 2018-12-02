@@ -1,13 +1,13 @@
 <template>
   <nav>
     <ul>
-      <nuxt-link  tag="li" id="logo" to="/">
+      <nuxt-link tag="li" id="logo" to="/">
         <img class="logo-img" src="~/assets/static/Logo.svg">
       </nuxt-link>
 
-        <li class="navbar-options-sub-option">
-          <a class="navbar-options-sub-option-text" href="https://www.labqueue.io/queue/">Back to Queue</a>
-        </li>
+      <li class="navbar-options-sub-option">
+        <a class="navbar-options-sub-option-text" href="https://www.labqueue.io/queue/">Back to Queue</a>
+      </li>
     </ul>
   </nav>
 </template>
@@ -35,6 +35,7 @@ nav {
   position: sticky;
   height: $navbar-height;
   line-height: $navbar-height;
+  z-index: 1;
   border-bottom: 1px solid $color-grey-light;
   background-color: $color-white;
 }

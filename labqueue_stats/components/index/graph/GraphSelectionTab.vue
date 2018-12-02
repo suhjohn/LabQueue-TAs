@@ -43,7 +43,7 @@ $card-height: 8rem;
   padding: 1.5rem;
   transition: background-color 0.2s;
   box-sizing: border-box;
-  width: $card-min-width;
+  width: 100%;
 
   &-unselected {
     padding-bottom: 2rem;
@@ -59,11 +59,13 @@ $card-height: 8rem;
   &-selected {
     color: $color-grey-darkest;
     border-bottom: 5px solid $color-crimson-main;
-
   }
 }
 
 @media only screen and (min-width: 768px) {
+  .card {
+    width: $card-min-width;
+  }
 }
 
 @media only screen and (min-width: 968px) {

@@ -8,9 +8,9 @@
       </ul>
     </div>
     <ul class="row">
-      <GraphSelectionCard v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
+      <GraphSelectionTab v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
     </ul>
-    <div id="graph">
+    <div class="graph-container">
       <component v-bind:is="graphDatas[selectedGraphIndex].componentName"></component>
     </div>
   </section>
@@ -22,7 +22,7 @@ import moment from "moment";
 import Datepicker from "vuejs-datepicker";
 import { mixin as clickaway } from "vue-clickaway";
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import GraphSelectionCard from "~/components/index/graph/GraphSelectionCard";
+import GraphSelectionTab from "~/components/index/graph/GraphSelectionTab";
 import GraphTotalRequest from "~/components/index/graph/GraphTotalRequest";
 import GraphTotalTime from "~/components/index/graph/GraphTotalTime";
 import GraphAvgTimePerReq from "~/components/index/graph/GraphAvgTimePerReq";
@@ -40,7 +40,7 @@ const defaultDateRange = {
 export default {
   components: {
     Datepicker,
-    GraphSelectionCard,
+    GraphSelectionTab,
     GraphTotalRequest,
     GraphTotalTime,
     GraphAvgTimePerReq,
@@ -333,7 +333,7 @@ export default {
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenlygu;
+  justify-content: space-evenly;
 }
 
 @media only screen and (min-width: 1024px) {
