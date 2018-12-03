@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex, { mapActions } from "vuex";
 import apis from "@/apis/index";
 import moment from "moment";
+import { DATE_FORMAT, API_TIME_FORMAT } from "@/constants.js";
 
 Vue.use(Vuex);
 const store = () =>
@@ -108,14 +109,38 @@ const store = () =>
       setSelf(state, self) {
         Vue.set(state, "self", { ...self });
       },
+      /**
+       * Sets the current user's requests to the store.
+       */
       setSelfRequests(state, requests) {
-        const selfRequests = requests.filter(request => {
+        /* Represents a filter on requests that took too long which means that it was probably just open for too long */
+        const BUGGY_REQUEST_FILTER_LIMIT = 60;
+
+        const limit_duration = moment.duration(
+          BUGGY_REQUEST_FILTER_LIMIT,
+          "minutes"
+        );
+        let selfRequests = requests.filter(request => {
           return request.acceptor_netid === state.self.netid;
         });
+        selfRequests = selfRequests.map(request => {
+          let moment_accepted = moment(request.time_accepted);
+          let moment_closed = moment(request.time_closed);
+          let diff = moment_closed.diff(moment_accepted);
+          if (diff < limit_duration) {
+            return request;
+          } else {
+            request.time_closed = moment_accepted
+              .add(limit_duration)
+              .format(API_TIME_FORMAT);
+            return request;
+          }
+        });
+
         Vue.set(state, "selfRequests", selfRequests);
         state.selfRequests.sort((a, b) => {
-          var base = moment(a.time_accepted);
-          var comp = moment(b.time_closed);
+          let base = moment(a.time_accepted);
+          let comp = moment(b.time_closed);
           return base.diff(comp);
         });
       },
@@ -134,7 +159,7 @@ const store = () =>
        */
       setShifts(state) {
         const shifts = state.selfRequests.map(request => {
-          return moment(request.time_accepted).format("YYYY-MM-DD");
+          return moment(request.time_accepted).format(DATE_FORMAT);
         });
         shifts.sort();
         Vue.set(state, "selfShifts", [...new Set(shifts)]);
@@ -147,7 +172,7 @@ const store = () =>
         const shiftSet = new Set(state.selfShifts);
         const shiftsRequests = requests.filter(request => {
           const time_accepted = moment(request.time_accepted).format(
-            "YYYY-MM-DD"
+            DATE_FORMAT
           );
           return shiftSet.has(time_accepted);
         });
@@ -160,7 +185,7 @@ const store = () =>
         });
         requests.forEach(request => {
           const time_accepted = moment(request.time_accepted).format(
-            "YYYY-MM-DD"
+            DATE_FORMAT
           );
           shiftsRequestsObj[time_accepted].push(request);
         });
@@ -180,7 +205,7 @@ const store = () =>
         });
         shiftsRequests.forEach(request => {
           const ta = request.acceptor_netid;
-          const shift = moment(request.time_accepted).format("YYYY-MM-DD");
+          const shift = moment(request.time_accepted).format(DATE_FORMAT);
           formattedShiftsRequestTA[ta][shift].push(request);
         });
         Vue.set(state, "shiftsRequestsObjTA", {
@@ -226,7 +251,6 @@ const store = () =>
         context.commit("setSelf", self);
         // Calculate dateFrom = current date - 1 month, dateTo = current date
         const DEFAULT_MONTH = 1;
-        const DATE_FORMAT = "YYYY-MM-DD";
         const currentDate = moment()
           .utc()
           .startOf("day");
