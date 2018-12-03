@@ -72,6 +72,7 @@ export default {
         let reqs = reqByShift[shift][selfNetid] || [];
         let shiftTotalDuration = 0;
         reqs.forEach(req => {
+          console.log(req);
           let from = moment(req.time_accepted);
           let to = moment(req.time_closed);
           let duration = moment.duration(to.diff(from)).asMinutes();

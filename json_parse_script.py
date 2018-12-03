@@ -14,6 +14,26 @@ DATE_FORMAT = "%Y-%m-%dT%H:%M"
 DEMO_USERNAME = "demouser"
 requests = get_json(READ_FILEPATH)
 
+# Filter Requests to fit the API request format
+api_response_requests = []
+for request in requests:
+    api_response_requests.append({
+        "pk": request["pk"],
+        "author_full_name": request["author_full_name"],
+        "author_username": request["author"],
+        "location": request["location"],
+        "course": request["course"],
+        "description": request["description"],
+        "time_created": request["time_created"],
+        "acceptor_netid": request["accepted_by"],
+        "time_accepted": request["time_accepted"],
+        "closer_username": request["closed_by"],
+        "time_closed": request["time_closed"]
+    })
+    
+# Reset the requests to appropriate format
+requests = api_response_requests
+
 # {<date:yy-mm-dd>: [<request>, <request>, <request>,...]}
 date_dic = {}
 # {<date:yy-mm-dd>: ["ta_name1","ta_name2","ta_name3",...]}
@@ -30,7 +50,7 @@ for request in requests:
     if not time_closed:
         continue
 
-    accepted_by = request["accepted_by"]
+    accepted_by = request["acceptor_netid"]
     t_created = datetime.datetime.strptime(time_created, "%Y-%m-%dT%H:%M")
     t_closed = datetime.datetime.strptime(time_closed, "%Y-%m-%dT%H:%M")
     t_accepted = datetime.datetime.strptime(time_accepted, "%Y-%m-%dT%H:%M")
@@ -39,34 +59,33 @@ for request in requests:
     t_closed += datetime.timedelta(days=46)
     t_accepted += datetime.timedelta(days=46)
 
-    t_created = t_created.isoformat()
-    t_closed = t_closed.isoformat()
-    t_accepted = t_accepted.isoformat()
-
-    date_ta_dic.setdefault(t_accepted, set()).add(accepted_by)
-    date_set.add(t_accepted)
+    accepted_date = t_accepted.date().isoformat()
+    date_ta_dic.setdefault(accepted_date, set()).add(accepted_by)
+    date_set.add(accepted_date)
 
     req = {
         **request,
-        "time_created": t_created,
-        "time_closed": t_closed,
-        "time_accepted": t_accepted
+        "time_created": t_created.isoformat(),
+        "time_closed": t_closed.isoformat(),
+        "time_accepted": t_accepted.isoformat()
     }
-    date_dic.setdefault(t_accepted, []).append(req)
+    date_dic.setdefault(accepted_date, []).append(req)
 
 date_list = list(date_set)
 date_list.sort(reverse=True)
 
 reqs = []
-i = random.randint(4, 8)
-for date in date_list[:len(date_list)//2:i]:
+i = 0
+i_max = len(date_list)
+while i < i_max:
+    date = date_list[i]
     date_requests, date_tas = date_dic[date], list(date_ta_dic[date])
     random_ta = random.choice(date_tas)
-    random_ta_req_for_shift = [req for req in date_requests if req["accepted_by"] == random_ta]
+    random_ta_req_for_shift = [req for req in date_requests if req["acceptor_netid"] == random_ta]
     for req in random_ta_req_for_shift:
-        req["accepted_by"], req["closed_by"] = DEMO_USERNAME, DEMO_USERNAME
+        req["acceptor_netid"], req["closer_username"] = DEMO_USERNAME, DEMO_USERNAME
     reqs += random_ta_req_for_shift
-    i = random.randint(4, 8)
+    i += random.randint(2, 6)
 
 with open(WRITE_FILEPATH, 'w') as outfile:
     json.dump(reqs, outfile, indent = 4, ensure_ascii=False)

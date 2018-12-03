@@ -109,9 +109,9 @@ const store = () =>
         Vue.set(state, "self", { ...self });
       },
       setSelfRequests(state, requests) {
-        const selfRequests = requests.filter(
-          request => request.acceptor_netid === state.self.netid
-        );
+        const selfRequests = requests.filter(request => {
+          return request.acceptor_netid === state.self.netid;
+        });
         Vue.set(state, "selfRequests", selfRequests);
         state.selfRequests.sort((a, b) => {
           var base = moment(a.time_accepted);
@@ -134,8 +134,7 @@ const store = () =>
        */
       setShifts(state) {
         const shifts = state.selfRequests.map(request => {
-          const time_accepted = moment(request.time_accepted);
-          return time_accepted.format("YYYY-MM-DD");
+          return moment(request.time_accepted).format("YYYY-MM-DD");
         });
         shifts.sort();
         Vue.set(state, "selfShifts", [...new Set(shifts)]);
