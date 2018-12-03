@@ -34,7 +34,7 @@ export default {
             {
               position: "right",
               scaleLabel: {
-                labelString: "% Course Requests",
+                labelString: "% Requests Closed",
                 display: true
               },
               ticks: {

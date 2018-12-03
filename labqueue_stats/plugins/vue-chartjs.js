@@ -26,18 +26,17 @@ Vue.component("LineGraph", {
         maintainAspectRatio: false,
         legend: { display: false },
         tooltips: {
-          mode: "nearest",
+          mode: "index",
+          intersect: false,
           callbacks: {
             labelColor: function(tooltipItem, chart) {
               const dataset =
                 chart.config.data.datasets[tooltipItem.datasetIndex];
-              return {
-                backgroundColor: dataset.borderColor.substring(0, 7)
-              };
+              return { backgroundColor: dataset.borderColor.substring(0, 7) };
             },
-            label: tooltipItem =>
-              `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
-            title: () => null
+            title: function(tooltipItem) {
+              return this._data.labels[tooltipItem[0].index];
+            }
           }
         }
       };
@@ -91,8 +90,10 @@ Vue.component("BarGraph", {
       const baseOptions = {
         responsive: true,
         maintainAspectRatio: false,
+        hover: { mode: "label" },
         tooltips: {
-          mode: "nearest",
+          mode: "index",
+          intersect: false,
           callbacks: {
             labelColor: function(tooltipItem, chart) {
               const dataset =

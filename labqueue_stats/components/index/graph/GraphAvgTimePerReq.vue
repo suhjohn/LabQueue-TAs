@@ -30,20 +30,12 @@ export default {
     },
     options() {
       return {
-        tooltips: {
-          callbacks: {
-            title: () => null,
-            label: tooltipItem => {
-              return `${tooltipItem.yLabel} min:${tooltipItem.xLabel}`;
-            }
-          }
-        },
         scales: {
           yAxes: [
             {
               position: "right",
               scaleLabel: {
-                labelString: "Hours",
+                labelString: "min / Req",
                 display: true
               },
               ticks: {

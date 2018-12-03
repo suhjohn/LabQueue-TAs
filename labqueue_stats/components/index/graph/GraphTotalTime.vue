@@ -33,18 +33,6 @@ export default {
     },
     options() {
       return {
-        tooltips: {
-          callbacks: {
-            title: () => null,
-            label: tooltipItem => {
-              const hours = tooltipItem.yLabel;
-              const minutes = (hours - Math.floor(hours)) * 60;
-              return `${Math.floor(hours)} hrs ${Math.floor(minutes)} mins: ${
-                tooltipItem.xLabel
-              }`;
-            }
-          }
-        },
         scales: {
           yAxes: [
             {
