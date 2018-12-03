@@ -28,6 +28,10 @@ input {
   font-family: "Roboto", sans-serif;
   font-size: 1.4rem;
   color: $color-grey-darkest;
+  border: none;
+  outline: none;
+  background-color: transparent;
+
   &:hover &:active &:focus &:visited {
     border: none;
     outline: none;

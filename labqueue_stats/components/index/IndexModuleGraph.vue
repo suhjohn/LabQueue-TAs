@@ -205,6 +205,7 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
+
 .row {
   display: flex;
   flex-wrap: wrap;

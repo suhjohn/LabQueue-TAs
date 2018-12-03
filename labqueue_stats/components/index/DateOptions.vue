@@ -1,8 +1,11 @@
 <template>
-    <ul class="datepicker-list" v-on-clickaway="away">
-        <datepicker @selected="fetchData" :typeable="true" @opened="calendarHandler(dateToState, true)" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
-
-        <datepicker @selected="fetchData" :typeable="true" @opened="calendarHandler(dateFromState, true)" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
+    <ul class="datepicker-list">
+        <li @click="openCalendar('dateTo')" v-on-clickaway="closeDateToCalendar">
+            <datepicker ref="dateTo" @selected="fetchData" :typeable="true" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
+        </li>
+        <li @click="openCalendar('dateFrom')" v-on-clickaway="closeDateFromCalendar">
+            <datepicker ref="dateFrom" @selected="fetchData" :typeable="true" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
+        </li>
     </ul>
 </template>
 <script>
@@ -14,7 +17,7 @@ import { mapMutations } from "vuex";
 const defaultDateRange = {
   value: 1,
   unit: "months"
-}; // useful for moment.js
+};
 
 export default {
   components: {
@@ -55,6 +58,18 @@ export default {
         this.dateFromState.calendarIsOpen = false;
       }
     },
+    openCalendar(calendar) {
+      this[calendar + "State"].calendarIsOpen = true;
+      this.$refs[calendar].showDayCalendar();
+    },
+    closeDateToCalendar() {
+      this.dateToState.calendarIsOpen = false;
+      this.$refs.dateTo.close();
+    },
+    closeDateFromCalendar() {
+      this.dateFromState.calendarIsOpen = false;
+      this.$refs.dateFrom.close();
+    },
     async fetchData() {
       var wait = ms => new Promise(r => setTimeout(r, ms));
 
@@ -88,10 +103,10 @@ export default {
   &:not(:last-child) {
     margin-right: 2rem;
   }
-  border: none;
   box-sizing: border-box;
   box-shadow: 0px 0px 0px 1px $color-grey-light;
   border-radius: 10px;
+  padding: 1rem;
   &-closed {
     transition: 0.2s box-shadow;
     &:hover {
@@ -122,6 +137,7 @@ export default {
   &-calendar {
     right: 0;
     & div {
+      background-color: $color-white;
       .cell {
         &:hover {
           background-color: $color-grey-light;
