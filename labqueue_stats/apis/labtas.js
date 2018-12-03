@@ -30,9 +30,9 @@ Retrieves information about LabTA self.
 
 export async function retrieveSelf(context) {
   return {
-    full_name: "John Suh",
-    netid: "ssuh",
-    puid: "960886217",
+    full_name: "Demo User",
+    netid: "demouser",
+    puid: "123456789",
     major: "AB Computer Science",
     grad_year: 2020,
     type: "full",

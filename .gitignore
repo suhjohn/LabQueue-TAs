@@ -19,3 +19,6 @@ jspm_packages
 
 # Serverless directories
 .serverless
+
+# file
+labqueue.json
