@@ -1,11 +1,7 @@
 <template>
   <section>
-    <div class="datepicker-list-wrapper">
-      <ul class="datepicker-list" v-on-clickaway="away" @click="onClickDatepicker">
-        <datepicker @input="fetchData" :typeable="true" @opened="calendarHandler(dateToState, true)" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
-
-        <datepicker @input="fetchData" :typeable="true" @opened="calendarHandler(dateFromState, true)" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
-      </ul>
+    <div class="date-wrapper">
+      <DateOptions/>
     </div>
     <ul class="row">
       <GraphSelectionTab v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
@@ -19,9 +15,8 @@
 <script>
 /** Import */
 import moment from "moment";
-import Datepicker from "vuejs-datepicker";
-import { mixin as clickaway } from "vue-clickaway";
 import { mapGetters, mapActions, mapMutations } from "vuex";
+import DateOptions from "~/components/index/DateOptions";
 import GraphSelectionTab from "~/components/index/graph/GraphSelectionTab";
 import GraphTotalRequest from "~/components/index/graph/GraphTotalRequest";
 import GraphTotalTime from "~/components/index/graph/GraphTotalTime";
@@ -32,14 +27,11 @@ import GraphCourseRatio from "~/components/index/graph/GraphCourseRatio";
 /** Constants */
 const minSegments = [15, 30, 45, 60, Infinity];
 const courses = ["cos126", "cos226", "cos217"];
-const defaultDateRange = {
-  value: 1,
-  unit: "months"
-}; // useful for moment.js
+
 /** Export */
 export default {
   components: {
-    Datepicker,
+    DateOptions,
     GraphSelectionTab,
     GraphTotalRequest,
     GraphTotalTime,
@@ -47,23 +39,9 @@ export default {
     GraphMinSegmentRatio,
     GraphCourseRatio
   },
-  mixins: [clickaway],
   data() {
     return {
-      selectedGraphIndex: 0,
-      dateTo: moment()
-        .startOf("day")
-        .toDate(),
-      dateFrom: moment()
-        .subtract(defaultDateRange.value, defaultDateRange.unit)
-        .startOf("day")
-        .toDate(),
-      dateFromState: {
-        calendarIsOpen: false
-      },
-      dateToState: {
-        calendarIsOpen: false
-      }
+      selectedGraphIndex: 0
     };
   },
   computed: {
@@ -214,129 +192,29 @@ export default {
      * this.$store.dispatch(<name>, args)
      */
     ...mapActions({ setRequests: "setRequests" }),
-    ...mapMutations({ setFetchingState: "setFetchingState" }),
     /**
      * Event Handlers
      */
-    away() {
-      this.dateFromState.calendarIsOpen = false;
-      this.dateToState.calendarIsOpen = false;
-    },
-    calendarHandler(calendarState, isOpen) {
-      calendarState.calendarIsOpen = isOpen;
-      if (calendarState == this.dateFromState) {
-        this.dateToState.calendarIsOpen = false;
-      } else {
-        this.dateFromState.calendarIsOpen = false;
-      }
-    },
     onClickHandle(index) {
       this.selectedGraphData = this.graphDatas[index];
       this.selectedGraphIndex = index;
-    },
-    async fetchData() {
-      var wait = ms => new Promise(r => setTimeout(r, ms));
-      // ascertain that the inputted value is relevant value
-      const dateFrom = this.dateFrom;
-      const dateTo = this.dateTo;
-      this.setFetchingState(true);
-      await wait(2000);
-      if (
-        dateFrom.getTime() != this.dateFrom.getTime() ||
-        dateTo.getTime() != this.dateTo.getTime()
-      ) {
-        return;
-      }
-      const dateFromString = moment(dateFrom).format("YYYY-MM-DD");
-      const dateToString = moment(dateTo).format("YYYY-MM-DD");
-      await this.$store.dispatch("setRequests", {
-        dateFrom: dateFromString,
-        dateTo: dateToString
-      });
-      this.setFetchingState(false);
-    },
-    /**
-     * Hacky fix to maintain state
-     */
-    onClickDatepicker() {}
+    }
   }
 };
 </script>
 
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
-
-.datepicker {
-  &:not(:last-child) {
-    margin-right: 2rem;
-  }
-  border: none;
-  box-sizing: border-box;
-  box-shadow: 0px 0px 0px 1px $color-grey-light;
-  border-radius: 10px;
-  &-closed {
-    transition: 0.2s box-shadow;
-    &:hover {
-      box-shadow: 0px 0px 0px 1px $color-grey-dark;
-    }
-  }
-  &-opened {
-    box-shadow: 0px 0px 0px 1px $color-crimson-main;
-    & div {
-      & input {
-        & input {
-          cursor: text;
-        }
-      }
-    }
-  }
-  &-input {
-    padding-left: 1rem;
-    height: 4rem;
-    line-height: 4rem;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    &:focus {
-      cursor: text;
-    }
-  }
-  &-calendar {
-    right: 0;
-    & div {
-      .cell {
-        &:hover {
-          background-color: $color-grey-light;
-          border: none !important;
-        }
-        &.selected {
-          color: $color-white;
-          background-color: $color-crimson-main-lighter;
-          border: none !important;
-          &:hover {
-            background-color: $color-crimson-main-lighter;
-          }
-        }
-      }
-    }
-  }
-}
-.datepicker-list {
-  display: flex;
-  flex-wrap: wrap;
-  &-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-}
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
-@media only screen and (min-width: 1024px) {
+.date-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 </style>
 

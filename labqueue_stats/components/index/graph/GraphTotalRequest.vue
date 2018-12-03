@@ -44,11 +44,7 @@ export default {
               }
             }
           ],
-          xAxes: [
-            {
-              offset: true
-            }
-          ]
+          xAxes: [{}]
         }
       };
     },
