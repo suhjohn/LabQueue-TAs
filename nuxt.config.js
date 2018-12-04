@@ -1,6 +1,6 @@
 const axios = require("axios");
 const baseProtocol = process.env.Protocol || "http";
-const baseURL = process.env.BASE_URL || "localhost:8000";
+const baseURL = process.env.BASE_URL || "http://staging.labqueue.io";
 
 module.exports = {
   /*
@@ -42,7 +42,12 @@ module.exports = {
   env: {
     baseURL: baseURL
   },
-
+  router: {
+    scrollBehavior: function(to, from, savedPosition) {
+      console.log(savedPosition);
+      return { x: 0, y: 0 };
+    }
+  },
   /*
   CSS Options  
   */

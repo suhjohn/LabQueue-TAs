@@ -11,24 +11,24 @@ Retrieves information about LabTA self.
   is_active: Bool
 
 */
-// export async function retrieveSelf(context) {
-//   try {
-//     const requestParams = {
-//       action: {
-//         api_family: "lab_tas",
-//         action_name: "get_self"
-//       }
-//     };
-//     const self = await this.$axios.$get("/", requestParams);
-//     context.commit("setSelf", self);
-//     console.log(self);
-//     return self;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 export async function retrieveSelf(context) {
+  try {
+    const requestParams = {
+      action: {
+        api_family: "lab_tas",
+        action_name: "get_self"
+      }
+    };
+    const self = await this.$axios.$get("/", requestParams);
+    context.commit("setSelf", self);
+    console.log(self);
+    return self;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function retrieveSelf_demo(context) {
   return {
     full_name: "Demo User",
     netid: "demouser",

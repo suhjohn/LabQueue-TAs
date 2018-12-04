@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-        <RequestList class="request-list"/>
+    <RequestList class="request-list" />
   </section>
 </template>
 
@@ -9,18 +9,17 @@ import PageHeader from "~/components/UI/PageHeader";
 import RequestList from "~/components/requests/RequestsList";
 import RequestDetail from "~/components/requests/RequestsDetail";
 export default {
-transition:"none",
+  middleware: ["auth-user"],
+  transition: "none",
   data() {
-    return {
-    };
+    return {};
   },
   components: {
     PageHeader,
     RequestList,
     RequestDetail
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 
@@ -32,13 +31,13 @@ transition:"none",
 .container {
   display: flex;
 }
-.request-list{
+.request-list {
   width: 100%;
 }
 
 @media only screen and (min-width: 1200px) {
-  .request-list{
-      width: 50rem;
+  .request-list {
+    width: 50rem;
   }
 }
 </style>

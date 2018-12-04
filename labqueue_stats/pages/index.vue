@@ -1,18 +1,31 @@
 <template>
-    <section class="login-page">
-        <div class="link-container">
-            <nuxt-link tag="button" class="link-button" to="/">
-                Login
-            </nuxt-link>
-            <nuxt-link tag="button" class="link-button" to="/">
-                Demo
-            </nuxt-link>
-        </div>
-    </section>
+  <section class="login-page">
+    <div class="link-container">
+      <a class="link-button" :href="login_url">
+        Login
+      </a>
+      <nuxt-link tag="button" @click.native="onClick" class="link-button" :to="{name:'dashboard'}">
+        Demo
+      </nuxt-link>
+    </div>
+  </section>
 </template>
 <script>
+import { LOGIN_URL } from "@/constants.js";
+import { mapMutations } from "vuex";
 export default {
-  layout: "login"
+  layout: "login",
+  computed: {
+    login_url() {
+      return LOGIN_URL;
+    }
+  },
+  methods: {
+    ...mapMutations({ setIsDemo: "setIsDemo" }),
+    onClick() {
+      this.setIsDemo(true);
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -31,6 +44,9 @@ export default {
     height: 40rem;
   }
   &-button {
+    display: block;
+    text-align: center;
+    line-height: 5rem;
     margin: 1rem 0;
     font-size: 1.6rem;
     width: 20rem;

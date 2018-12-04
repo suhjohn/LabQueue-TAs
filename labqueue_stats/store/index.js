@@ -49,7 +49,9 @@ const store = () =>
         closer_username: Str
         time_closed: DateTime in String: "2017-10-24T19:26"
       */
-      selectedRequest: {}
+      selectedRequest: {},
+      isAuthenticated: false,
+      isDemo: false
     },
     getters: {
       /**
@@ -63,6 +65,9 @@ const store = () =>
       },
       getIsInitialFetch: state => {
         return state.isInitialFetch;
+      },
+      isDemo: state => {
+        return state.isDemo;
       },
       /**
        *
@@ -105,11 +110,20 @@ const store = () =>
       },
       getSelectedRequest: state => {
         return state.selectedRequest;
+      },
+      isAuthenticated: state => {
+        return state.isAuthenticated;
       }
     },
     mutations: {
       setFetchingState(state, flag) {
         Vue.set(state, "isFetchingData", flag);
+      },
+      setIsInitialFetch(state, flag) {
+        Vue.set(state, "isInitialFetch", flag);
+      },
+      setIsDemo(state, isDemo) {
+        Vue.set(state, "isDemo", isDemo);
       },
       /**
        * Sets self to store.
@@ -179,7 +193,6 @@ const store = () =>
        * Sets the requests from self's shift days including other tas' requests
        */
       setShiftsRequests(state, requests) {
-        // [requests]
         const shiftSet = new Set(state.selfShifts);
         const shiftsRequests = requests.filter(request => {
           const time_accepted = moment(request.time_accepted).format(
@@ -260,25 +273,25 @@ const store = () =>
        * @param {*} context
        */
       async nuxtClientInit(context) {
-        context.state.isInitialFetch = true;
-        const self = await context.dispatch("retrieveSelf");
-        context.commit("setSelf", self);
-        // Calculate dateFrom = current date - 1 month, dateTo = current date
-        const DEFAULT_MONTH = 1;
-        const currentDate = moment()
-          .utc()
-          .startOf("day");
-        const dateTo = currentDate.format(DATE_FORMAT);
-        const dateFrom = currentDate
-          .subtract(DEFAULT_MONTH, "months")
-          .format(DATE_FORMAT);
-
-        const defaultParams = {
-          dateFrom: dateFrom,
-          dateTo: dateTo
-        };
-        await context.dispatch("setRequests", defaultParams);
-        context.state.isInitialFetch = false;
+        // Login user
+        // context.state.isInitialFetch = true;
+        // const self = await context.dispatch("retrieveSelf");
+        // context.commit("setSelf", self);
+        // // Calculate dateFrom = current date - 1 month, dateTo = current date
+        // const DEFAULT_MONTH = 1;
+        // const currentDate = moment()
+        //   .utc()
+        //   .startOf("day");
+        // const dateTo = currentDate.format(DATE_FORMAT);
+        // const dateFrom = currentDate
+        //   .subtract(DEFAULT_MONTH, "months")
+        //   .format(DATE_FORMAT);
+        // const defaultParams = {
+        //   dateFrom: dateFrom,
+        //   dateTo: dateTo
+        // };
+        // await context.dispatch("setRequests", defaultParams);
+        // context.state.isInitialFetch = false;
       },
 
       /**
@@ -291,8 +304,10 @@ const store = () =>
        * @return {null}
        */
       async setRequests(context, params) {
-        const requests = await context.dispatch("queryRequests", params);
-        console.log(requests.length);
+        const queryRequest = context.state.isDemo
+          ? "queryRequests_demo"
+          : "queryRequests";
+        const requests = await context.dispatch(queryRequest, params);
         context.commit("setSelfRequests", requests);
         context.commit("setSelfRequestsTotalTime");
         context.commit("setShifts");
