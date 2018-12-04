@@ -1,6 +1,9 @@
 <template>
   <section class="container">
     <RequestList class="request-list"/>
+    <nuxt-link class="button-back" tag="button" :to="{name: 'requests'}">
+      <i class="fas fa-arrow-left"></i>
+    </nuxt-link>
     <transition name="across">
         <RequestDetail class="request-detail" :authorFullname="selectedData.author_full_name" :authorUsername="selectedData.author_username" :location="selectedData.location" :course="selectedData.course" :description="selectedData.description" :timeCreated="selectedData.time_created" :timeAccepted="selectedData.time_accepted" :timeClosed="selectedData.time_closed" :acceptorNetId="selectedData.acceptor_netid" :closerUsername="selectedData.closerUsername" />
     </transition>
@@ -53,15 +56,33 @@ export default {
 .request-list{
   display:none;
 }
+.button-back{
+  margin: 2rem 0 0 2rem;
+  height: 5rem;
+  width: 5rem;
+  font-size: 2.5rem;
+  transition: 0.15s all;
+    &:hover{
+      color:$color-crimson-main;
+    }
+    &:active{
 
-@media only screen and (min-width: 930px) {
+    }
+}
+
+@media only screen and (min-width: 1200px) {
   .request-list{
       display:block;
-      width: 60rem;
+      width: 50rem;
   }
   .request-detail{
       width: auto;
   }
+  .button-back{
+    display: none;
+    
+  }
+
 }
 </style>
 

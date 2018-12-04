@@ -9,6 +9,7 @@ import PageHeader from "~/components/UI/PageHeader";
 import RequestList from "~/components/requests/RequestsList";
 import RequestDetail from "~/components/requests/RequestsDetail";
 export default {
+transition:"none",
   data() {
     return {
     };
@@ -35,9 +36,9 @@ export default {
   width: 100%;
 }
 
-@media only screen and (min-width: 930px) {
+@media only screen and (min-width: 1200px) {
   .request-list{
-      width: 60rem;
+      width: 50rem;
   }
 }
 </style>

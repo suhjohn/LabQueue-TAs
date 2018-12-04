@@ -53,7 +53,7 @@ export default {
 @import "@/assets/scss/variables.scss";
 
 .request-list {
-  width: 40rem;
+  width: 30rem;
   height: 100vh;
   border-right: 1px solid $color-grey-light;
   background-color: $color-white;

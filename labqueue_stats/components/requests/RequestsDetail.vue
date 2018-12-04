@@ -88,6 +88,10 @@ export default {
 hr{
   margin: 2rem 0;
 }
+@media only screen and (min-width: 1200px) {
+
+}
+
 </style>
 
 

@@ -2,7 +2,9 @@
   <nuxt-link tag="li" :to="{ name: 'requests-pk', params: { pk: pk }}" @click="onClick" class="request-list-item" :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}">
     <div class="request-list-item-title">
       <h1 class="request-list-item-title-text">{{ pk }} - {{ descriptionString }}</h1>
-      <h4 class="request-list-item-title-date">{{ timeAccepted }}</h4>
+      <div class="request-list-item-title-date-container">
+        <h4 class="request-list-item-title-date">{{ timeAccepted }}</h4>
+      </div>
     </div>
     <div class="request-list-item-body">
       <p class="request-list-item-body-text">
@@ -14,10 +16,10 @@
 <script>
 import { mapMutations } from "vuex";
 
-const DESCRIPTION_LIMIT = 60;
+const DESCRIPTION_LIMIT = 45;
 export default {
   props: {
-    pk:{
+    pk: {
       type: Number
     },
     authorFullname: {
@@ -39,13 +41,13 @@ export default {
       type: Boolean
     }
   },
-  computed:{
-    descriptionString(){
-      let description = this.description.substring(0, DESCRIPTION_LIMIT)
-      if (this.description.length > DESCRIPTION_LIMIT){
-        description += "..."
+  computed: {
+    descriptionString() {
+      let description = this.description.substring(0, DESCRIPTION_LIMIT);
+      if (this.description.length > DESCRIPTION_LIMIT) {
+        description += "...";
       }
-      return description
+      return description;
     }
   },
   methods: {
@@ -58,19 +60,18 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
 .nuxt-link-exact-active {
+  background-color: $color-crimson-main-dark;
+  .request-list-item-title {
+    &-date {
+      color: $color-white;
+    }
+    &-text {
+      color: $color-white;
+    }
+  }
+  &:hover {
     background-color: $color-crimson-main-dark;
-    .request-list-item-title {
-      &-date {
-        color: $color-white;
-      }
-      &-text {
-        color: $color-white;
-      }
-    }
-    &:hover{
-      background-color: $color-crimson-main-dark;
-    }
-
+  }
 }
 .request-list-item {
   height: 10rem;
@@ -85,6 +86,10 @@ export default {
       font-size: 1.2rem;
       color: $color-grey-darkest;
       font-weight: 300;
+      &-container {
+        text-align: left;
+        width: 12rem;
+      }
     }
     &-text {
       font-size: 1.4rem;
@@ -94,7 +99,7 @@ export default {
   }
 
   &-unselected {
-    transition: 0.10s all;
+    transition: 0.1s all;
     &:hover {
       background-color: $color-grey;
     }
