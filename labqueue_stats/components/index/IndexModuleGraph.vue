@@ -1,9 +1,7 @@
 <template>
   <section>
-    <div class="date-wrapper">
-      <DateOptions/>
-    </div>
-    <ul class="row">
+    <DateOptions/>
+    <ul class="tab-container">
       <GraphSelectionTab v-for="(grahpData, index) in graphDatas" :key="index" :title="grahpData.cardData.title" :value="grahpData.cardData.value" @click="onClickHandle(index)" :selected="index===selectedGraphIndex" />
     </ul>
     <div class="graph-container">
@@ -206,16 +204,12 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+.tab-container {
+  overflow-x: scroll;
+  white-space: nowrap;
 }
-
-.date-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+.graph-container {
+  margin-top: 4rem;
 }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
-  <button @click="onClick" class="card" :class="{'card-selected':selected, 'card-unselected':!selected}">
-    <h1 class="card-title">{{ title }}</h1>
-    <h3 class="card-value">{{ value }}</h3>
+  <button @click="onClick" class="tab" :class="{'tab-selected':selected, 'tab-unselected':!selected}">
+    <h1 class="tab-title">{{ title }}</h1>
+    <h3 class="tab-value">{{ value }}</h3>
   </button>
 </template>
 <script>
@@ -24,30 +24,29 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-$card-min-width: 20rem;
-$card-height: 8rem;
-.card-title {
+$tab-min-width: 76.8rem / 2.5;
+$tab-height: 8rem;
+.tab-title {
   color: $color-grey-dark;
   font-weight: 300;
   padding-bottom: 0.5rem;
 }
-.card-value {
+.tab-value {
   font-size: 1.6rem;
+  font-weight: 500;
   color: $color-grey-darkest;
   word-break: break-all;
 }
 
-.card {
+.tab {
   text-align: left;
-  height: $card-height;
-  padding: 1.5rem;
+  height: $tab-height;
+  padding: 1rem;
   transition: background-color 0.2s;
   box-sizing: border-box;
-  width: 100%;
+  width: $tab-min-width;
 
   &-unselected {
-    padding-bottom: 2rem;
-
     &:hover {
       background-color: $color-grey-light;
     }
@@ -63,9 +62,6 @@ $card-height: 8rem;
 }
 
 @media only screen and (min-width: 768px) {
-  .card {
-    width: $card-min-width;
-  }
 }
 
 @media only screen and (min-width: 968px) {

@@ -39,6 +39,7 @@ $page-padding-top: 5rem;
 $page-padding-side: 8rem;
 $page-padding-side-mobile: 2rem;
 $page-padding-bottom: 8rem;
+$page-min-height: 100vh;
 .main {
   display: flex;
 }
@@ -53,6 +54,7 @@ $page-padding-bottom: 8rem;
     $page-padding-side-mobile;
   background-color: $color-grey-lightest;
   position: relative;
+  min-height: $page-min-height;
 }
 
 @media only screen and (min-width: 930px) {

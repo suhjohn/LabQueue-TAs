@@ -5,8 +5,10 @@
     </nuxt-link>
     <div class="navbar-options">
       <ul class="navbar-options-main">
-        <nuxt-link tag="li" class="navbar-options-main-option" to="/"><i class="fas fa-chart-line"></i>Dashboard</nuxt-link>
-        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'requests'}"><i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
+        <nuxt-link tag="li" class="navbar-options-main-option" to="/">
+          <i class="fas fa-chart-line"></i>Dashboard</nuxt-link>
+        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'requests'}">
+          <i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
       </ul>
       <ul class="navbar-options-sub">
         <li class="navbar-options-sub-option">
@@ -51,7 +53,7 @@ nav {
   display: flex;
   justify-content: space-around;
   & .navbar-options-main-option {
-    width: 25%;
+    width: 50%;
     padding: 2rem 0 1.5rem 0;
     display: flex;
     flex-direction: column;
@@ -59,10 +61,11 @@ nav {
     flex-wrap: wrap;
     color: $color-grey-dark;
     font-size: 1.4rem;
-    transition: all 0.15s ease-in;
+    transition: all 0.15s;
     border-bottom: 0.5rem solid $color-white;
     & .fas {
       width: 3rem;
+      text-align: center;
       display: block;
     }
     &:hover {
@@ -71,6 +74,12 @@ nav {
       color: $color-grey-darkest;
       & .fas {
         color: $color-grey-dark;
+      }
+    }
+    &:active {
+      color: $color-crimson-main-light;
+      & .fas {
+        color: $color-crimson-main-light;
       }
     }
   }
