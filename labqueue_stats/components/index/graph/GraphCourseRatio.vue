@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
-        <barGraph class="graph" :data="barData" :options="options" />
+  <div class="container">
+    <barGraph class="graph" :data="barData" :options="options" />
     <!-- <lineGraph class="graph" :data="barData" :options="options" />  -->
-    </div>
+  </div>
 </template>
 <script>
 import styles from "~/assets/scss/variables.scss";
@@ -12,41 +12,7 @@ import { calculateYMax } from "~/mixins/calculateYMax";
 export default {
   mixins: [calculateYMax],
   data() {
-    return {
-      barData: undefined,
-      options: undefined
-    };
-  },
-  created() {
-    // Shifts
-    const labels = this.barLabels;
-
-    const _datasets = this.barDataSet;
-    this.barData = {
-      labels: labels,
-      datasets: _datasets
-    };
-    this.options = {
-      scales: {
-        yAxes: [
-          {
-            position: "right",
-            scaleLabel: {
-              labelString: "% Course Requests",
-              display: true
-            },
-            ticks: {
-              beginAtZero: true,
-              suggestedMax: this.calculateYMax(_datasets)
-            },
-            gridLines: {
-              display: false
-            }
-          }
-        ],
-        xAxes: [{}]
-      }
-    };
+    return {};
   },
   computed: {
     ...mapGetters([
@@ -56,6 +22,35 @@ export default {
       "getSelfShifts",
       "getSelfRequestsCount"
     ]),
+    barData() {
+      return {
+        labels: this.barLabels,
+        datasets: this.barDataSet
+      };
+    },
+    options() {
+      return {
+        scales: {
+          yAxes: [
+            {
+              position: "right",
+              scaleLabel: {
+                labelString: "% Course Requests",
+                display: true
+              },
+              ticks: {
+                beginAtZero: true,
+                suggestedMax: this.calculateYMax(this.barDataSet)
+              },
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          xAxes: [{}]
+        }
+      };
+    },
     barDataSet() {
       const reqByShift = this.$store.getters.getShiftRequestsObj("shift");
       const reqCount = this.$store.getters.getSelfRequestsCount;

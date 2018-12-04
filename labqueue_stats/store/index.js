@@ -292,6 +292,7 @@ const store = () =>
        */
       async setRequests(context, params) {
         const requests = await context.dispatch("queryRequests", params);
+        console.log(requests.length);
         context.commit("setSelfRequests", requests);
         context.commit("setSelfRequestsTotalTime");
         context.commit("setShifts");
