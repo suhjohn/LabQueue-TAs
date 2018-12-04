@@ -1,32 +1,51 @@
 <template>
-  <section>
-    <loading :active.sync="isFetchingData" :is-full-page="false"></loading>
-    <PageHeader headerText="Dashboard" />
-    <IndexModuleGraph/>
-  </section>
+    <section class="login-page">
+        <div class="link-container">
+            <nuxt-link tag="button" class="link-button" to="/">
+                Login
+            </nuxt-link>
+            <nuxt-link tag="button" class="link-button" to="/">
+                Demo
+            </nuxt-link>
+        </div>
+    </section>
 </template>
-
 <script>
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
-import { mapGetters } from "vuex";
-import IndexModuleGraph from "~/components/index/IndexModuleGraph";
-import PageHeader from "~/components/UI/PageHeader";
 export default {
-  components: {
-    IndexModuleGraph,
-    PageHeader,
-    Loading
-  },
-  computed: {
-    ...mapGetters({
-      isFetchingData: "getIsFetchingData"
-    })
-  }
+  layout: "login"
 };
 </script>
-
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
+.login-page {
+  width: 60rem;
+  margin: 0 auto;
+}
+.link {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    height: 40rem;
+  }
+  &-button {
+    margin: 1rem 0;
+    font-size: 1.6rem;
+    width: 20rem;
+    height: 5rem;
+    border: 1px solid $color-crimson-main;
+    border-radius: 20px;
+    color: $color-crimson-main;
+    transition: 0.15s all;
+
+    &:hover {
+      background-color: $color-crimson-main;
+      color: $color-white;
+    }
+  }
+}
 </style>
+
 

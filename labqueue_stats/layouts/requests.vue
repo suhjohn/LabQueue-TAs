@@ -4,6 +4,7 @@
     <SideNavbar />
     <div class="main-body">
       <PageTopNavbar id="page-top-navbar" />
+      <RequestList class="request-list"/>
       <nuxt id="page" />
     </div>
   </div>
@@ -13,12 +14,14 @@
 import { mapGetters } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import RequestList from "~/components/requests/RequestsList";
 import PageTopNavbar from "~/components/navigation/PageTopNavbar.vue";
 import SideNavbar from "~/components/navigation/SideNavbar.vue";
 export default {
   components: {
     PageTopNavbar,
     SideNavbar,
+    RequestList,
     Loading
   },
   data() {
@@ -71,5 +74,17 @@ $page-min-height: 100vh;
     padding-right: $page-padding-side;
   }
 }
+
+.request-list{
+  width: 60rem;
+  height: 100%;
+}
+
+@media only screen and (min-width: 930px) {
+  .request-list{
+      width: 60rem;
+  }
+}
+
 </style>
 

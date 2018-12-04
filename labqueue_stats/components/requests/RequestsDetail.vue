@@ -63,14 +63,15 @@ export default {
   padding: 5rem;
   &-header{
     &-text{
-      font-size: 2.4rem;
+      font-size: 2.8rem;
       color: $color-grey-darkest;
       padding-bottom: 1.5rem;
     }
     &-subtext{
       font-size: 1.8rem;
       color: $color-grey-dark;
-      padding-bottom: 1.2rem;
+      font-weight: 300;
+      padding-bottom: 1rem;
     }
     &-subsubtext{
       font-size: 1.8rem;

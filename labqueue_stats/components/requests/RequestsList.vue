@@ -1,6 +1,6 @@
 <template>
   <ul ref="request-list" class="request-list">
-    <RequestsListItem v-for="(request, index) in selfRequestsFormatted" :key="index" :authorFullname="request.author_full_name" :authorUsername="request.author_username" :course="request.course" :description="request.description" :timeAccepted="request.time_accepted" @click="onClickHandle(index)" :selected="index===selectedRequestItem" />
+    <RequestsListItem v-for="(request, index) in selfRequestsFormatted" :key="request.pk" :authorFullname="request.author_full_name" :pk="request.pk" :authorUsername="request.author_username" :course="request.course" :description="request.description" :timeAccepted="request.time_accepted" :selected="index===selectedRequestItem" />
   </ul>
 
 </template>
@@ -12,19 +12,16 @@ import moment from "moment";
 export default {
   data() {
     return {
-      selectedRequestItem: 0,
+      selectedRequestItem: null,
       scrolling: false
     };
-  },
-  mounted() {
-    this.$emit("selected", this.selfRequestsFormatted[this.selectedRequestItem]);
   },
   components: {
     RequestsListItem
   },
   computed: {
     ...mapGetters({
-      selfRequests: "getSelfRequests"
+      selfRequests: "getSelfRequests",
     }),
     selfRequestsFormatted(){
       const req = [...this.selfRequests]
@@ -33,11 +30,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions({ setRequests: "setRequests" }),
-    onClickHandle(index) {
-      this.selectedRequestItem = index;
-      this.$emit("selected", this.selfRequestsFormatted[this.selectedRequestItem]);
-    },
+    ...mapActions({ setRequests: "setRequests", setSelectedRequest: "setSelectedRequest" }),
+    
     async loadMore() {
       this.busy = true;
       const mostRecent = this.selfRequestsFormatted[0];

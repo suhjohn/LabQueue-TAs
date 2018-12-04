@@ -1,19 +1,25 @@
 <template>
-  <li @click="onClick" class="request-list-item" :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}">
+  <nuxt-link tag="li" :to="{ name: 'requests-pk', params: { pk: pk }}" @click="onClick" class="request-list-item" :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}">
     <div class="request-list-item-title">
-      <h1 class="request-list-item-title-text">{{ authorFullname }} | {{ authorUsername }} </h1>
+      <h1 class="request-list-item-title-text">{{ pk }} - {{ descriptionString }}</h1>
       <h4 class="request-list-item-title-date">{{ timeAccepted }}</h4>
     </div>
     <div class="request-list-item-body">
       <p class="request-list-item-body-text">
-        {{description}}
+        {{authorFullname}} | {{course}}
       </p>
     </div>
-  </li>
+  </nuxt-link>
 </template>
 <script>
+import { mapMutations } from "vuex";
+
+const DESCRIPTION_LIMIT = 60;
 export default {
   props: {
+    pk:{
+      type: Number
+    },
     authorFullname: {
       type: String
     },
@@ -33,6 +39,15 @@ export default {
       type: Boolean
     }
   },
+  computed:{
+    descriptionString(){
+      let description = this.description.substring(0, DESCRIPTION_LIMIT)
+      if (this.description.length > DESCRIPTION_LIMIT){
+        description += "..."
+      }
+      return description
+    }
+  },
   methods: {
     onClick() {
       this.$emit("click");
@@ -42,6 +57,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
+.nuxt-link-exact-active {
+    background-color: $color-crimson-main-dark;
+    .request-list-item-title {
+      &-date {
+        color: $color-white;
+      }
+      &-text {
+        color: $color-white;
+      }
+    }
+    &:hover{
+      background-color: $color-crimson-main-dark;
+    }
+
+}
 .request-list-item {
   height: 10rem;
   padding: 2rem;
@@ -64,20 +94,9 @@ export default {
   }
 
   &-unselected {
-    transition: 0.15s all;
+    transition: 0.10s all;
     &:hover {
       background-color: $color-grey;
-    }
-  }
-  &-selected {
-    background-color: $color-crimson-main-dark;
-    .request-list-item-title {
-      &-date {
-        color: $color-white;
-      }
-      &-text {
-        color: $color-white;
-      }
     }
   }
   &:not(:first-child) {

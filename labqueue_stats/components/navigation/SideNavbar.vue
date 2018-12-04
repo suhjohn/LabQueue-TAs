@@ -5,7 +5,7 @@
     </nuxt-link>
     <div class="navbar-options">
       <ul class="navbar-options-main">
-        <nuxt-link tag="li" class="navbar-options-main-option" to="/">
+        <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'dashboard'}">
           <i class="fas fa-chart-line"></i>Dashboard</nuxt-link>
         <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'requests'}">
           <i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
@@ -83,7 +83,7 @@ nav {
       }
     }
   }
-  & .nuxt-link-exact-active {
+  & .nuxt-link-active {
     font-weight: 700;
     color: $color-crimson-main;
     border-bottom: 0.5rem solid $color-crimson-main;
@@ -159,7 +159,7 @@ nav {
         border-left: 0.5rem solid $color-grey-dark;
       }
     }
-    & .nuxt-link-exact-active {
+    & .nuxt-link-active {
       font-weight: 700;
       border-bottom: none;
       border-left: 0.5rem solid $color-crimson-main;
