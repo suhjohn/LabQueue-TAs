@@ -44,7 +44,6 @@ module.exports = {
   },
   router: {
     scrollBehavior: function(to, from, savedPosition) {
-      console.log(savedPosition);
       return { x: 0, y: 0 };
     }
   },

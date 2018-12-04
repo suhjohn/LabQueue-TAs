@@ -21,10 +21,10 @@ export async function retrieveSelf(context) {
     };
     const self = await this.$axios.$get("/", requestParams);
     context.commit("setSelf", self);
-    console.log(self);
     return self;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
 
