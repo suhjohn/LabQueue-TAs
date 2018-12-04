@@ -1,16 +1,16 @@
 <template>
-    <div class="date-wrapper">
-        <ul class="datepicker-list">
-            <li class="datepicker-list-item" @click="openCalendar('dateTo')" v-on-clickaway="closeDateToCalendar">
-                <label class="date-label">Date From</label>
-                <datepicker ref="dateTo" @selected="fetchData" @opened="openCalendar('dateTo')" :typeable="true" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
-            </li>
-            <li class="datepicker-list-item" @click="openCalendar('dateFrom')" v-on-clickaway="closeDateFromCalendar">
-                <label class="date-label">Date To</label>
-                <datepicker ref="dateFrom" @selected="fetchData" @opened="openCalendar('dateFrom')" :typeable="true" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
-            </li>
-        </ul>
-    </div>
+  <div class="date-wrapper">
+    <ul class="datepicker-list">
+      <li class="datepicker-list-item" @click="openCalendar('dateTo')" v-on-clickaway="closeDateToCalendar">
+        <label class="date-label">Date From</label>
+        <datepicker ref="dateTo" @selected="fetchData" @opened="openCalendar('dateTo')" :typeable="true" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
+      </li>
+      <li class="datepicker-list-item" @click="openCalendar('dateFrom')" v-on-clickaway="closeDateFromCalendar">
+        <label class="date-label">Date To</label>
+        <datepicker ref="dateFrom" @selected="fetchData" @opened="openCalendar('dateFrom')" :typeable="true" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
+      </li>
+    </ul>
+  </div>
 </template>
 <script>
 import moment from "moment";
@@ -80,19 +80,11 @@ export default {
       var wait = ms => new Promise(r => setTimeout(r, ms));
       this.$refs.dateTo.close();
       this.$refs.dateFrom.close();
-
       // ascertain that the inputed value is relevant value
+      this.setFetchingState(true);
+      await wait(1000);
       const dateFrom = this.dateFrom;
       const dateTo = this.dateTo;
-      this.setFetchingState(true);
-      await wait(2000);
-      if (
-        dateFrom.getTime() != this.dateFrom.getTime() ||
-        dateTo.getTime() != this.dateTo.getTime()
-      ) {
-        this.setFetchingState(false);
-        return;
-      }
       const dateFromString = moment(dateFrom).format("YYYY-MM-DD");
       const dateToString = moment(dateTo).format("YYYY-MM-DD");
       await this.$store.dispatch("setRequests", {

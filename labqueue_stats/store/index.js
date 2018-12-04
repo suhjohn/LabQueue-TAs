@@ -49,7 +49,7 @@ const store = () =>
         closer_username: Str
         time_closed: DateTime in String: "2017-10-24T19:26"
       */
-      selectedRequest:{}
+      selectedRequest: {}
     },
     getters: {
       /**
@@ -70,7 +70,7 @@ const store = () =>
       getSelfRequests: state => {
         return state.selfRequests;
       },
-      getSelfRequestsObj:state=>{
+      getSelfRequestsObj: state => {
         return state.selfRequestsObj;
       },
       getSelfRequestsCount: state => {
@@ -103,7 +103,7 @@ const store = () =>
       isTAUser: state => {
         return null;
       },
-      getSelectedRequest: state=>{
+      getSelectedRequest: state => {
         return state.selectedRequest;
       }
     },
@@ -152,8 +152,8 @@ const store = () =>
           return base.diff(comp);
         });
         state.selfRequests.forEach(req => {
-          state.selfRequestsObj[req.pk] = req
-        })
+          state.selfRequestsObj[req.pk] = req;
+        });
       },
       setSelfRequestsTotalTime(state, requests) {
         let totalMin = 0;
@@ -248,10 +248,9 @@ const store = () =>
           ...formattedShiftsRequestObj
         });
       },
-      setSelectedRequest(state, request){
+      setSelectedRequest(state, request) {
         state.selectedrequest = request;
       }
-
     },
     actions: {
       ...apis,
