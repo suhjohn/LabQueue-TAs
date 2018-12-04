@@ -1,11 +1,11 @@
 <template>
     <div class="date-wrapper">
         <ul class="datepicker-list">
-            <li @click="openCalendar('dateTo')" v-on-clickaway="closeDateToCalendar">
+            <li class="datepicker-list-item" @click="openCalendar('dateTo')" v-on-clickaway="closeDateToCalendar">
                 <label class="date-label">Date From</label>
                 <datepicker ref="dateTo" @selected="fetchData" @opened="openCalendar('dateTo')" :typeable="true" @closed="calendarHandler(dateToState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateToState.calendarIsOpen, 'datepicker-closed': !dateToState.calendarIsOpen}" v-model="dateFrom"></datepicker>
             </li>
-            <li @click="openCalendar('dateFrom')" v-on-clickaway="closeDateFromCalendar">
+            <li class="datepicker-list-item" @click="openCalendar('dateFrom')" v-on-clickaway="closeDateFromCalendar">
                 <label class="date-label">Date To</label>
                 <datepicker ref="dateFrom" @selected="fetchData" @opened="openCalendar('dateFrom')" :typeable="true" @closed="calendarHandler(dateFromState, false)" class="datepicker" calendar-class="datepicker-calendar" input-class="datepicker-input" :class="{'datepicker-opened': dateFromState.calendarIsOpen, 'datepicker-closed': !dateFromState.calendarIsOpen}" v-model="dateTo"></datepicker>
             </li>
@@ -78,6 +78,8 @@ export default {
     },
     async fetchData() {
       var wait = ms => new Promise(r => setTimeout(r, ms));
+      this.$refs.dateTo.close();
+      this.$refs.dateFrom.close();
 
       // ascertain that the inputed value is relevant value
       const dateFrom = this.dateFrom;
@@ -214,6 +216,10 @@ $calendar-header-height: 6rem;
 .datepicker-list {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+  &-item {
+    width: 50%;
+  }
 }
 
 .date-wrapper {
@@ -244,6 +250,15 @@ $calendar-header-height: 6rem;
         line-height: 4rem;
         height: 4rem;
       }
+    }
+  }
+
+  .datepicker-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    &-item {
+      width: auto;
     }
   }
 }

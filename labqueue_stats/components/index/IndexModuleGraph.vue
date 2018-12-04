@@ -89,9 +89,9 @@ export default {
     getAverageTimePerReqData() {
       return {
         componentName: "GraphAvgTimePerReq",
-        label: "Time/Req",
+        label: "Minutes/Req",
         cardData: {
-          title: "Time/Req",
+          title: "Minutes/Req",
           value: (this.getSelfTotalTime / this.getSelfRequestsCount).toFixed(2)
         }
       };
@@ -109,9 +109,9 @@ export default {
     getCourseRatioData() {
       return {
         componentName: "GraphCourseRatio",
-        label: "% of 126|226|217",
+        label: "% from 126|226|217",
         cardData: {
-          title: "% of 126|226|217",
+          title: "% from 126|226|217",
           value: this.reqByCoursesString
         }
       };
