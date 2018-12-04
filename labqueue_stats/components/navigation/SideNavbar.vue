@@ -156,6 +156,7 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 60rem;
     padding-bottom: 10rem;
   }
   .navbar-options-main {
