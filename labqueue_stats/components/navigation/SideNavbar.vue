@@ -3,6 +3,9 @@
     <nuxt-link tag="li" id="logo" to="/">
       <img class="logo-img" src="~/assets/static/Logo.svg">
     </nuxt-link>
+    <!-- <div class="profile-img-container">
+      <img class="profile-img" :src="profileImage">
+    </div> -->
     <div class="navbar-options">
       <ul class="navbar-options-main">
         <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'dashboard'}">
@@ -20,12 +23,25 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from "vuex";
+
 export default {
-  components: {},
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      isDemo: "isDemo",
+      self: "getSelf"
+    }),
+    profileImage() {
+      if (this.isDemo) {
+        return require("~/assets/static/DummyUser.svg");
+      } else {
+        return this.self.picture;
+      }
+    }
+  },
   methods: {}
 };
 </script>
@@ -103,8 +119,18 @@ nav {
 .navbar-options-sub {
   display: none;
 }
+.profile-img-container {
+  display: none;
+}
 
 @media only screen and (min-width: 930px) {
+  .profile-img {
+    width: 5rem;
+    &-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
   #logo {
     display: block;
     text-align: center;
@@ -129,7 +155,7 @@ nav {
   .navbar-options {
     display: flex;
     flex-direction: column;
-    height: calc(100% - #{$logo-height});
+    justify-content: space-between;
     padding-bottom: 10rem;
   }
   .navbar-options-main {

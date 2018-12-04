@@ -8,13 +8,13 @@
 </template>
 
 <script>
+import moment from "moment";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import { mapGetters, mapMutations, mapActions } from "vuex";
-import IndexModuleGraph from "~/components/index/IndexModuleGraph";
-import PageHeader from "~/components/UI/PageHeader";
-import moment from "moment";
 import { DATE_FORMAT, API_TIME_FORMAT } from "@/constants.js";
+import IndexModuleGraph from "@/components/index/IndexModuleGraph";
+import PageHeader from "@/components/UI/PageHeader";
 
 export default {
   middleware: ["auth-user"],
@@ -26,7 +26,7 @@ export default {
   computed: {
     ...mapGetters({
       isFetchingData: "getIsFetchingData",
-      isDemo: "getIsDemo"
+      isDemo: "isDemo"
     })
   },
   methods: {
