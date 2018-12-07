@@ -59,20 +59,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-.nuxt-link-exact-active {
-  background-color: $color-crimson-main-dark;
-  .request-list-item-title {
-    &-date {
-      color: $color-white;
-    }
-    &-text {
-      color: $color-white;
-    }
-  }
-  &:hover {
-    background-color: $color-crimson-main-dark;
-  }
-}
 .request-list-item {
   height: 10rem;
   padding: 2rem;
@@ -85,7 +71,7 @@ export default {
     &-date {
       font-size: 1.2rem;
       color: $color-grey-darkest;
-      font-weight: 300;
+      font-weight: 400;
       &-container {
         text-align: left;
         width: 12rem;
@@ -94,7 +80,7 @@ export default {
     &-text {
       font-size: 1.4rem;
       color: $color-grey-darkest;
-      font-weight: 400;
+      font-weight: 300;
     }
   }
 
@@ -110,15 +96,28 @@ export default {
   &:not(:last-child) {
     border-bottom: none;
   }
-
   /* */
   &-body {
     margin-top: 1rem;
     &-text {
       font-size: 1.2rem;
       font-weight: 300;
-      color: $color-grey-lighter;
+      color: $color-grey;
     }
+  }
+}
+.nuxt-link-exact-active {
+  background-color: $color-crimson-main-dark;
+  .request-list-item-title {
+    &-date {
+      color: $color-white;
+    }
+    &-text {
+      color: $color-white;
+    }
+  }
+  &:hover {
+    background-color: $color-crimson-main-dark;
   }
 }
 </style>

@@ -60,11 +60,13 @@ export default {
   display: none;
 }
 .button-back {
-  margin: 2rem 0 0 2rem;
   height: 5rem;
   width: 5rem;
+  position: absolute;
   font-size: 2.5rem;
   transition: 0.15s all;
+  color: $color-white;
+  background-color: $color-crimson-main-light;
   &:hover {
     color: $color-crimson-main;
   }
