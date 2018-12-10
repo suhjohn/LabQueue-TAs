@@ -124,15 +124,16 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
+
 .container {
   position: relative;
   width: 100%;
-  height: 50rem;
+  height: $graph-height;
 }
 
 .graph {
   width: auto;
-  height: 50rem;
+  height: $graph-height;
 }
 
 @media only screen and (min-width: 930px) {

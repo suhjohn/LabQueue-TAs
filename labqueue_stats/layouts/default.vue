@@ -29,17 +29,20 @@ export default {
       isInitialFetch: "getIsInitialFetch"
     })
   },
-  methods: {}
+  methods: {},
+  created() {},
+  destroyed() {}
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/variables.scss";
-$page-padding-top: 5rem;
+$page-padding-top: 4rem;
 $page-padding-side: 8rem;
 $page-padding-side-mobile: 2rem;
 $page-padding-bottom: 8rem;
 $page-min-height: 100vh;
+
 .main {
   display: flex;
 }
@@ -67,8 +70,8 @@ $page-min-height: 100vh;
     display: none;
   }
   #page {
-    padding-left: $page-padding-side;
-    padding-right: $page-padding-side;
+    padding: $page-padding-top $page-padding-side $page-padding-bottom
+      $page-padding-side;
   }
 }
 </style>

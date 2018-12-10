@@ -1,8 +1,9 @@
 /* Raw values */
 $raw-default-font-size: 1.6;
-$raw-navbar-height: 7;
+$raw-navbar-height: 6;
 $raw-contained-medium-radius: 5;
 $raw-side-navbar-xl-width: 25;
+$raw-graph-height: 40;
 
 /* Colors */
 $color-crimson-main-darkest: #832a29;
@@ -39,6 +40,9 @@ $side-navbar-xl-width: $raw-side-navbar-xl-width + 0rem;
 /* Box design */
 $contained-box-m-radius: $raw-contained-medium-radius + 0px;
 $contained-box-m-shadow: 0 1px 2px $color-grey, 0 1px 2px $color-grey;
+
+/* Graph*/
+$graph-height: $raw-graph-height + 0rem;
 
 /* export for JS */
 :export {

@@ -17,17 +17,14 @@ import queryData from "@/assets/static/dummydata.json";
 export async function queryRequests(context, params) {
   try {
     const requestParams = {
-      action: {
-        api_family: "requests",
-        action_name: "query",
-        parameters: {
-          accepted_after: params.dateFrom,
-          accepted_before: params.dateTo,
-          limit: -1
-        }
-      }
+      accepted_after: params.dateFrom,
+      accepted_before: params.dateTo
     };
-    return await this.$axios.$get("/", requestParams);
+
+    return await this.$axios.$get(
+      "/requests/" + params.netid + "/query",
+      requestParams
+    );
   } catch (error) {
     console.log(error);
     throw error;
