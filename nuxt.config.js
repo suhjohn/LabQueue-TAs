@@ -24,7 +24,7 @@ module.exports = {
     link: [{
         rel: "icon",
         type: "image/x-icon",
-        href: "/favicon.ico"
+        href: "/assets/Logo.svg"
       },
       /*
       FontAwesome CDN
@@ -49,7 +49,8 @@ module.exports = {
     ]
   },
   env: {
-    baseURL: baseURL
+    baseURL: baseURL,
+    labqueueLoginURL: `${baseProtocol}://${baseURL}/login`,
   },
   router: {
     scrollBehavior: function (to, from, savedPosition) {
