@@ -1,0 +1,61 @@
+/* Raw values */
+$raw-default-font-size: 1.6;
+$raw-navbar-height: 6;
+$raw-contained-medium-radius: 5;
+$raw-side-navbar-xl-width: 25;
+$raw-graph-height: 40;
+
+/* Colors */
+$color-crimson-main-darkest: #832a29;
+$color-crimson-main-dark: #d10302;
+$color-crimson-main: #ff5a5f;
+$color-crimson-main-lighter: #fe9897;
+$color-crimson-main-light: #f0cfcf;
+$color-crimson-main-lightest: #f9eded;
+
+$color-turquoise-main:#008489;
+
+$color-indigo-main: #30415d;
+$color-ultramarine-main: #031424;
+$color-white: #fdfdfd;
+$color-grey-darkest: #484848;
+$color-grey-dark: #7f7f7f;
+$color-grey: #c2c2c2;
+$color-grey-lighter: #d6d6d6;
+$color-grey-light: #ebe7e7;
+$color-grey-lightest: #fbfbfb;
+$color-black: #0f0000;
+
+/* Contrast Color Options */
+$color-main-comp-blue: #1186fd;
+$color-main-comp-green: #11fd88;
+$color-main-comp-marine: #1211fd;
+$color-main-comp-violet: #8811fd;
+$color-main-comp-red: #fd1186;
+
+/* Font Settings */
+$default-font-size: $raw-default-font-size+0rem;
+
+/* Navbar */
+$navbar-height: $raw-navbar-height+0rem;
+$side-navbar-xl-width: $raw-side-navbar-xl-width+0rem;
+
+/* Box design */
+$contained-box-m-radius: $raw-contained-medium-radius+0px;
+$contained-box-m-shadow: 0 1px 2px $color-grey,
+0 1px 2px $color-grey;
+
+/* Graph*/
+$graph-height: $raw-graph-height+0rem;
+
+/* export for JS */
+:export {
+  colorCrimsonMainDark: $color-crimson-main-dark;
+  colorCrimsonMain: $color-crimson-main;
+  colorCrimsonMainLight: $color-crimson-main-light;
+  colorMainCompRed: $color-main-comp-red;
+  colorMainCompMarine: $color-main-comp-marine;
+  colorMainCompGreen: $color-main-comp-green;
+  colorMainCompBlue: $color-main-comp-blue;
+  colorMainCompViolet: $color-main-comp-violet;
+}

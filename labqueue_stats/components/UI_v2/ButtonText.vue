@@ -1,9 +1,9 @@
 <template>
   <button
-    id="button-solid"
+    id="button-text"
     :style="{'min-width': minWidth + 'rem', 'min-height': minHeight + 'rem' }"
   >
-    <span :class="fontSizeClass">{{ text }}</span>
+    <span :class="['text-' + fontSize, 'color-text-' + fontColor]">{{ text }}</span>
   </button>
 </template>
 
@@ -13,9 +13,12 @@ export default {
     text: {
       type: String
     },
-    fontSizeClass: {
+    fontSize: {
       type: String,
-      default: "text-small"
+      default: "small"
+    },
+    fontColor: {
+      type: String
     },
     minWidth: {
       type: Number,
@@ -31,10 +34,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-#button-solid {
+#button-text {
   box-sizing: border-box;
-  color: $color-white;
-  background-color: $color-crimson-main;
+  &:hover {
+    text-decoration-line: underline;
+  }
 }
 </style>
 

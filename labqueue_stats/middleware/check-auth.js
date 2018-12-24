@@ -4,7 +4,9 @@ export default async function (context) {
       const self = await context.store.dispatch("retrieveSelf");
       console.log(self);
     } catch (error) {
-      context.redirect(context.env.labqueueLoginURL);
+      context.redirect({
+        name: "login"
+      });
     }
   }
 }

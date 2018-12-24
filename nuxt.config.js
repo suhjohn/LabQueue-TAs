@@ -24,7 +24,7 @@ module.exports = {
     link: [{
         rel: "icon",
         type: "image/x-icon",
-        href: "/assets/Logo.svg"
+        href: "Logo.svg"
       },
       /*
       FontAwesome CDN
@@ -45,11 +45,15 @@ module.exports = {
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css?family=Domine:400,700"
+      },
+      {
+        rel: "stylesheet",
+        href: "/assets/scss_v2/main.scss"
       }
     ]
   },
   env: {
-    baseURL: baseURL,
+    labqueueBaseURL: `${baseProtocol}://${baseURL}/`,
     labqueueLoginURL: `${baseProtocol}://${baseURL}/login`,
   },
   router: {
@@ -64,7 +68,7 @@ module.exports = {
   CSS Options  
   */
   css: [{
-    src: "~/assets/scss/main.scss",
+    src: "@/assets/scss_v2/main.scss",
     lang: "scss"
   }],
 
