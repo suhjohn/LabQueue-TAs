@@ -1,6 +1,6 @@
 const axios = require("axios");
-const baseProtocol = process.env.Protocol || "http";
-const baseURL = process.env.BASE_URL || "http://staging.labqueue.io";
+const baseProtocol = process.env.Protocol || "https";
+const baseURL = process.env.BASE_URL || "staging.labqueue.io";
 
 module.exports = {
   /*
@@ -8,13 +8,24 @@ module.exports = {
    */
   head: {
     title: "LabQ LabTA",
-    meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" }
+    meta: [{
+        charset: "utf-8"
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1"
+      },
+      {
+        hid: "description",
+        name: "description",
+        content: ""
+      }
     ],
-    link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+    link: [{
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico"
+      },
       /*
       FontAwesome CDN
       https://fontawesome.com/how-to-use/on-the-web/setup/getting-started?using=web-fonts-with-css
@@ -22,16 +33,14 @@ module.exports = {
       {
         rel: "stylesheet",
         href: "https://use.fontawesome.com/releases/v5.5.0/css/all.css",
-        integrity:
-          "sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU",
+        integrity: "sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU",
         crossorigin: "anonymous"
       },
       /* Font CDN
        */
       {
         rel: "stylesheet",
-        href:
-          "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        href: "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
       },
       {
         rel: "stylesheet",
@@ -43,29 +52,45 @@ module.exports = {
     baseURL: baseURL
   },
   router: {
-    scrollBehavior: function(to, from, savedPosition) {
-      return { x: 0, y: 0 };
+    scrollBehavior: function (to, from, savedPosition) {
+      return {
+        x: 0,
+        y: 0
+      };
     }
   },
   /*
   CSS Options  
   */
-  css: [{ src: "~/assets/scss/main.scss", lang: "scss" }],
+  css: [{
+    src: "~/assets/scss/main.scss",
+    lang: "scss"
+  }],
 
   /*
    ** Axios module configuration
    */
   axios: {
-    baseURL: `${baseProtocol}://${baseURL}/api-proxy/v2/`
+    baseURL: `${baseProtocol}://${baseURL}/api/v1/`,
+    https: true,
+    credentials: true
   },
-  plugins: [
-    { src: "~plugins/vue-chartjs.js", ssr: false },
-    { src: "~/plugins/nuxt-client-init.js", ssr: false }
+  modules: ["@nuxtjs/axios"],
+  plugins: [{
+      src: "~plugins/vue-chartjs.js",
+      ssr: false
+    },
+    {
+      src: "~/plugins/nuxt-client-init.js",
+      ssr: false
+    }
   ],
   /*
    ** Customize the progress bar color
    */
-  loading: { color: "#8eaebd" },
+  loading: {
+    color: "#8eaebd"
+  },
   /*
    ** Build configuration
    */
@@ -75,7 +100,10 @@ module.exports = {
      */
     vendor: ["axios"],
     publicPath: `/${require("./secrets.json").NODE_ENV}/_nuxt/`,
-    extend(config, { isDev, isClient }) {
+    extend(config, {
+      isDev,
+      isClient
+    }) {
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: "pre",

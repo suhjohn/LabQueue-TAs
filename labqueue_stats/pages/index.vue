@@ -12,7 +12,7 @@
 </template>
 <script>
 import { LOGIN_URL } from "@/constants.js";
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 export default {
   layout: "login",
   computed: {
@@ -20,8 +20,18 @@ export default {
       return LOGIN_URL;
     }
   },
+  async mounted() {
+    console.log("in index mounted");
+    try {
+      await this.retrieveSelf();
+    } catch (error) {
+      console.log("error in index mounted");
+      console.log(error);
+    }
+  },
   methods: {
     ...mapMutations({ setIsDemo: "setIsDemo" }),
+    ...mapActions({ retrieveSelf: "retrieveSelf" }),
     onClick() {
       this.setIsDemo(true);
     }
