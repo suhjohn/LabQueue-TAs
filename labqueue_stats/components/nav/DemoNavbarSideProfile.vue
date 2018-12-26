@@ -8,17 +8,17 @@
     <p class="text-main-small">{{ username }}</p>
     <!-- Login Button -->
     <a :href="labqueueLoginURL">
-      <ButtonGhost text="Log In" :minWidth="10" :minHeight="4"/>
+      <ButtonText text="Are you a TA? Log In!" :minWidth="10" :minHeight="4"/>
     </a>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import { envVars } from "@/mixins/envVars.js";
-import ButtonGhost from "@/components/UI_v2/ButtonGhost.vue";
+import ButtonText from "@/components/UI_v2/ButtonText.vue";
 export default {
   components: {
-    ButtonGhost
+    ButtonText
   },
   mixins: [envVars],
   computed: {

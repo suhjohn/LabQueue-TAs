@@ -33,9 +33,10 @@ export default {
   width: 100%;
   margin-top: $navbar-top_height !important;
   margin-bottom: $navbar-bottom_height !important;
+
   @include respond(laptop) {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
 }
 </style>

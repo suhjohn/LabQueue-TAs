@@ -1,9 +1,17 @@
 <template>
-  <div></div>
+  <header>
+    <h1 class="text-header">{{ text }}</h1>
+  </header>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    text: {
+      type: String
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
