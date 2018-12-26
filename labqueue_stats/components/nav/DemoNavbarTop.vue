@@ -42,6 +42,10 @@ export default {
   line-height: $navbar-top_height;
   border-bottom: 1px solid $color-grey-light;
   padding: 0 2rem;
+
+  @include respond(laptop) {
+    display: none;
+  }
 }
 
 #demo-navbar-top-list {

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <DemoNavbarTop class="demo-layout-navbar-top"/>
-    <DemoNavbarSide class="demo-layout-navbar-side"/>
-    <DemoNavbarBottom class="demo-layout-navbar-bottom"/>
+    <DemoNavbarTop/>
+    <DemoNavbarSide/>
+    <DemoNavbarBottom/>
     <nuxt/>
   </div>
 </template>
@@ -22,16 +22,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss_v2/main.scss";
-.demo-layout-navbar-top {
-  display: block;
-  @include respond(laptop) {
-    display: none;
-  }
-}
-.demo-layout-navbar-side {
-}
-.demo-layout-navbar-bottom {
-}
 </style>
 
