@@ -38,6 +38,15 @@
   background-color: $color-grey-light;
 }
 
+@mixin backgroundColor-empty {
+  background-color: $color-white;
+}
+
 @mixin textColor-highlight {
   color: $color-crimson-main;
+}
+
+@mixin boxShadow-main {
+  border-top: 0.2px solid $color-grey-light;
+  box-shadow: 0px 2px 0.5px 0px $color-grey-dark;
 }

@@ -25,7 +25,8 @@ nav {
   height: $navbar-side_height;
   width: $navbar-side_width;
   display: none;
-
+  top: 0;
+  position: sticky;
   @include respond(laptop) {
     display: block;
   }

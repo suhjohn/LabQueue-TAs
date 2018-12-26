@@ -36,6 +36,8 @@ export default {
 }
 
 #demo-navbar-top-container {
+  @include backgroundColor-light;
+
   top: 0;
   width: 100%;
   position: fixed;

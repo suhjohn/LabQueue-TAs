@@ -3,7 +3,7 @@
     <DemoNavbarTop/>
     <DemoNavbarSide class="__layout-navbar-side"/>
     <DemoNavbarBottom/>
-    <nuxt id="__page"/>
+    <nuxt class="__layout-page"/>
   </div>
 </template>
 
@@ -25,15 +25,17 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 #__layout {
   display: flex;
-  width: 100vw;
+  width: 100%;
 }
 .__layout-navbar-side {
 }
-#__page {
+.__layout-page {
   width: 100%;
-  margin-top: $navbar-top_height;
+  margin-top: $navbar-top_height !important;
+  margin-bottom: $navbar-bottom_height !important;
   @include respond(laptop) {
     margin-top: 0;
+    margin-bottom: 0;
   }
 }
 </style>

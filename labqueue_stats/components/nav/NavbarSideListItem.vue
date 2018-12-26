@@ -33,6 +33,7 @@ $padding-size: 2rem;
 $link-marker-size: 0.5rem;
 
 #demo-navbar-side-list-item {
+  @include backgroundColor-light;
   display: flex;
   flex: 1;
   align-items: center;
