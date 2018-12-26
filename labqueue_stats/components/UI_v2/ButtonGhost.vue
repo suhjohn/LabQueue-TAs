@@ -2,7 +2,7 @@
   <button
     id="button-ghost"
     :class="{hover:'button-hover'}"
-    :style="{'min-width': minWidth + 'rem', 'min-height': minHeight + 'rem' }"
+    :style="{'width': minWidth + 'rem', 'height': height + 'rem', 'line-height': height + 'rem' }"
   >
     <span :class="fontSizeClass">{{ text }}</span>
   </button>
@@ -22,7 +22,7 @@ export default {
       type: Number,
       default: 12
     },
-    minHeight: {
+    height: {
       type: Number,
       default: 6
     },
