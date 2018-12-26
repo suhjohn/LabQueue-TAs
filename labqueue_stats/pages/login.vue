@@ -6,13 +6,13 @@
         <img src="~/assets/static/Logo.svg">
       </div>
       <a :href="labqueueLoginURL">
-        <ButtonSolid text="Log In" :minWidth="30" :minHeight="5"/>
+        <ButtonSolid text="Log In" :width="30" :height="5"/>
       </a>
       <nuxt-link :to="{name: 'demo'}">
-        <ButtonGhost text="See Demo" :minWidth="30" :minHeight="5"/>
+        <ButtonGhost text="See Demo" :width="30" :height="5"/>
       </nuxt-link>
       <a :href="labqueueBaseURL">
-        <ButtonText text="Back to Queue" :minWidth="30" :minHeight="5" fontColor="turquoise"/>
+        <ButtonText text="Back to Queue" :width="30" :height="5" fontColor="turquoise"/>
       </a>
     </div>
   </div>

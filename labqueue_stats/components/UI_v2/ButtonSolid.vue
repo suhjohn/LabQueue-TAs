@@ -1,8 +1,5 @@
 <template>
-  <button
-    id="button-solid"
-    :style="{'min-width': minWidth + 'rem', 'min-height': minHeight + 'rem' }"
-  >
+  <button id="button-solid" :style="{'min-width': width + 'rem', 'min-height': height + 'rem' }">
     <span :class="fontSizeClass">{{ text }}</span>
   </button>
 </template>
@@ -17,11 +14,11 @@ export default {
       type: String,
       default: "text-small"
     },
-    minWidth: {
+    width: {
       type: Number,
       default: 12
     },
-    minHeight: {
+    height: {
       type: Number,
       default: 6
     }

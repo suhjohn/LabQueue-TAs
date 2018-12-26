@@ -6,10 +6,16 @@
       </nuxt-link>
       <ul id="demo-navbar-top-list-right">
         <a class="demo-navbar-top-list-item" :href="labqueueLoginURL">
-          <ButtonGhost text="Log In" :minWidth="8" :height="4"/>
+          <ButtonGhost text="Log In" fontSize="x-small" :width="8" :height="4"/>
         </a>
         <a class="demo-navbar-top-list-item" :href="labqueueBaseURL">
-          <ButtonText text="Back to Queue" :minWidth="-1" :minHeight="4" fontColor="grey-dark"/>
+          <ButtonText
+            text="Back to Queue"
+            fontSize="x-small"
+            :width="-1"
+            :height="4"
+            fontColor="grey-dark"
+          />
         </a>
       </ul>
     </ul>

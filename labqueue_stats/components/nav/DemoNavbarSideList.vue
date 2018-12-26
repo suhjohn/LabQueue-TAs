@@ -11,7 +11,7 @@
     </ul>
     <div id="demo-navbar-side-footer">
       <a :href="labqueueBaseURL">
-        <ButtonText text="Back to Queue" :minWidth="-1" :minHeight="5" fontColor="grey-dark"/>
+        <ButtonText text="Back to Queue" :width="-1" :height="5" fontColor="grey-dark"/>
       </a>
     </div>
   </div>

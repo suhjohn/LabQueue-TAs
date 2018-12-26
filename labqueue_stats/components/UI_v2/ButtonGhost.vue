@@ -2,9 +2,9 @@
   <button
     id="button-ghost"
     :class="{hover:'button-hover'}"
-    :style="{'width': minWidth + 'rem', 'height': height + 'rem', 'line-height': height + 'rem' }"
+    :style="{'width': width + 'rem', 'height': height + 'rem', 'line-height': height + 'rem'}"
   >
-    <span :class="fontSizeClass">{{ text }}</span>
+    <span :class="['text-' + fontSize]">{{ text }}</span>
   </button>
 </template>
 
@@ -14,11 +14,11 @@ export default {
     text: {
       type: String
     },
-    fontSizeClass: {
+    fontSize: {
       type: String,
-      default: "text-small"
+      default: "small"
     },
-    minWidth: {
+    width: {
       type: Number,
       default: 12
     },

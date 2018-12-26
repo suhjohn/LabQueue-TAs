@@ -17,7 +17,7 @@ export default {
     fontColor: {
       type: String
     },
-    minWidth: {
+    width: {
       type: Number,
       default: 12
     },
@@ -28,10 +28,10 @@ export default {
   },
   computed: {
     _width() {
-      if (this.minWidth === -1) {
+      if (this.width === -1) {
         return 100 + "%";
       } else {
-        return this.minWidth + "rem";
+        return this.width + "rem";
       }
     }
   }
