@@ -1,13 +1,9 @@
 <template>
-  <div></div>
+  <nuxt-link></nuxt-link>
 </template>
-
 <script>
-export default {
-  layout: "demo_dashboard"
-};
+export default {};
 </script>
-
 <style lang="scss" scoped>
 </style>
 

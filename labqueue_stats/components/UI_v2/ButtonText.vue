@@ -1,8 +1,5 @@
 <template>
-  <button
-    id="button-text"
-    :style="{'min-width': minWidth + 'rem', 'min-height': minHeight + 'rem' }"
-  >
+  <button id="button-text" :style="{'min-width': _minWidth, 'min-height': minHeight + 'rem' }">
     <span :class="['text-' + fontSize, 'color-text-' + fontColor]">{{ text }}</span>
   </button>
 </template>
@@ -27,6 +24,15 @@ export default {
     minHeight: {
       type: Number,
       default: 6
+    }
+  },
+  computed: {
+    _minWidth() {
+      if (this.minWidth === -1) {
+        return 100 + "%";
+      } else {
+        return this.minWidth + "rem";
+      }
     }
   }
 };

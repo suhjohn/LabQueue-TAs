@@ -25,6 +25,16 @@ const store = () =>
         is_active: Bool
       */
       self: undefined,
+      demo_self: {
+        full_name: "Demo TA",
+        netid: "demouser",
+        puid: "123456789",
+        major: "AB Computer Science",
+        grad_year: 2020,
+        type: "full",
+        picture: "/DemoUserImage.svg",
+        is_active: true
+      },
       /* 
       request:
         pk: Int
@@ -48,16 +58,20 @@ const store = () =>
       getSelf: state => {
         return state.self;
       },
+      demo_getSelf: state => {
+        return state.demo_self;
+      },
       isAuthenticated: state => {
         return state.self != undefined;
       },
     },
-    mutations: {
-
-    },
+    mutations: {},
     actions: {
       ...apis,
-      async setRequests(context, params) {}
+      async setRequests(context, params) {},
+      async setSelf(context) {
+        await context.dispatch('retrieveSelf');
+      }
     }
   });
 

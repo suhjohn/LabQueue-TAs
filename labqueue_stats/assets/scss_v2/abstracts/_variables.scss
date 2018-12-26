@@ -1,11 +1,16 @@
-/* Raw values */
+/*--------------------------------------------------------------------*/
+/* Raw values                                                         */
+/*--------------------------------------------------------------------*/
 $raw-default-font-size: 1.6;
 $raw-navbar-height: 6;
 $raw-contained-medium-radius: 5;
 $raw-side-navbar-xl-width: 25;
 $raw-graph-height: 40;
 
-/* Colors */
+
+/*--------------------------------------------------------------------*/
+/* Colors                                                             */
+/*--------------------------------------------------------------------*/
 $color-crimson-main-darkest: #832a29;
 $color-crimson-main-dark: #d10302;
 $color-crimson-main: #ff5a5f;
@@ -14,9 +19,9 @@ $color-crimson-main-light: #f0cfcf;
 $color-crimson-main-lightest: #f9eded;
 
 $color-turquoise-main:#008489;
-
 $color-indigo-main: #30415d;
 $color-ultramarine-main: #031424;
+
 $color-white: #fdfdfd;
 $color-grey-darkest: #484848;
 $color-grey-dark: #7f7f7f;
@@ -33,22 +38,29 @@ $color-main-comp-marine: #1211fd;
 $color-main-comp-violet: #8811fd;
 $color-main-comp-red: #fd1186;
 
-/* Font Settings */
+
+/*--------------------------------------------------------------------*/
+/* Font                                                               */
+/*--------------------------------------------------------------------*/
 $default-font-size: $raw-default-font-size+0rem;
 
-/* Navbar */
-$navbar-height: $raw-navbar-height+0rem;
-$side-navbar-xl-width: $raw-side-navbar-xl-width+0rem;
 
-/* Box design */
-$contained-box-m-radius: $raw-contained-medium-radius+0px;
-$contained-box-m-shadow: 0 1px 2px $color-grey,
-0 1px 2px $color-grey;
-
-/* Graph*/
+/*--------------------------------------------------------------------*/
+/* Navbar                                                             */
+/*--------------------------------------------------------------------*/
+$navbar-side_height: 100vh;
+$navbar-side-logo_height: 8rem;
+$navbar-side-profile_height: 15rem;
+$navbar-side-list_height: calc(#{$navbar-side_height} - #{$navbar-side-logo_height} - #{$navbar-side-profile_height});
+/*--------------------------------------------------------------------*/
+/* Graph                                                              */
+/*--------------------------------------------------------------------*/
 $graph-height: $raw-graph-height+0rem;
 
-/* export for JS */
+
+/*--------------------------------------------------------------------*/
+/* JS Export                                                          */
+/*--------------------------------------------------------------------*/
 :export {
   colorCrimsonMainDark: $color-crimson-main-dark;
   colorCrimsonMain: $color-crimson-main;

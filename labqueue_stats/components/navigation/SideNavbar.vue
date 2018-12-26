@@ -5,17 +5,22 @@
     </nuxt-link>
     <!-- <div class="profile-img-container">
       <img class="profile-img" :src="profileImage">
-    </div> -->
+    </div>-->
     <div class="navbar-options">
       <ul class="navbar-options-main">
         <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'dashboard'}">
-          <i class="fas fa-chart-line"></i>Dashboard</nuxt-link>
+          <i class="fas fa-chart-line"></i>Dashboard
+        </nuxt-link>
         <nuxt-link tag="li" class="navbar-options-main-option" :to="{name: 'requests'}">
-          <i class="fas fa-clipboard-list"></i>Requests</nuxt-link>
+          <i class="fas fa-clipboard-list"></i>Requests
+        </nuxt-link>
       </ul>
       <ul class="navbar-options-sub">
         <li class="navbar-options-sub-option">
-          <a class="navbar-options-sub-option-text" href="https://www.labqueue.io/queue/">Back to Queue</a>
+          <a
+            class="navbar-options-sub-option-text"
+            href="https://www.labqueue.io/queue/"
+          >Back to Queue</a>
         </li>
       </ul>
     </div>

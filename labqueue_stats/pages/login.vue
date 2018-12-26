@@ -19,6 +19,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { envVars } from "@/mixins/envVars.js";
 import ButtonSolid from "@/components/UI_v2/ButtonSolid.vue";
 import ButtonGhost from "@/components/UI_v2/ButtonGhost.vue";
 import ButtonText from "@/components/UI_v2/ButtonText.vue";
@@ -29,16 +30,11 @@ export default {
     ButtonGhost,
     ButtonText
   },
+  mixins: [envVars],
   computed: {
     ...mapGetters({
       isAuthenticated: "isAuthenticated"
-    }),
-    labqueueLoginURL() {
-      return process.env.labqueueLoginURL;
-    },
-    labqueueBaseURL() {
-      return process.env.labqueueBaseURL;
-    }
+    })
   }
 };
 </script>
