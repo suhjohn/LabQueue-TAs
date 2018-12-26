@@ -48,11 +48,13 @@ $default-font-size: $raw-default-font-size+0rem;
 /*--------------------------------------------------------------------*/
 /* Navbar                                                             */
 /*--------------------------------------------------------------------*/
+$navbar-top_height: 6rem;
 $navbar-side_height: 100vh;
 $navbar-bottom_height: 7rem;
 $navbar-side-logo_height: 8rem;
 $navbar-side-profile_height: 15rem;
 $navbar-side-list_height: calc(#{$navbar-side_height} - #{$navbar-side-logo_height} - #{$navbar-side-profile_height});
+
 /*--------------------------------------------------------------------*/
 /* Graph                                                              */
 /*--------------------------------------------------------------------*/
