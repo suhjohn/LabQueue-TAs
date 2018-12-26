@@ -4,7 +4,6 @@
       <nuxt-link tag="li" id="logo" to="/">
         <img class="logo-img" src="~/assets/static/Logo.svg">
       </nuxt-link>
-
       <a :href="labqueueBaseURL">
         <ButtonText text="Back to Queue" :minWidth="-1" :minHeight="5" fontColor="grey-dark"/>
       </a>
@@ -36,7 +35,8 @@ export default {
 
 #demo-navbar-top-container {
   top: 0;
-  position: sticky;
+  width: 100%;
+  position: fixed;
   z-index: 1;
   height: $navbar-top_height;
   line-height: $navbar-top_height;
