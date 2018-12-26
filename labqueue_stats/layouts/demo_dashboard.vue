@@ -1,7 +1,7 @@
 <template>
   <div id="__layout">
     <DemoNavbarTop/>
-    <DemoNavbarSide/>
+    <DemoNavbarSide class="__layout-navbar-side"/>
     <DemoNavbarBottom/>
     <nuxt id="__page"/>
   </div>
@@ -25,6 +25,9 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 #__layout {
   display: flex;
+  width: 100vw;
+}
+.__layout-navbar-side {
 }
 #__page {
   width: 100%;

@@ -22,8 +22,8 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 nav {
   @include backgroundColor-light;
-  height: 100vh;
-  width: 25rem;
+  height: $navbar-side_height;
+  width: $navbar-side_width;
   display: none;
 
   @include respond(laptop) {
