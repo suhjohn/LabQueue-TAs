@@ -24,6 +24,11 @@ nav {
   @include backgroundColor-light;
   height: 100vh;
   width: 25rem;
+  display: none;
+
+  @include respond(laptop) {
+    display: block;
+  }
 }
 </style>
 

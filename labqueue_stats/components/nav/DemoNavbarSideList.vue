@@ -1,7 +1,7 @@
 <template>
   <div id="demo-navbar-side-list-container">
     <ul id="demo-navbar-side-list">
-      <DemoNavbarSideListItem
+      <NavbarSideListItem
         v-for="(navItem, index) in navItems"
         :key="index"
         :relativeURL="navItem.relativeURL"
@@ -17,13 +17,13 @@
   </div>
 </template>
 <script>
-import DemoNavbarSideListItem from "@/components/nav/DemoNavbarSideListItem.vue";
+import NavbarSideListItem from "@/components/nav/NavbarSideListItem.vue";
 import ButtonText from "@/components/UI_v2/ButtonText.vue";
 import { envVars } from "@/mixins/envVars.js";
 
 export default {
   components: {
-    DemoNavbarSideListItem,
+    NavbarSideListItem,
     ButtonText
   },
   mixins: [envVars],
@@ -51,6 +51,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 25rem;
   height: $navbar-side-list_height;
 }
 #demo-navbar-side-footer {
