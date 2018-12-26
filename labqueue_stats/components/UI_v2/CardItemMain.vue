@@ -1,5 +1,7 @@
 <template>
-  <div :class="[widthClass]" id="card-main"></div>
+  <div :class="[widthClass]" id="card-main">
+    <slot></slot>
+  </div>
 </template>
 
 <script>

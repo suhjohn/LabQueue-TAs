@@ -11,13 +11,11 @@
 </template>
 <script>
 import NavbarSideListItem from "@/components/nav/NavbarSideListItem.vue";
-import ButtonText from "@/components/UI_v2/ButtonText.vue";
 import { envVars } from "@/mixins/envVars.js";
 
 export default {
   components: {
-    NavbarSideListItem,
-    ButtonText
+    NavbarSideListItem
   },
   mixins: [envVars],
   data() {

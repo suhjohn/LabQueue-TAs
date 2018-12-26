@@ -1,7 +1,7 @@
 <template>
   <div id="page-demo">
-    <CardItemMain/>
-    <CardItemSub/>
+    <CardItemMain>Main Card</CardItemMain>
+    <CardItemSub>Sub Card</CardItemSub>
   </div>
 </template>
 
@@ -17,9 +17,13 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-$padding: 5rem;
+$mobile-padding: 1rem;
+$laptop-padding: 5rem;
 #page-demo {
-  padding: $padding;
+  padding: $mobile-padding;
+  @include respond(laptop) {
+    padding: $laptop-padding;
+  }
 }
 </style>
 

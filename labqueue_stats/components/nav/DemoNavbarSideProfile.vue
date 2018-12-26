@@ -6,11 +6,21 @@
     </div>
     <!-- Name -->
     <p class="text-main-small">{{ username }}</p>
+    <!-- Login Button -->
+    <a :href="labqueueLoginURL">
+      <ButtonGhost text="Log In" :minWidth="10" :minHeight="4"/>
+    </a>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { envVars } from "@/mixins/envVars.js";
+import ButtonGhost from "@/components/UI_v2/ButtonGhost.vue";
 export default {
+  components: {
+    ButtonGhost
+  },
+  mixins: [envVars],
   computed: {
     ...mapGetters({
       self: "demo_getSelf"

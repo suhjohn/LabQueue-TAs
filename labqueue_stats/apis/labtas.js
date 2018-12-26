@@ -19,7 +19,7 @@ export async function retrieveSelf(context) {
     context.commit("setSelf", self);
     return self;
   } catch (error) {
-    console.log("[retrieveSelf] error");
+    console.log("[retrieveSelf] fail");
     console.log(error);
     throw error;
   }

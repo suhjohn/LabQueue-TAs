@@ -11,21 +11,27 @@
  * @param {String} params.dateTo       End date of the query
  * @return {null}
  */
-import { groupBy } from "@/utils.js";
+import {
+  groupBy
+} from "@/utils.js";
 import queryData from "@/assets/static/dummydata.json";
 
 export async function queryRequests(context, params) {
   try {
+    console.log("[queryRequests] execute")
     const requestParams = {
       accepted_after: params.dateFrom,
       accepted_before: params.dateTo
     };
-
-    return await this.$axios.$get(
+    const requests = await this.$axios.$get(
       "/requests/" + params.netid + "/query",
       requestParams
     );
+    console.log("[queryRequests] success")
+    console.log(requests);
+    return requests
   } catch (error) {
+    console.log("[queryRequests] fail")
     console.log(error);
     throw error;
   }
