@@ -8,7 +8,9 @@
     <p class="text-main-small">{{ username }}</p>
     <!-- Login Button -->
     <a :href="labqueueLoginURL">
-      <ButtonText text="Are you a TA? Log In!" :width="-1" :height="4"/>
+      <ButtonText :width="-1" :height="4">
+        <template slot="text">Are you a TA? Log In!</template>
+      </ButtonText>
     </a>
   </div>
 </template>

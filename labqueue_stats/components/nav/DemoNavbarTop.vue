@@ -6,16 +6,14 @@
       </nuxt-link>
       <ul id="demo-navbar-top-list-right">
         <a class="demo-navbar-top-list-item" :href="labqueueLoginURL">
-          <ButtonGhost text="Log In" fontSize="x-small" :width="8" :height="4"/>
+          <ButtonGhost fontSize="x-small" :width="8" :height="4">
+            <template slot="text">Log In</template>
+          </ButtonGhost>
         </a>
         <a class="demo-navbar-top-list-item" :href="labqueueBaseURL">
-          <ButtonText
-            text="Back to Queue"
-            fontSize="x-small"
-            :width="-1"
-            :height="4"
-            fontColor="grey-dark"
-          />
+          <ButtonText fontSize="x-small" :width="-1" :height="4" fontColor="grey-dark">
+            <template slot="text">Back to Queue</template>
+          </ButtonText>
         </a>
       </ul>
     </ul>
@@ -68,7 +66,7 @@ export default {
 #demo-navbar-top-list-right {
   display: flex;
   & :not(:last-child) {
-    margin-right: 2rem;
+    margin-right: $margin-small;
   }
 }
 .demo-navbar-top-list-item {

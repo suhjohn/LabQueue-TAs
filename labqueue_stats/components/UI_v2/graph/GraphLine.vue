@@ -1,19 +1,41 @@
+<template>
+  <div class="graph-container">
+    <GraphLine class="graph" :data="data" :options="options"/>
+  </div>
+</template>
+
 <script>
-import { Line } from "vue-chartjs";
+import GraphLine from "./GraphLine.js";
+
 export default {
-  extends: Line,
-  props: ["chartdata", "options"],
-  mounted() {
-    this.renderChart(this.chartdata, this.options);
+  components: {
+    GraphLine
   },
-  watch: {
-    chartdata: function(newData, oldData) {
-      this.$data._chart.destroy();
-      this.renderChart(this.chartdata, this.options);
+  props: {
+    data: {
+      type: Object,
+      default: null
+    },
+    options: {
+      type: Object,
+      default: null
     }
-  }
+  },
+  mounted() {},
+  methods: {}
 };
 </script>
+
 <style lang="scss" scoped>
+@import "@/assets/scss_v2/main.scss";
+.graph-container {
+  display: flex;
+  justify-content: center;
+  padding-top: $margin-small;
+}
+.graph {
+  width: calc(100% - #{$margin-small});
+  height: 35rem;
+}
 </style>
 

@@ -9,10 +9,14 @@
         <ButtonSolid text="Log In" :width="30" :height="5"/>
       </a>
       <nuxt-link :to="{name: 'demo'}">
-        <ButtonGhost text="See Demo" :width="30" :height="5"/>
+        <ButtonGhost :width="30" :height="5">
+          <template slot="text">See Demo</template>
+        </ButtonGhost>
       </nuxt-link>
       <a :href="labqueueBaseURL">
-        <ButtonText text="Back to Queue" :width="30" :height="5" fontColor="turquoise"/>
+        <ButtonText :width="30" :height="5" fontColor="turquoise">
+          <template slot="text">Back to Queue</template>
+        </ButtonText>
       </a>
     </div>
   </div>

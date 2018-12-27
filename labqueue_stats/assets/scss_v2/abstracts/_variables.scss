@@ -61,6 +61,14 @@ $navbar-side-list_height: calc(#{$navbar-side_height} - #{$navbar-side-logo_heig
 /*--------------------------------------------------------------------*/
 $graph-height: $raw-graph-height+0rem;
 
+/*--------------------------------------------------------------------*/
+/* Margin                                                              */
+/*--------------------------------------------------------------------*/
+$margin-x-small: 0.8rem;
+$margin-small: 1.6rem;
+$margin-base: 2.4rem;
+$margin-large: 4.8rem;
+$margin-x-large:6.4rem;
 
 /*--------------------------------------------------------------------*/
 /* JS Export                                                          */
@@ -74,4 +82,5 @@ $graph-height: $raw-graph-height+0rem;
   colorMainCompGreen: $color-main-comp-green;
   colorMainCompBlue: $color-main-comp-blue;
   colorMainCompViolet: $color-main-comp-violet;
+  colorGreyLighter: $color-grey-lighter;
 }

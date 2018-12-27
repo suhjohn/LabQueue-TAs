@@ -1,18 +1,18 @@
 <template>
   <header>
-    <h1 class="text-header">{{ text }}</h1>
+    <h1 class="text-header">
+      <slot name="header"></slot>
+    </h1>
   </header>
 </template>
 
 <script>
-export default {
-  props: {
-    text: {
-      type: String
-    }
-  }
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
+.text-header {
+  font-weight: 800;
+  font-size: 2.4rem;
+}
 </style>

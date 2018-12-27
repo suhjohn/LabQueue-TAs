@@ -4,16 +4,15 @@
     :class="{hover:'button-hover'}"
     :style="{'width': width + 'rem', 'height': height + 'rem', 'line-height': height + 'rem'}"
   >
-    <span :class="['text-' + fontSize]">{{ text }}</span>
+    <span :class="['text-' + fontSize]">
+      <slot name="text"></slot>
+    </span>
   </button>
 </template>
 
 <script>
 export default {
   props: {
-    text: {
-      type: String
-    },
     fontSize: {
       type: String,
       default: "small"

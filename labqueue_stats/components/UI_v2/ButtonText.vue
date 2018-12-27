@@ -1,15 +1,14 @@
 <template>
   <button id="button-text" :style="{'width': _width, 'height': height + 'rem' }">
-    <span :class="['text-' + fontSize, 'color-text-' + fontColor]">{{ text }}</span>
+    <span :class="['text-' + fontSize, 'color-text-' + fontColor]">
+      <slot name="text"></slot>
+    </span>
   </button>
 </template>
 
 <script>
 export default {
   props: {
-    text: {
-      type: String
-    },
     fontSize: {
       type: String,
       default: "small"

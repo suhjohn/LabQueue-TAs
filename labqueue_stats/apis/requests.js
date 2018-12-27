@@ -19,10 +19,7 @@ import queryData from "@/assets/static/dummydata.json";
 export async function queryRequests(context, params) {
   try {
     console.log("[queryRequests] execute")
-    const requestParams = {
-      accepted_after: params.dateFrom,
-      accepted_before: params.dateTo
-    };
+    const requestParams = createQuery(params);
     const requests = await this.$axios.$get(
       "/requests/" + params.netid + "/query",
       requestParams
@@ -37,6 +34,24 @@ export async function queryRequests(context, params) {
   }
 }
 
+export async function querySelfRequests(context, params) {
+  try {
+    console.log("[querySelfRequests] execute")
+    const requestParams = createQuery(params);
+    const requests = await this.$axios.$get(
+      "/requests/" + params.netid + "/query",
+      requestParams
+    );
+    console.log("[queryRequests] success")
+    console.log(requests);
+    return requests
+  } catch (error) {
+    console.log("[querySelfRequests] fail")
+    console.log(error);
+    throw error;
+  }
+}
+
 /**
  * Temporary dummy query function
  */
@@ -46,4 +61,41 @@ export async function queryRequests_demo(context, params) {
   return queryData.filter(
     data => dateFrom < data.time_accepted && data.time_accepted < dateTo
   );
+}
+
+/**
+ * Creates the query parameteres to attach to the API. 
+ * 
+ * @param {Object} params   Parameters to pass for request query
+ */
+function createQuery(params) {
+  const requestParams = {};
+  if (params['is_open']) {
+    requestParams['is_open'] = params.is_open
+  }
+  if (params['author']) {
+    requestParams['author'] = params.author
+  }
+  if (params['author_full_name']) {
+    requestParams['author_full_name'] = params.author_full_name
+  }
+  if (params['course']) {
+    requestParams['course'] = params.course
+  }
+  if (params['description']) {
+    requestParams['description'] = params.description
+  }
+  if (params['accepted_by']) {
+    requestParams['accepted_by'] = params.accepted_by
+  }
+  if (params['closed_by']) {
+    requestParams['closed_by'] = params.closed_by
+  }
+  if (params['accepted_before']) {
+    requestParams['accepted_before'] = params.accepted_before
+  }
+  if (params['accepted_after']) {
+    requestParams['accepted_after'] = params.accepted_after
+  }
+  return requestParams
 }
