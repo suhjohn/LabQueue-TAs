@@ -13,7 +13,7 @@
     </PageHeader>
     <div class="row">
       <CardItemMain width="medium" height="medium">
-        <GraphLine></GraphLine>
+        <IndexModuleGraph></IndexModuleGraph>
       </CardItemMain>
       <CardItemMain width="small" height="medium"></CardItemMain>
     </div>
@@ -22,17 +22,18 @@
 <script>
 import PageHeader from "@/components/pages/PageHeader.vue";
 import CardItemMain from "@/components/UI_v2/CardItemMain.vue";
-import GraphLine from "@/components/UI_v2/graph/GraphLine.vue";
+import IndexModuleGraph from "@/components/pages/index/IndexModuleGraph.vue";
 export default {
-  components: { GraphLine, CardItemMain, PageHeader },
+  components: { IndexModuleGraph, CardItemMain, PageHeader },
   layout: "demo_dashboard"
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-$mobile-padding: 2rem;
-$laptop-padding: 5rem;
+$mobile-padding: $margin-small;
+$laptop-padding: $margin-large;
+
 #page-demo {
   padding: $mobile-padding;
 

@@ -32,7 +32,6 @@ export default {
 #card-main {
   @include boxShadow-main;
   @include roundBorder;
-  padding-top: $margin-small;
 }
 //width
 .card-main-width-small {

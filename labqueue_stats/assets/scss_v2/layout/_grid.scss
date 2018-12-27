@@ -6,9 +6,5 @@
   @include respond(laptop) {
     display: flex;
     min-width: 100%;
-
-    & :not(:last-child) {
-      margin-right: $margin-small;
-    }
   }
 }

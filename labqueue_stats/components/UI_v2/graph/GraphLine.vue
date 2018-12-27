@@ -35,7 +35,7 @@ export default {
 }
 .graph {
   width: calc(100% - #{$margin-small});
-  height: 35rem;
+  height: 28rem;
 }
 </style>
 
