@@ -56,6 +56,7 @@ $navbar-side-logo_height: 8rem;
 $navbar-side-profile_height: 20rem;
 $navbar-side-list_height: calc(#{$navbar-side_height} - #{$navbar-side-logo_height} - #{$navbar-side-profile_height});
 
+$hover-marker-size: 0.5rem;
 /*--------------------------------------------------------------------*/
 /* Graph                                                              */
 /*--------------------------------------------------------------------*/

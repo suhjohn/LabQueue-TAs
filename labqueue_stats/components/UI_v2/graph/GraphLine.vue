@@ -32,10 +32,11 @@ export default {
   display: flex;
   justify-content: center;
   padding-top: $margin-small;
+  height: 100%;
 }
 .graph {
   width: calc(100% - #{$margin-small});
-  height: 28rem;
+  height: 100%;
 }
 </style>
 

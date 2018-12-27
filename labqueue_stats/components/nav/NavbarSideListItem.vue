@@ -30,7 +30,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
 $padding-size: 2rem;
-$link-marker-size: 0.5rem;
 
 #demo-navbar-side-list-item {
   @include backgroundColor-light;
@@ -39,11 +38,11 @@ $link-marker-size: 0.5rem;
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding-top: $link-marker-size;
+  padding-top: $hover-marker-size;
 
   &:hover {
     padding-top: 0;
-    border-top: $link-marker-size solid $color-crimson-main-light;
+    border-top: $hover-marker-size solid $color-crimson-main-light;
   }
 
   @include respond(laptop) {
@@ -52,9 +51,9 @@ $link-marker-size: 0.5rem;
     height: 4rem;
     justify-content: unset;
     &:hover {
-      padding-left: $padding-size - $link-marker-size;
+      padding-left: $padding-size - $hover-marker-size;
       border-top: none;
-      border-left: $link-marker-size solid $color-crimson-main-light;
+      border-left: $hover-marker-size solid $color-crimson-main-light;
     }
   }
 }
@@ -62,12 +61,12 @@ $link-marker-size: 0.5rem;
 .nuxt-link-exact-active {
   @include textColor-highlight;
   padding-top: 0 !important;
-  border-top: $link-marker-size solid $color-crimson-main !important;
+  border-top: $hover-marker-size solid $color-crimson-main !important;
 
   @include respond(laptop) {
     @include backgroundColor-selected;
-    padding-left: $padding-size - $link-marker-size !important;
-    border-left: $link-marker-size solid $color-crimson-main !important;
+    padding-left: $padding-size - $hover-marker-size !important;
+    border-left: $hover-marker-size solid $color-crimson-main !important;
     border-top: none !important;
   }
 }
