@@ -50,7 +50,7 @@ export default {
   border-top: 5px solid $color-crimson-main;
 }
 .graph-select-tab-name-selected {
-  font-weight: 700 !important;
+  @include selectedWeight;
 }
 </style>
 

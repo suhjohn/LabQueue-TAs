@@ -54,3 +54,8 @@
 @mixin roundBorder {
   border-radius: 1rem;
 }
+
+@mixin selectedWeight {
+  font-weight: 700 !important;
+
+}

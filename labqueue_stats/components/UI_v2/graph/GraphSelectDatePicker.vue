@@ -6,14 +6,18 @@
     :class="{
         'graph-select-date-picker-container-opened': isOpen, 
         'graph-select-date-picker-container-closed': !isOpen
-      }"
+    }"
   >
     <label id="graph-select-date-picker-label">{{ label }}</label>
     <datepicker
-      :ref="label"
       id="graph-select-date-picker"
-      input-class="date-picker-input"
       v-model="date"
+      @selected="closeCalendar"
+      :ref="label"
+      :input-class="{
+        'graph-select-date-picker-input':true,
+        'graph-select-date-picker-input-opened':isOpen
+      }"
       :typeable="true"
     ></datepicker>
   </button>
@@ -43,20 +47,17 @@ export default {
       type: String
     },
     initialDate: {
-      type: String
+      type: Date
     }
   },
   methods: {
     toggleCalendar() {
-      if (!this.isOpen) {
-        this.isOpen = true;
-        this.$refs[this.label].showDayCalendar();
-      } else {
-        this.isOpen = false;
-        this.$refs[this.label].close();
-      }
+      console.log("toggle");
+      this.isOpen = true;
+      this.$refs[this.label].showDayCalendar();
     },
     closeCalendar() {
+      console.log("close");
       this.isOpen = false;
       this.$refs[this.label].close();
     }
@@ -72,6 +73,7 @@ export default {
 }
 .graph-select-date-picker-container-opened {
   border-top: $hover-marker-size solid $color-crimson-main;
+  font-weight: 700;
 }
 
 .graph-select-date-picker-container-closed {
@@ -84,12 +86,15 @@ export default {
   height: 1rem;
   cursor: pointer;
 }
-.date-picker-input {
+.graph-select-date-picker-input {
   background-color: transparent;
   border: none;
   cursor: pointer;
   &:focus {
     cursor: text;
   }
+}
+.graph-select-date-picker-input-opened {
+  @include selectedWeight;
 }
 </style>
