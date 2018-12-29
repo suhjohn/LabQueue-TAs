@@ -1,22 +1,22 @@
 <template>
   <div>
-    <!-- Tabs -->
-    <div id="index-module-graph-tabs">
+    <!-- graphs -->
+    <div id="index-module-graph-graphs">
       <GraphSelectTab
-        v-for="(tab, index) in tabs"
+        v-for="(tab, index) in Object.values(graphs)"
         :key="index"
         :index="index"
-        :selected="isSelectedTab(index)"
+        :value="tab.tabValue"
+        :valueUnit="tab.tabUnit"
+        :selected="isSelectedTab(tab.name)"
         :name="tab.name"
         @select="onSelect"
       ></GraphSelectTab>
     </div>
-
-    <!-- Graph -->
+    <!-- Graph  -->
     <div id="index-module-graph">
-      <GraphLine :data="graphData" :options="graphOptions"></GraphLine>
+      <GraphLine :data="selectedGraphData" :options="selectedGraphOptions"></GraphLine>
     </div>
-
     <!-- Date -->
     <div id="index-module-graph-date">
       <div id="graph-select-date-container">
@@ -35,7 +35,7 @@
 
 <script>
 // External
-import moment from "moment";
+import moment, { isMoment } from "moment";
 // Vue
 import { mapGetters, mapActions } from "vuex";
 // Project
@@ -70,22 +70,30 @@ export default {
     const initialDateTo = moment()
       .startOf("day")
       .toDate();
+    const DEFAULT_TAB = "Requests";
+
     return {
-      selectedTabIndex: 0,
-      tabs: [
-        {
+      selectedTab: DEFAULT_TAB,
+      graphs: {
+        Requests: {
           name: "Requests",
-          generateDatasetFunc: this.generateDataset_requests,
-          generateLabelFunc: this.generateLabel_requests,
-          generateOptionFunc: this.generateOption_requests
+          units: "",
+          tabValue: null,
+          tabUnit: "requests / shift",
+          getDatasetFunc: this.getDataset_requests,
+          getLabelFunc: this.getLabel_requests,
+          getOptionFunc: this.getOption_requests
         },
-        {
+        "Handle Time": {
           name: "Handle Time",
-          generateDatasetFunc: this.generateDataset_handleTime,
-          generateLabelFunc: this.generateLabel_handleTime,
-          generateOptionFunc: this.generateOption_handleTime
+          units: "min / request",
+          tabValue: null,
+          tabUnit: "min / request",
+          getDatasetFunc: this.getDataset_handleTime,
+          getLabelFunc: this.getLabel_handleTime,
+          getOptionFunc: this.getOption_handleTime
         }
-      ],
+      },
       datepickers: {
         "Date From": {
           label: "Date From",
@@ -106,21 +114,18 @@ export default {
       getSelf: "getSelf",
       demo_getSelf: "demo_getSelf"
     }),
-    graphData() {
-      const _graphData = this.tabs[this.selectedTabIndex].generateDatasetFunc();
-      const _graphLabel = this.tabs[this.selectedTabIndex].generateLabelFunc();
-
-      const graphDataset = {
-        labels: _graphLabel,
-        datasets: _graphData
+    selectedGraphData() {
+      const newDatasets = this.graphs[this.selectedTab].getDatasetFunc();
+      const newLabels = this.graphs[this.selectedTab].getLabelFunc();
+      const newGraphData = {
+        datasets: newDatasets,
+        labels: newLabels
       };
-      return graphDataset;
+      return newGraphData;
     },
-    graphOptions() {
-      const _graphOptions = this.tabs[
-        this.selectedTabIndex
-      ].generateOptionFunc();
-      return _graphOptions;
+    selectedGraphOptions() {
+      const newOptions = this.graphs[this.selectedTab].getOptionFunc();
+      return newOptions;
     }
   },
   methods: {
@@ -130,13 +135,18 @@ export default {
       getRequests_demo: "queryRequests_demo"
     }),
     // v-on methods
-    isSelectedTab(index) {
-      return index == this.selectedTabIndex;
+    isSelectedTab(name) {
+      return name === this.selectedTab;
     },
-    onSelect(index) {
-      this.selectedTabIndex = index;
+    onSelect(name) {
+      if (this.selectedTab !== name) this.selectedTab = name;
+    },
+    setTabValues() {
+      this.setTabValue_requests();
+      this.setTabValue_handleTime();
     },
     async setRequests() {
+      console.log("setting Requests");
       let requests;
       const query = {
         accepted_before: dateToString(
@@ -158,9 +168,10 @@ export default {
     async onSelectDate(label, date) {
       this.datepickers[label].date = date;
       await this.setRequests();
+      this.setTabValues();
     },
     // Graph: Requests
-    generateDataset_requests() {
+    getDataset_requests() {
       const selfNetid = this.isDemo
         ? this.demo_getSelf.netid
         : this.getSelf.netid;
@@ -178,21 +189,44 @@ export default {
         }
       ];
     },
-    generateLabel_requests() {
+    setTabValue_requests() {
+      const shiftRequests = getShiftRequests(this.requests);
+      const shiftCount = Object.keys(shiftRequests).length;
+      const requestsSum = this.requests.length;
+      const requestsTabVal = (requestsSum / shiftCount).toFixed(2);
+      console.log(shiftCount);
+      this.graphs["Requests"].tabValue = requestsTabVal;
+    },
+    getLabel_requests() {
       return filter_shifts(this.requests);
     },
-    generateOption_requests() {
+    getOption_requests() {
       return {
         yAxes: {
           scaleLabel: {
-            labelString: "Requests",
-            display: true
+            labelString: this.graphs["Requests"].name,
+            display: true,
+            units: this.graphs["Requests"].units
           }
         }
       };
     },
     // Graph: Handle Time
-    generateDataset_handleTime() {
+    setTabValue_handleTime() {
+      const requestsCount = this.requests.length;
+      const handletimeSum = this.requests
+        .reduce((total, request) => {
+          let time_accepted = moment(request.time_accepted);
+          let time_closed = moment(request.time_closed);
+          let handleTime = time_closed.subtract(time_accepted).minutes();
+          let handleTimeMoment = moment.duration(handleTime, "minutes");
+          return moment.duration(total, "minutes").add(handleTimeMoment);
+        })
+        .asMinutes();
+      const handleTimeTabVal = (handletimeSum / requestsCount).toFixed(2);
+      this.graphs["Handle Time"].tabValue = handleTimeTabVal;
+    },
+    getDataset_handleTime() {
       const selfNetid = this.isDemo
         ? this.demo_getSelf.netid
         : this.getSelf.netid;
@@ -217,29 +251,30 @@ export default {
         }
       ];
     },
-    generateLabel_handleTime() {
+    getLabel_handleTime() {
       return filter_shifts(this.requests);
     },
-    generateOption_handleTime() {
+    getOption_handleTime() {
       return {
         yAxes: {
           scaleLabel: {
-            labelString: "Handle Time",
+            labelString: this.graphs["Handle Time"].name,
             display: true,
-            units: "min / request"
+            units: this.graphs["Handle Time"].units
           }
         }
       };
     }
   },
-  async mounted() {
+  async created() {
     await this.setRequests();
+    this.setTabValues();
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-#index-module-graph-tabs {
+#index-module-graph-graphs {
   height: 12rem;
 }
 #index-module-graph {

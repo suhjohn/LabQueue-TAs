@@ -59,3 +59,7 @@
   font-weight: 700 !important;
 
 }
+
+@mixin selectedWeightStrong {
+  font-weight: 900 !important;
+}

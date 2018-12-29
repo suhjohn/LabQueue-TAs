@@ -14,14 +14,6 @@ export default {
       type: Object,
       default: {}
     },
-    /**
-     * labelString: String
-     * display: Boolean
-     */
-    yLabel: {
-      type: Object,
-      default: {}
-    }
   },
   watch: {
     data: function (newData, oldData) {
@@ -82,6 +74,7 @@ export default {
           intersect: false,
           callbacks: {
             label: function (tooltipItem, data) {
+
               const yAxisString = this._chart.options.scales.yAxes[0].scaleLabel.labelString
               let yAxisUnit = this._chart.options.scales.yAxes[0].scaleLabel.units
               if (!yAxisUnit) yAxisUnit = ""
@@ -110,7 +103,7 @@ export default {
               color: styles.colorGreyLight,
             },
             scaleLabel: {
-              ...this.yLabel,
+              ...this.options.yAxes.scaleLabel,
               display: false,
               fontColor: styles.colorGrey
             }

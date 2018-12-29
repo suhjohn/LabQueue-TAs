@@ -1,6 +1,6 @@
 <template>
   <div class="graph-container">
-    <GraphLine class="graph" :data="data" :options="options" :yLabel="options.yAxes.scaleLabel"/>
+    <GraphLine class="graph" :data="data" :options="options"/>
   </div>
 </template>
 
