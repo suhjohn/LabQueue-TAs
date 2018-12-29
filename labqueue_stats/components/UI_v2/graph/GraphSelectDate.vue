@@ -4,7 +4,8 @@
       v-for="(datepicker, index) in datepickers"
       :key="index"
       :label="datepicker.label"
-      :initialDate="datepicker.initialDate"
+      :initialDate="datepicker.date"
+      @selectDate="onSelectDate"
     />
   </div>
 </template>
@@ -25,24 +26,34 @@ export default {
       datepickers: [
         {
           label: "Date From",
-          initialDate: moment()
+          date: moment()
             .subtract(defaultDateRange.value, defaultDateRange.unit)
             .startOf("day")
             .toDate()
         },
         {
           label: "Date To",
-          initialDate: moment()
+          date: moment()
             .startOf("day")
             .toDate()
         }
       ]
     };
+  },
+  methods: {
+    onSelectDate(label, date) {
+      this.datepickers.forEach(datepicker => {
+        if (datepicker.label === label) {
+          datepicker.date = date;
+        }
+      });
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
 #graph-select-date-container {
   height: 100%;
+  display: flex;
 }
 </style>

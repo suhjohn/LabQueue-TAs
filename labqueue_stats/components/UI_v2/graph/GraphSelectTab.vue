@@ -36,16 +36,20 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
 #graph-select-tab {
-  width: 12rem;
+  width: 18rem;
   height: 12rem;
   &:hover {
     @include backgroundColor-light;
   }
+  @include respond(laptop) {
+    width: 12rem;
+  }
 }
+
 #graph-select-tab-name {
   font-weight: 300;
 }
-
+// Tab Select
 .graph-select-tab-selected {
   border-top: 5px solid $color-crimson-main;
 }

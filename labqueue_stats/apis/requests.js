@@ -11,9 +11,6 @@
  * @param {String} params.dateTo       End date of the query
  * @return {null}
  */
-import {
-  groupBy
-} from "@/utils.js";
 import queryData from "@/assets/static/dummydata.json";
 
 export async function queryRequests(context, params) {
@@ -56,11 +53,16 @@ export async function querySelfRequests(context, params) {
  * Temporary dummy query function
  */
 export async function queryRequests_demo(context, params) {
-  const dateFrom = params.dateFrom;
-  const dateTo = params.dateTo;
-  return queryData.filter(
+  console.log("[queryRequests_demo] execute")
+  const dateFrom = params.accepted_after;
+  const dateTo = params.accepted_before;
+
+  const requests = queryData.filter(
     data => dateFrom < data.time_accepted && data.time_accepted < dateTo
   );
+  console.log("[queryRequests_demo] success")
+  console.log(requests)
+  return requests;
 }
 
 /**

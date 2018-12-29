@@ -3,11 +3,6 @@ import Vuex, {
   mapActions
 } from "vuex";
 import apis from "@/apis/index";
-import moment from "moment";
-import {
-  DATE_FORMAT,
-  API_TIME_FORMAT
-} from "@/constants.js";
 
 Vue.use(Vuex);
 const store = () =>
