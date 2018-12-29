@@ -14,7 +14,7 @@
 
     <!-- Graph -->
     <div id="index-module-graph">
-      <GraphLine :data="graphData"></GraphLine>
+      <GraphLine :data="graphData" :options="graphOptions"></GraphLine>
     </div>
 
     <!-- Date -->
@@ -46,7 +46,7 @@ import GraphLine from "@/components/UI_v2/graph/GraphLine.vue";
 import GraphSelectDatePicker from "@/components/UI_v2/graph/GraphSelectDatePicker.vue";
 
 const defaultDateRange = {
-  value: 1,
+  value: 2,
   unit: "months"
 };
 
@@ -76,12 +76,14 @@ export default {
         {
           name: "Requests",
           generateDatasetFunc: this.generateDataset_requests,
-          generateLabelFunc: this.generateLabel_requests
+          generateLabelFunc: this.generateLabel_requests,
+          generateOptionFunc: this.generateOption_requests
         },
         {
           name: "Handle Time",
           generateDatasetFunc: this.generateDataset_handleTime,
-          generateLabelFunc: this.generateLabel_handleTime
+          generateLabelFunc: this.generateLabel_handleTime,
+          generateOptionFunc: this.generateOption_handleTime
         }
       ],
       datepickers: {
@@ -112,8 +114,13 @@ export default {
         labels: _graphLabel,
         datasets: _graphData
       };
-      console.log(graphDataset);
       return graphDataset;
+    },
+    graphOptions() {
+      const _graphOptions = this.tabs[
+        this.selectedTabIndex
+      ].generateOptionFunc();
+      return _graphOptions;
     }
   },
   methods: {
@@ -152,6 +159,7 @@ export default {
       this.datepickers[label].date = date;
       await this.setRequests();
     },
+    // Graph: Requests
     generateDataset_requests() {
       const selfNetid = this.isDemo
         ? this.demo_getSelf.netid
@@ -170,14 +178,58 @@ export default {
         }
       ];
     },
-    generateDataset_handleTime() {
-      return {};
-    },
     generateLabel_requests() {
       return filter_shifts(this.requests);
     },
+    generateOption_requests() {
+      return {
+        yAxes: {
+          scaleLabel: {
+            labelString: "Requests",
+            display: true
+          }
+        }
+      };
+    },
+    // Graph: Handle Time
+    generateDataset_handleTime() {
+      const selfNetid = this.isDemo
+        ? this.demo_getSelf.netid
+        : this.getSelf.netid;
+      const shiftRequests = getShiftRequests(this.requests);
+      const handleTimes = [];
+      Object.values(shiftRequests).forEach(reqsForShift => {
+        let shiftReqCount = reqsForShift.length;
+        let shiftTotalDur = 0; // in minutes
+        reqsForShift.forEach(req => {
+          let from = moment(req.time_accepted);
+          let to = moment(req.time_closed);
+          let duration = moment.duration(to.diff(from));
+          shiftTotalDur += duration.asMinutes();
+        });
+        const handleTime = (shiftTotalDur / shiftReqCount).toFixed(2);
+        handleTimes.push(handleTime);
+      });
+      return [
+        {
+          label: selfNetid,
+          data: handleTimes
+        }
+      ];
+    },
     generateLabel_handleTime() {
       return filter_shifts(this.requests);
+    },
+    generateOption_handleTime() {
+      return {
+        yAxes: {
+          scaleLabel: {
+            labelString: "Handle Time",
+            display: true,
+            units: "min / request"
+          }
+        }
+      };
     }
   },
   async mounted() {

@@ -14,9 +14,9 @@ $raw-graph-height: 40;
 $color-crimson-main-darkest: #832a29;
 $color-crimson-main-dark: #d10302;
 $color-crimson-main: #ff5a5f;
-$color-crimson-main-lighter: #fe9897;
-$color-crimson-main-light: #f0cfcf;
-$color-crimson-main-lightest: #f9eded;
+$color-crimson-main-lighter: #ffbcbe;
+$color-crimson-main-light: #ffe3e4;
+$color-crimson-main-lightest: #fff7f7;
 
 $color-turquoise-main:#008489;
 $color-indigo-main: #30415d;
@@ -84,4 +84,6 @@ $margin-x-large:6.4rem;
   colorMainCompBlue: $color-main-comp-blue;
   colorMainCompViolet: $color-main-comp-violet;
   colorGreyLighter: $color-grey-lighter;
+  colorGreyLight: $color-grey-light;
+  colorGrey: $color-grey;
 }

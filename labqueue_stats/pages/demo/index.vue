@@ -13,7 +13,7 @@
     </PageHeader>
     <div class="row">
       <CardItemMain width="medium" height="medium">
-        <IndexModuleGraph :isDemo="true"></IndexModuleGraph>
+        <IndexModuleLineGraph :isDemo="true"></IndexModuleLineGraph>
       </CardItemMain>
       <CardItemMain width="small" height="medium"></CardItemMain>
     </div>
@@ -22,10 +22,10 @@
 <script>
 import PageHeader from "@/components/pages/PageHeader.vue";
 import CardItemMain from "@/components/UI_v2/CardItemMain.vue";
-import IndexModuleGraph from "@/components/pages/index/IndexModuleGraph.vue";
+import IndexModuleLineGraph from "@/components/pages/index/IndexModuleLineGraph.vue";
 
 export default {
-  components: { IndexModuleGraph, CardItemMain, PageHeader },
+  components: { IndexModuleLineGraph, CardItemMain, PageHeader },
   layout: "demo_dashboard"
 };
 </script>

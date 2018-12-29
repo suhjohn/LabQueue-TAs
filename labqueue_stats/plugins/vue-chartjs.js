@@ -1,5 +1,8 @@
 import Vue from "vue";
-import { Line, Bar } from "vue-chartjs";
+import {
+  Line,
+  Bar
+} from "vue-chartjs";
 import styles from "~/assets/scss/variables.scss";
 import tinycolor from "tinycolor2";
 
@@ -14,7 +17,7 @@ Vue.component("LineGraph", {
     }
   },
   watch: {
-    data: function(newData, oldData) {
+    data: function (newData, oldData) {
       this.$data._chart.destroy();
       this.renderChart(this.computedData, this.computedOptions);
     }
@@ -24,38 +27,45 @@ Vue.component("LineGraph", {
       const baseOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        legend: { display: false },
+        legend: {
+          display: false
+        },
         tooltips: {
           mode: "index",
           intersect: false,
           callbacks: {
-            labelColor: function(tooltipItem, chart) {
+            labelColor: function (tooltipItem, chart) {
               const dataset =
                 chart.config.data.datasets[tooltipItem.datasetIndex];
-              return { backgroundColor: dataset.borderColor.substring(0, 7) };
+              return {
+                backgroundColor: dataset.borderColor.substring(0, 7)
+              };
             },
-            title: function(tooltipItem) {
+            title: function (tooltipItem) {
               return this._data.labels[tooltipItem[0].index];
             }
           }
         }
       };
-      return { ...baseOptions, ...this.options };
+      return { ...baseOptions,
+        ...this.options
+      };
     },
     computedData() {
       const _data = {};
       _data["labels"] = this.data.labels;
       _data["datasets"] = [];
       this.data.datasets.forEach(dataItem => {
-        let baseColor = dataItem.baseColor
-          ? dataItem.baseColor
-          : styles.colorCrimsonMainDark;
+        let baseColor = dataItem.baseColor ?
+          dataItem.baseColor :
+          styles.colorCrimsonMainDark;
         const gradient = this.$refs.canvas
           .getContext("2d")
           .createLinearGradient(0, 0, 0, 450);
         gradient.addColorStop(0, baseColor + "A0");
         gradient.addColorStop(0.5, baseColor + "60");
         gradient.addColorStop(1, baseColor + "10");
+
         let configuredDataItem = {
           ...dataItem,
           borderWidth: 1,
@@ -64,7 +74,8 @@ Vue.component("LineGraph", {
         };
         _data["datasets"].push(configuredDataItem);
       });
-      return { ..._data };
+      return { ..._data
+      };
     }
   },
   mounted() {
@@ -80,7 +91,7 @@ Vue.component("BarGraph", {
   extends: Bar,
   props: ["data", "options"],
   watch: {
-    data: function(newData, oldData) {
+    data: function (newData, oldData) {
       this.$data._chart.destroy();
       this.renderChart(this.computedData, this.computedOptions);
     }
@@ -90,20 +101,26 @@ Vue.component("BarGraph", {
       const baseOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        hover: { mode: "label" },
+        hover: {
+          mode: "label"
+        },
         tooltips: {
           mode: "index",
           intersect: false,
           callbacks: {
-            labelColor: function(tooltipItem, chart) {
+            labelColor: function (tooltipItem, chart) {
               const dataset =
                 chart.config.data.datasets[tooltipItem.datasetIndex];
-              return { backgroundColor: dataset.borderColor.substring(0, 7) };
+              return {
+                backgroundColor: dataset.borderColor.substring(0, 7)
+              };
             }
           }
         }
       };
-      return { ...baseOptions, ...this.options };
+      return { ...baseOptions,
+        ...this.options
+      };
     },
     computedData() {
       // Set Data
@@ -111,9 +128,9 @@ Vue.component("BarGraph", {
       _data["labels"] = this.data.labels;
       _data["datasets"] = [];
       this.data.datasets.forEach(dataItem => {
-        let baseColor = dataItem.baseColor
-          ? dataItem.baseColor
-          : styles.colorCrimsonMainDark;
+        let baseColor = dataItem.baseColor ?
+          dataItem.baseColor :
+          styles.colorCrimsonMainDark;
 
         const gradient = this.$refs.canvas
           .getContext("2d")
@@ -123,8 +140,8 @@ Vue.component("BarGraph", {
         gradient.addColorStop(
           1,
           tinycolor(baseColor)
-            .monochromatic()[5]
-            .toHexString() + "10"
+          .monochromatic()[5]
+          .toHexString() + "10"
         );
         const hoverGradient = this.$refs.canvas
           .getContext("2d")
@@ -134,8 +151,8 @@ Vue.component("BarGraph", {
         hoverGradient.addColorStop(
           1,
           tinycolor(baseColor)
-            .monochromatic()[5]
-            .toHexString() + "00"
+          .monochromatic()[5]
+          .toHexString() + "00"
         );
 
         let configuredDataItem = {
@@ -149,7 +166,8 @@ Vue.component("BarGraph", {
         };
         _data["datasets"].push(configuredDataItem);
       });
-      return { ..._data };
+      return { ..._data
+      };
     }
   },
   mounted() {
