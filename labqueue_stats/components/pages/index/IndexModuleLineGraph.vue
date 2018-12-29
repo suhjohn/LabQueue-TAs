@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="index-module-graph-container">
     <!-- graphs -->
-    <div id="index-module-graph-graphs">
+    <div id="index-module-graph-tabs">
       <GraphSelectTab
         v-for="(tab, index) in Object.values(graphs)"
         :key="index"
@@ -39,16 +39,15 @@ import moment, { isMoment } from "moment";
 // Vue
 import { mapGetters, mapActions } from "vuex";
 // Project
-import { DATE_FORMAT } from "@/constants.js";
+import {
+  DATE_FORMAT,
+  INITIAL_DATE_FROM,
+  INITIAL_DATE_TO
+} from "@/constants.js";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
 import GraphSelectTab from "@/components/UI_v2/graph/GraphSelectTab.vue";
 import GraphLine from "@/components/UI_v2/graph/GraphLine.vue";
 import GraphSelectDatePicker from "@/components/UI_v2/graph/GraphSelectDatePicker.vue";
-
-const defaultDateRange = {
-  value: 2,
-  unit: "months"
-};
 
 export default {
   components: {
@@ -63,13 +62,6 @@ export default {
     }
   },
   data() {
-    const initialDateFrom = moment()
-      .subtract(defaultDateRange.value, defaultDateRange.unit)
-      .startOf("day")
-      .toDate();
-    const initialDateTo = moment()
-      .startOf("day")
-      .toDate();
     const DEFAULT_TAB = "Requests";
 
     return {
@@ -97,13 +89,13 @@ export default {
       datepickers: {
         "Date From": {
           label: "Date From",
-          date: initialDateFrom,
-          initialDate: initialDateFrom
+          date: INITIAL_DATE_FROM,
+          initialDate: INITIAL_DATE_FROM
         },
         "Date To": {
           label: "Date To",
-          date: initialDateTo,
-          initialDate: initialDateTo
+          date: INITIAL_DATE_TO,
+          initialDate: INITIAL_DATE_TO
         }
       },
       requests: []
@@ -146,7 +138,6 @@ export default {
       this.setTabValue_handleTime();
     },
     async setRequests() {
-      console.log("setting Requests");
       let requests;
       const query = {
         accepted_before: dateToString(
@@ -274,14 +265,20 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-#index-module-graph-graphs {
+#index-module-graph-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+#index-module-graph-tabs {
   height: 12rem;
 }
 #index-module-graph {
   height: 28rem;
 }
 #index-module-graph-date {
-  height: calc(5rem - 5px);
   padding-left: $margin-x-small;
 }
 #graph-select-date-container {

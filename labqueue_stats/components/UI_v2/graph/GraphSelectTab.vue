@@ -74,7 +74,7 @@ export default {
   @include selectedWeight;
 }
 .graph-select-tab-value-selected {
-  @include selectedWeightStrong;
+  font-weight: 500;
 }
 </style>
 

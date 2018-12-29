@@ -40,8 +40,9 @@ export function filter_requests(requests) {
     if (diff < limit_duration) {
       return request;
     } else {
+      console.log("different")
       request.time_closed = moment_accepted
-        .add(limit_duration)
+        .add(limit_duration + 1)
         .format(API_TIME_FORMAT);
       return request;
     }

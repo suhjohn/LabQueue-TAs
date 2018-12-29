@@ -74,7 +74,6 @@ export default {
           intersect: false,
           callbacks: {
             label: function (tooltipItem, data) {
-
               const yAxisString = this._chart.options.scales.yAxes[0].scaleLabel.labelString
               let yAxisUnit = this._chart.options.scales.yAxes[0].scaleLabel.units
               if (!yAxisUnit) yAxisUnit = ""

@@ -15,7 +15,12 @@
       <CardItemMain width="medium" height="medium">
         <IndexModuleLineGraph :isDemo="true"></IndexModuleLineGraph>
       </CardItemMain>
-      <CardItemMain width="small" height="medium"></CardItemMain>
+      <CardItemMain width="small" height="medium">
+        <IndexDoughnutReqPerMin :isDemo="true"></IndexDoughnutReqPerMin>
+      </CardItemMain>
+      <CardItemMain width="small" height="medium">
+        <IndexDoughnutCourse :isDemo="true"></IndexDoughnutCourse>
+      </CardItemMain>
     </div>
   </div>
 </template>
@@ -23,9 +28,16 @@
 import PageHeader from "@/components/pages/PageHeader.vue";
 import CardItemMain from "@/components/UI_v2/CardItemMain.vue";
 import IndexModuleLineGraph from "@/components/pages/index/IndexModuleLineGraph.vue";
-
+import IndexDoughnutReqPerMin from "@/components/pages/index/IndexDoughnutReqPerMin.vue";
+import IndexDoughnutCourse from "@/components/pages/index/IndexDoughnutCourse.vue";
 export default {
-  components: { IndexModuleLineGraph, CardItemMain, PageHeader },
+  components: {
+    IndexModuleLineGraph,
+    IndexDoughnutCourse,
+    IndexDoughnutReqPerMin,
+    CardItemMain,
+    PageHeader
+  },
   layout: "demo_dashboard"
 };
 </script>

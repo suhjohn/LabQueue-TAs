@@ -1,18 +1,42 @@
+<template>
+  <div class="graph-container">
+    <GraphDoughnut class="graph" :data="data" :options="options"/>
+  </div>
+</template>
+
 <script>
-import { Doughnut } from "vue-chartjs";
+import GraphDoughnut from "./GraphDoughnut.js";
+
 export default {
-  extends: Doughnut,
-  props: ["chartdata", "options"],
-  mounted() {
-    this.renderChart(this.chartdata, this.options);
+  components: {
+    GraphDoughnut
   },
-  watch: {
-    chartdata: function(newData, oldData) {
-      this.$data._chart.destroy();
-      this.renderChart(this.chartdata, this.options);
+  props: {
+    data: {
+      type: Object,
+      default: null
+    },
+    options: {
+      type: Object,
+      default: null
     }
-  }
+  },
+  mounted() {},
+  methods: {}
 };
 </script>
+
 <style lang="scss" scoped>
+@import "@/assets/scss_v2/main.scss";
+.graph-container {
+  display: flex;
+  justify-content: center;
+  padding-top: $margin-small;
+  height: 100%;
+}
+.graph {
+  width: calc(100% - #{$margin-small});
+  height: 100%;
+}
 </style>
+

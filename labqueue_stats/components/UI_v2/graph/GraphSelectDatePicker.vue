@@ -27,11 +27,6 @@
 import Datepicker from "vuejs-datepicker";
 import { mixin as clickaway } from "vue-clickaway";
 
-const defaultDateRange = {
-  value: 1,
-  unit: "months"
-};
-
 export default {
   components: {
     Datepicker
@@ -72,7 +67,7 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss_v2/main.scss";
-$date-picker-container-width: 15rem;
+$date-picker-container-width: 14rem;
 $date-picker-label-height: 2rem;
 
 #graph-select-date-picker-container {
@@ -97,6 +92,7 @@ $date-picker-label-height: 2rem;
 // Label
 #graph-select-date-picker-label {
   cursor: pointer;
+  color: $color-grey-dark;
   height: $date-picker-label-height;
   line-height: $date-picker-label-height;
   display: block;
@@ -111,6 +107,7 @@ $date-picker-label-height: 2rem;
 
 // Datepicker Input
 .graph-select-date-picker-input {
+  color: $color-grey-dark;
   background-color: transparent;
   border: none;
   cursor: pointer;
