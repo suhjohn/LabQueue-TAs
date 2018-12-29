@@ -1,6 +1,9 @@
 <template>
   <div id="index-doughnut-reqpermin">
     <!-- Header -->
+    <div id="index-doughnut-graph-header-container">
+      <p class="text-small">Requests Per Minute Segments</p>
+    </div>
     <!-- Graph -->
     <div id="index-doughnut-graph-container">
       <GraphDoughnut :data="graphData" :options="graphOptions"/>
@@ -158,6 +161,11 @@ export default {
 <style lang="scss" scoped>
 #index-doughnut-graph-container {
   height: 28rem;
+}
+#index-doughnut-graph-header-container {
+  height: 5rem;
+  line-height: 5rem;
+  padding-left: 2rem;
 }
 #graph-select-date-container {
   height: 100%;

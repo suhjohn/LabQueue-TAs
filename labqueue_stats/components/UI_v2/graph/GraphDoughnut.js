@@ -88,7 +88,25 @@ export default {
           }
         },
         legend: {
-          position: "bottom"
+          position: "bottom",
+          labels: {
+            generateLabels(chart) {
+              const datasets = chart.data.datasets
+              const dataset = datasets[0]
+              const data = dataset.data
+              const labels = chart.data.labels
+              return data.map((dataItem, index) => {
+                let label = labels[index]
+                let value = dataItem
+                return {
+                  text: `${label} : ${value}%`,
+                  fillStyle: dataset.backgroundColor[index],
+                  strokeStyle: dataset.borderColor[index],
+                  lineWidth: dataset.borderWidth,
+                }
+              })
+            }
+          }
         }
       }
       return _options
