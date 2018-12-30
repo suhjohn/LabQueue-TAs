@@ -162,6 +162,10 @@ export default {
     },
     setTabValue_requests() {
       const shiftRequests = getShiftRequests(this.requests);
+      if (this.requests.length == 0) {
+        this.graphs["Requests"].tabValue = 0;
+        return;
+      }
       const shiftCount = Object.keys(shiftRequests).length;
       const requestsSum = this.requests.length;
       const requestsTabVal = (requestsSum / shiftCount).toFixed(2);
@@ -184,6 +188,10 @@ export default {
     // Graph: Handle Time
     setTabValue_handleTime() {
       const requestsCount = this.requests.length;
+      if (this.requests.length == 0) {
+        this.graphs["Handle Time"].tabValue = 0;
+        return;
+      }
       const handletimeSum = this.requests
         .reduce((total, request) => {
           let time_accepted = moment(request.time_accepted);
