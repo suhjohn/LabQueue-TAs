@@ -69,6 +69,8 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 $date-picker-container-width: 14rem;
 $date-picker-label-height: 2rem;
+$calendar-height: 70vh;
+$calendar-header-height: 6rem;
 
 #graph-select-date-picker-container {
   height: 100%;
@@ -121,12 +123,86 @@ $date-picker-label-height: 2rem;
 }
 // Datepicker Calendar
 .graph-select-date-picker-calendar {
+  @include boxShadow-main;
+  @include roundBorder;
+
+  position: fixed;
+  width: 100vw;
+  height: $calendar-height;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  font-size: 1.6rem;
+  color: $color-grey-darkest;
+  font-weight: 200;
+
+  & header {
+    height: $calendar-header-height;
+    & span {
+      line-height: $calendar-header-height;
+      height: $calendar-header-height;
+    }
+    & :nth-child(2) {
+      font-weight: 700;
+    }
+  }
+
+  // Day Calendar
+  & div {
+    background-color: $color-white;
+    @include boxShadow-main;
+    @include roundBorder;
+
+    .day-header {
+      font-weight: 400;
+    }
+    .cell {
+      line-height: calc(
+        calc(#{$calendar-height} - #{$calendar-header-height}) / 6
+      );
+      height: calc(calc(#{$calendar-height} - #{$calendar-header-height}) / 6);
+      &:hover {
+        background-color: $color-grey-light;
+        border: none !important;
+      }
+      &.selected {
+        color: $color-white;
+        background-color: $color-crimson-main-lighter !important;
+        border: none !important;
+        &:hover {
+          background-color: $color-crimson-main-lighter;
+        }
+      }
+    }
+  }
+  // Month Calendar
+  & .cell {
+    line-height: calc(
+      calc(#{$calendar-height} - #{$calendar-header-height}) / 6
+    );
+    height: calc(calc(#{$calendar-height} - #{$calendar-header-height}) / 6);
+    &:hover {
+      background-color: $color-grey-light;
+      border: none !important;
+    }
+    &.selected {
+      color: $color-white;
+      background-color: $color-crimson-main-lighter !important;
+      border: none !important;
+      &:hover {
+        background-color: $color-crimson-main-lighter;
+      }
+    }
+  }
+
   @include respond(laptop) {
     width: 30rem;
     position: absolute;
     left: $date-picker-container-width;
     bottom: 0;
     height: auto;
+    font-size: 1.2rem !important;
     & div {
       .cell {
         line-height: 4rem;

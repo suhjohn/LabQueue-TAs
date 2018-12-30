@@ -37,6 +37,7 @@ import {
 } from "@/constants.js";
 import GraphDoughnut from "@/components/UI_v2/graph/GraphDoughnut.vue";
 import GraphSelectDatePicker from "@/components/UI_v2/graph/GraphSelectDatePicker.vue";
+import { demo } from "@/mixins/demo.js";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
 
 const courses = ["cos126", "cos226", "cos217"];
@@ -46,11 +47,7 @@ export default {
     GraphDoughnut,
     GraphSelectDatePicker
   },
-  props: {
-    isDemo: {
-      type: Boolean
-    }
-  },
+  mixins: [demo],
   data() {
     return {
       datepickers: {
@@ -100,13 +97,7 @@ export default {
     }
   },
   methods: {
-    // API calls
-    ...mapActions({
-      getRequests: "querySelfRequests",
-      getRequests_demo: "queryRequests_demo"
-    }),
     async setRequests() {
-      let requests;
       const query = {
         accepted_before: dateToString(
           this.datepickers["Date To"].date,
@@ -117,12 +108,7 @@ export default {
           DATE_FORMAT
         )
       };
-      if (this.isDemo) {
-        requests = await this.getRequests_demo(query);
-      } else {
-        requests = await this.getRequests(query);
-      }
-      this.requests = requests;
+      this.requests = await this.getRequests(query);
     },
     async onSelectDate(label, date) {
       this.datepickers[label].date = date;

@@ -45,6 +45,7 @@ import {
   INITIAL_DATE_TO
 } from "@/constants.js";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
+import { demo } from "@/mixins/demo.js";
 import GraphSelectTab from "@/components/UI_v2/graph/GraphSelectTab.vue";
 import GraphLine from "@/components/UI_v2/graph/GraphLine.vue";
 import GraphSelectDatePicker from "@/components/UI_v2/graph/GraphSelectDatePicker.vue";
@@ -55,12 +56,7 @@ export default {
     GraphSelectTab,
     GraphSelectDatePicker
   },
-  props: {
-    isDemo: {
-      type: Boolean,
-      default: true
-    }
-  },
+  mixins: [demo],
   data() {
     const DEFAULT_TAB = "Requests";
 
@@ -102,10 +98,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      getSelf: "getSelf",
-      demo_getSelf: "demo_getSelf"
-    }),
     selectedGraphData() {
       const newDatasets = this.graphs[this.selectedTab].getDatasetFunc();
       const newLabels = this.graphs[this.selectedTab].getLabelFunc();
@@ -121,11 +113,6 @@ export default {
     }
   },
   methods: {
-    // API calls
-    ...mapActions({
-      getRequests: "querySelfRequests",
-      getRequests_demo: "queryRequests_demo"
-    }),
     // v-on methods
     isSelectedTab(name) {
       return name === this.selectedTab;
@@ -138,7 +125,6 @@ export default {
       this.setTabValue_handleTime();
     },
     async setRequests() {
-      let requests;
       const query = {
         accepted_before: dateToString(
           this.datepickers["Date To"].date,
@@ -149,12 +135,7 @@ export default {
           DATE_FORMAT
         )
       };
-      if (this.isDemo) {
-        requests = await this.getRequests_demo(query);
-      } else {
-        requests = await this.getRequests(query);
-      }
-      this.requests = requests;
+      this.requests = await this.getRequests(query);
     },
     async onSelectDate(label, date) {
       this.datepickers[label].date = date;
@@ -163,9 +144,7 @@ export default {
     },
     // Graph: Requests
     getDataset_requests() {
-      const selfNetid = this.isDemo
-        ? this.demo_getSelf.netid
-        : this.getSelf.netid;
+      const selfNetid = this.self.netid;
       const shiftRequests = getShiftRequests(this.requests);
 
       const reqCounts = [];
@@ -185,7 +164,6 @@ export default {
       const shiftCount = Object.keys(shiftRequests).length;
       const requestsSum = this.requests.length;
       const requestsTabVal = (requestsSum / shiftCount).toFixed(2);
-      console.log(shiftCount);
       this.graphs["Requests"].tabValue = requestsTabVal;
     },
     getLabel_requests() {
@@ -218,9 +196,7 @@ export default {
       this.graphs["Handle Time"].tabValue = handleTimeTabVal;
     },
     getDataset_handleTime() {
-      const selfNetid = this.isDemo
-        ? this.demo_getSelf.netid
-        : this.getSelf.netid;
+      const selfNetid = this.self.netid;
       const shiftRequests = getShiftRequests(this.requests);
       const handleTimes = [];
       Object.values(shiftRequests).forEach(reqsForShift => {

@@ -82,14 +82,9 @@ module.exports = {
   },
   modules: ["@nuxtjs/axios"],
   plugins: [{
-      src: "~plugins/vue-chartjs.js",
-      ssr: false
-    },
-    {
-      src: "~/plugins/nuxt-client-init.js",
-      ssr: false
-    }
-  ],
+    src: "~/plugins/nuxt-client-init.js",
+    ssr: false
+  }],
   /*
    ** Customize the progress bar color
    */
