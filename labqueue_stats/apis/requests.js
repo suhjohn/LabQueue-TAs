@@ -33,15 +33,29 @@ export async function queryRequests(context, params) {
 
 export async function querySelfRequests(context, params) {
   try {
-    console.log("[querySelfRequests] execute")
+    let response;
+    let results = [];
     const requestParams = createQuery(params);
-    const requests = await this.$axios.$get(
+    console.log("[querySelfRequests] execute")
+    response = await this.$axios.$get(
       "labtas/self/requests/query",
       requestParams
     );
+    response.results.forEach(item => {
+      results.push(item);
+    })
     console.log("[queryRequests] success")
-    console.log(requests);
-    return requests
+    console.log(response);
+    while (response.next) {
+      console.log("[querySelfRequests] execute")
+      let response = await this.$axios.$get(response.next);
+      response.results.forEach(item => {
+        results.push(item);
+      })
+      console.log("[queryRequests] success")
+      console.log(response);
+    }
+    return results
   } catch (error) {
     console.log("[querySelfRequests] fail")
     console.log(error);
