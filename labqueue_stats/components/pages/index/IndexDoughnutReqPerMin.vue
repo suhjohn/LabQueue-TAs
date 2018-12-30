@@ -1,5 +1,5 @@
 <template>
-  <div id="index-doughnut-reqpermin">
+  <div id="index-doughnut-graph">
     <!-- Header -->
     <div id="index-doughnut-graph-header-container">
       <p class="text-small">Requests Per Minute Segments</p>
@@ -171,7 +171,7 @@ export default {
   height: 100%;
   display: flex;
 }
-#index-doughnut-reqpermin {
+#index-doughnut-graph {
   height: 100%;
   display: flex;
   flex-direction: column;

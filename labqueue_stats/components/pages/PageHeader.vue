@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <h1 class="text-header">
+  <header id="page-header-container">
+    <h1 id="page-header-text">
       <slot name="header"></slot>
     </h1>
   </header>
@@ -11,7 +11,10 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.text-header {
+#page-header-container {
+  padding-bottom: 1rem;
+}
+#page-header-text {
   font-weight: 800;
   font-size: 2.4rem;
 }
