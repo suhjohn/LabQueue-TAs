@@ -18,7 +18,7 @@
 import { mapGetters } from "vuex";
 import { envVars } from "@/mixins/envVars.js";
 import { demo } from "@/mixins/demo.js";
-import ButtonText from "@/components/UI_v2/ButtonText.vue";
+import ButtonText from "@/components/UI/ButtonText.vue";
 export default {
   components: {
     ButtonText

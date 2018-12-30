@@ -24,9 +24,9 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { envVars } from "@/mixins/envVars.js";
-import ButtonSolid from "@/components/UI_v2/ButtonSolid.vue";
-import ButtonGhost from "@/components/UI_v2/ButtonGhost.vue";
-import ButtonText from "@/components/UI_v2/ButtonText.vue";
+import ButtonSolid from "@/components/UI/ButtonSolid.vue";
+import ButtonGhost from "@/components/UI/ButtonGhost.vue";
+import ButtonText from "@/components/UI/ButtonText.vue";
 
 export default {
   components: {

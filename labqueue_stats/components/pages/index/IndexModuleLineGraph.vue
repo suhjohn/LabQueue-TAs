@@ -47,9 +47,9 @@ import {
 } from "@/constants.js";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
 import { demo } from "@/mixins/demo.js";
-import GraphSelectTab from "@/components/UI_v2/graph/GraphSelectTab.vue";
-import GraphLine from "@/components/UI_v2/graph/GraphLine.vue";
-import GraphSelectDatePicker from "@/components/UI_v2/graph/GraphSelectDatePicker.vue";
+import GraphSelectTab from "@/components/UI/graph/GraphSelectTab.vue";
+import GraphLine from "@/components/UI/graph/GraphLine.vue";
+import GraphSelectDatePicker from "@/components/UI/graph/GraphSelectDatePicker.vue";
 
 export default {
   components: {

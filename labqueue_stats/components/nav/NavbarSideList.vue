@@ -20,7 +20,7 @@
 </template>
 <script>
 import NavbarSideListItem from "@/components/nav/NavbarSideListItem.vue";
-import ButtonText from "@/components/UI_v2/ButtonText.vue";
+import ButtonText from "@/components/UI/ButtonText.vue";
 import { envVars } from "@/mixins/envVars.js";
 import { demo } from "@/mixins/demo.js";
 

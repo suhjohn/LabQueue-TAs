@@ -36,8 +36,8 @@ import {
   INITIAL_DATE_TO
 } from "@/constants.js";
 import { demo } from "@/mixins/demo.js";
-import GraphDoughnut from "@/components/UI_v2/graph/GraphDoughnut.vue";
-import GraphSelectDatePicker from "@/components/UI_v2/graph/GraphSelectDatePicker.vue";
+import GraphDoughnut from "@/components/UI/graph/GraphDoughnut.vue";
+import GraphSelectDatePicker from "@/components/UI/graph/GraphSelectDatePicker.vue";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
 
 const minSegments = [15, 30, 45, 60, Infinity];

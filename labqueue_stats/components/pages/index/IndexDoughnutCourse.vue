@@ -35,8 +35,8 @@ import {
   INITIAL_DATE_FROM,
   INITIAL_DATE_TO
 } from "@/constants.js";
-import GraphDoughnut from "@/components/UI_v2/graph/GraphDoughnut.vue";
-import GraphSelectDatePicker from "@/components/UI_v2/graph/GraphSelectDatePicker.vue";
+import GraphDoughnut from "@/components/UI/graph/GraphDoughnut.vue";
+import GraphSelectDatePicker from "@/components/UI/graph/GraphSelectDatePicker.vue";
 import { demo } from "@/mixins/demo.js";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
 

@@ -28,7 +28,7 @@
 </template>
 <script>
 import PageHeader from "@/components/pages/PageHeader.vue";
-import CardItemMain from "@/components/UI_v2/CardItemMain.vue";
+import CardItemMain from "@/components/UI/CardItemMain.vue";
 import IndexModuleLineGraph from "@/components/pages/index/IndexModuleLineGraph.vue";
 import IndexDoughnutReqPerMin from "@/components/pages/index/IndexDoughnutReqPerMin.vue";
 import IndexDoughnutCourse from "@/components/pages/index/IndexDoughnutCourse.vue";
