@@ -7,6 +7,9 @@ export const envVars = {
     labqueueLoginURL() {
       return process.env.labqueueLoginURL;
     },
+    labqueueLogoutURL() {
+      return process.env.labqueueLogoutURL;
+    },
     labqueueBaseURL() {
       return process.env.labqueueBaseURL;
     }

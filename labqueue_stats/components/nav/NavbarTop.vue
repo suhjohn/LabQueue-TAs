@@ -46,7 +46,7 @@ export default {
         };
       } else {
         return {
-          url: this.labqueueLogoutURL,
+          url: this.labqueueLoginURL,
           text: "Login"
         };
       }

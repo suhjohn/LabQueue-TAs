@@ -42,7 +42,7 @@ export default {
         };
       } else {
         return {
-          url: this.labqueueLogoutURL,
+          url: this.labqueueLoginURL,
           text: "Are you a TA? Log In!"
         };
       }
