@@ -35,6 +35,7 @@ export default {
     ButtonText
   },
   mixins: [envVars],
+  middleware: ["redirect-main"],
   computed: {
     ...mapGetters({
       isAuthenticated: "isAuthenticated"
