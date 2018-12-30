@@ -22,25 +22,32 @@
 import NavbarSideListItem from "@/components/nav/NavbarSideListItem.vue";
 import ButtonText from "@/components/UI_v2/ButtonText.vue";
 import { envVars } from "@/mixins/envVars.js";
+import { demo } from "@/mixins/demo.js";
 
 export default {
   components: {
     NavbarSideListItem,
     ButtonText
   },
-  mixins: [envVars],
+  mixins: [envVars, demo],
   data() {
+    let relativeURLPrefix;
+    if (this.isDemo) {
+      relativeURLPrefix = "/demo";
+    } else {
+      relativeURLPrefix = "";
+    }
     return {
       navItems: [
         {
           icon: "chart-line",
           text: "Dashboard",
-          relativeURL: "/demo"
+          relativeURL: `${relativeURLPrefix}`
         },
         {
           icon: "list-ul",
           text: "Requests",
-          relativeURL: "/demo/requests"
+          relativeURL: `${relativeURLPrefix}/requests`
         }
       ]
     };

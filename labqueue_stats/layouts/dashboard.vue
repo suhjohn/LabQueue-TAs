@@ -1,20 +1,12 @@
 <template>
   <div>
-    <NavbarTop class="layout-navbar-top"/>
-    <NavbarSide class="layout-navbar-side"/>
     <nuxt/>
   </div>
 </template>
 
 <script>
-import NavbarSide from "@/components/nav/NavbarSide";
-import NavbarTop from "@/components/nav/NavbarTop";
-
 export default {
-  components: {
-    NavbarSide,
-    NavbarTop
-  }
+  components: {}
 };
 </script>
 

@@ -11,6 +11,7 @@
         :selected="isSelectedTab(tab.name)"
         :name="tab.name"
         @select="onSelect"
+        class="index-module-graph-tab"
       ></GraphSelectTab>
     </div>
     <!-- Graph  -->
@@ -250,6 +251,9 @@ export default {
 }
 #index-module-graph-tabs {
   height: 12rem;
+  & :first-child {
+    border-top-left-radius: $border-radius-round;
+  }
 }
 #index-module-graph {
   height: 28rem;

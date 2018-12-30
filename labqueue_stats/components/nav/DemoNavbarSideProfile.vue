@@ -17,16 +17,14 @@
 <script>
 import { mapGetters } from "vuex";
 import { envVars } from "@/mixins/envVars.js";
+import { demo } from "@/mixins/demo.js";
 import ButtonText from "@/components/UI_v2/ButtonText.vue";
 export default {
   components: {
     ButtonText
   },
-  mixins: [envVars],
+  mixins: [envVars, demo],
   computed: {
-    ...mapGetters({
-      self: "demo_getSelf"
-    }),
     username() {
       return this.self.full_name;
     },

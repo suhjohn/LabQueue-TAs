@@ -1,8 +1,8 @@
 <template>
   <nav>
     <DemoNavbarSideLogo/>
-    <DemoNavbarSideProfile/>
-    <DemoNavbarSideList/>
+    <DemoNavbarSideProfile :isDemo="isDemo"/>
+    <DemoNavbarSideList :isDemo="isDemo"/>
   </nav>
 </template>
 <script>
@@ -11,6 +11,11 @@ import DemoNavbarSideList from "@/components/nav/DemoNavbarSideList.vue";
 import DemoNavbarSideProfile from "@/components/nav/DemoNavbarSideProfile.vue";
 
 export default {
+  props: {
+    isDemo: {
+      type: Boolean
+    }
+  },
   components: {
     DemoNavbarSideLogo,
     DemoNavbarSideList,

@@ -1,8 +1,8 @@
 <template>
   <div id="__layout">
-    <DemoNavbarTop/>
-    <DemoNavbarSide class="__layout-navbar-side"/>
-    <DemoNavbarBottom/>
+    <DemoNavbarTop :isDemo="true"/>
+    <DemoNavbarSide :isDemo="true"/>
+    <DemoNavbarBottom :isDemo="true"/>
     <nuxt class="__layout-page"/>
   </div>
 </template>
@@ -26,8 +26,6 @@ export default {
 #__layout {
   display: flex;
   width: 100%;
-}
-.__layout-navbar-side {
 }
 .__layout-page {
   width: 100%;

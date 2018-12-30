@@ -11,25 +11,32 @@
 </template>
 <script>
 import NavbarSideListItem from "@/components/nav/NavbarSideListItem.vue";
+import { demo } from "@/mixins/demo.js";
 import { envVars } from "@/mixins/envVars.js";
 
 export default {
   components: {
     NavbarSideListItem
   },
-  mixins: [envVars],
+  mixins: [envVars, demo],
   data() {
+    let relativeURLPrefix;
+    if (this.isDemo) {
+      relativeURLPrefix = "/demo";
+    } else {
+      relativeURLPrefix = "";
+    }
     return {
       navItems: [
         {
           icon: "chart-line",
           text: "Dashboard",
-          relativeURL: "/demo"
+          relativeURL: `${relativeURLPrefix}`
         },
         {
           icon: "list-ul",
           text: "Requests",
-          relativeURL: "/demo/requests"
+          relativeURL: `${relativeURLPrefix}/requests`
         }
       ]
     };
@@ -47,7 +54,8 @@ export default {
   align-items: stretch;
   position: fixed;
   bottom: 0;
-
+  z-index: 1;
+  border-top: 1px solid $color-grey-light;
   @include respond(laptop) {
     display: none;
   }
