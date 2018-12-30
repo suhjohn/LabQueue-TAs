@@ -262,7 +262,6 @@ export default {
   padding-left: $margin-x-small;
 }
 #graph-select-date-container {
-  height: 100%;
   display: flex;
 }
 </style>

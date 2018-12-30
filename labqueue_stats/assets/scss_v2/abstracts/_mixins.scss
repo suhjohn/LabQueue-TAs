@@ -42,9 +42,6 @@
   background-color: $color-white;
 }
 
-@mixin textColor-highlight {
-  color: $color-crimson-main;
-}
 
 @mixin boxShadow-main {
   border-top: 0.5px solid $color-grey-light;
@@ -62,4 +59,62 @@
 
 @mixin selectedWeightStrong {
   font-weight: 900 !important;
+}
+
+@mixin textColor-highlight {
+  color: $color-crimson-main;
+}
+
+@mixin textColor-grey {
+  color: $color-grey-dark;
+}
+
+@mixin text-x-large {
+  font-size: 2.8rem;
+
+  @include respond(laptop) {
+    font-size: 2.4rem;
+  }
+}
+
+@mixin text-large {
+  font-size: 2.4rem;
+
+  @include respond(laptop) {
+    font-size: 1.9rem;
+  }
+}
+
+@mixin text-medium {
+  font-size: 2.2rem;
+
+  @include respond(laptop) {
+    font-size: 1.7rem;
+  }
+}
+
+@mixin text-small {
+  font-size: 1.8rem;
+
+  @include respond(laptop) {
+    font-size: 1.4rem;
+  }
+}
+
+@mixin text-main-small {
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  @include respond(laptop) {
+    font-size: 1.4rem;
+  }
+
+}
+
+@mixin text-x-small {
+  font-size: 1.4rem;
+
+  @include respond(laptop) {
+    font-size: 1.2rem;
+  }
 }

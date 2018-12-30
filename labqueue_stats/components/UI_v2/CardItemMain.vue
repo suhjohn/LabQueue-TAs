@@ -58,7 +58,7 @@ export default {
   height: 10rem;
 }
 .card-main-height-medium {
-  height: 45rem;
+  height: 50rem;
 }
 </style>
 

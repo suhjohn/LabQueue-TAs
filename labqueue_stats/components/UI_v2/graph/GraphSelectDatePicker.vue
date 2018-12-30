@@ -7,20 +7,25 @@
     }"
     v-on-clickaway="closeCalendar"
   >
-    <label id="graph-select-date-picker-label" @click="toggleCalendar">{{ label }}</label>
-    <datepicker
-      wrapper-class="graph-select-date-picker"
-      calendar-class="graph-select-date-picker-calendar"
-      v-model="date"
-      :ref="label"
-      :input-class="{
+    <div id="graph-select-date-picker-icon-container">
+      <i id="graph-select-date-picker-icon" class="fas fa-calendar-alt"></i>
+    </div>
+    <div id="graph-select-date-picker-text-container">
+      <label id="graph-select-date-picker-label" @click="toggleCalendar">{{ label }}</label>
+      <datepicker
+        wrapper-class="graph-select-date-picker"
+        calendar-class="graph-select-date-picker-calendar"
+        v-model="date"
+        :ref="label"
+        :input-class="{
         'graph-select-date-picker-input':true,
         'graph-select-date-picker-input-opened':isOpen
       }"
-      :typeable="true"
-      @opened="toggleCalendar"
-      @input="selectDate"
-    ></datepicker>
+        :typeable="true"
+        @opened="toggleCalendar"
+        @input="selectDate"
+      ></datepicker>
+    </div>
   </div>
 </template>
 <script>
@@ -76,6 +81,10 @@ $calendar-header-height: 6rem;
   height: 100%;
   width: $date-picker-container-width;
   text-align: left;
+  display: flex;
+  padding: $margin-x-small;
+  padding-top: calc(#{$margin-x-small} - #{$hover-marker-size});
+  box-sizing: border-box;
   &:hover {
     cursor: pointer;
   }
@@ -91,12 +100,26 @@ $calendar-header-height: 6rem;
     @include backgroundColor-light;
   }
 }
+// Icon
+#graph-select-date-picker-icon-container {
+  padding: $margin-x-small;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#graph-select-date-picker-icon {
+  @include text-x-small;
+  @include textColor-grey;
+}
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
+#graph-select-date-picker-text-container {
+  width: 100%;
+}
 // Label
 #graph-select-date-picker-label {
+  @include textColor-grey;
   cursor: pointer;
-  color: $color-grey-dark;
-  height: $date-picker-label-height;
-  line-height: $date-picker-label-height;
   display: block;
   padding-left: $margin-x-small;
 }
@@ -104,12 +127,13 @@ $calendar-header-height: 6rem;
 // Datepicker
 // Label
 .graph-select-date-picker {
-  height: calc(100% - #{$date-picker-label-height});
+  height: inherit;
 }
 
 // Datepicker Input
 .graph-select-date-picker-input {
-  color: $color-grey-dark;
+  @include textColor-grey;
+  width: 100%;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -134,7 +158,6 @@ $calendar-header-height: 6rem;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   font-size: 1.6rem;
-  color: $color-grey-darkest;
   font-weight: 200;
 
   & header {
@@ -168,10 +191,10 @@ $calendar-header-height: 6rem;
       }
       &.selected {
         color: $color-white;
-        background-color: $color-crimson-main-lighter !important;
+        background-color: $color-crimson-main !important;
         border: none !important;
         &:hover {
-          background-color: $color-crimson-main-lighter;
+          background-color: $color-crimson-main;
         }
       }
     }
