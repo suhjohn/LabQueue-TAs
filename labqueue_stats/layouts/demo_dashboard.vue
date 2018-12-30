@@ -1,22 +1,22 @@
 <template>
   <div id="__layout">
-    <DemoNavbarTop :isDemo="true"/>
-    <DemoNavbarSide :isDemo="true"/>
-    <DemoNavbarBottom :isDemo="true"/>
+    <NavbarTop :isDemo="true"/>
+    <NavbarSide :isDemo="true"/>
+    <NavbarBottom :isDemo="true"/>
     <nuxt class="__layout-page"/>
   </div>
 </template>
 
 <script>
-import DemoNavbarSide from "@/components/nav/DemoNavbarSide";
-import DemoNavbarTop from "@/components/nav/DemoNavbarTop";
-import DemoNavbarBottom from "@/components/nav/DemoNavbarBottom";
+import NavbarSide from "@/components/nav/NavbarSide";
+import NavbarTop from "@/components/nav/NavbarTop";
+import NavbarBottom from "@/components/nav/NavbarBottom";
 
 export default {
   components: {
-    DemoNavbarSide,
-    DemoNavbarTop,
-    DemoNavbarBottom
+    NavbarSide,
+    NavbarTop,
+    NavbarBottom
   }
 };
 </script>

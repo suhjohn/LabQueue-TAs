@@ -1,14 +1,14 @@
 <template>
   <nav>
-    <DemoNavbarSideLogo/>
-    <DemoNavbarSideProfile :isDemo="isDemo"/>
-    <DemoNavbarSideList :isDemo="isDemo"/>
+    <NavbarSideLogo/>
+    <NavbarSideProfile :isDemo="isDemo"/>
+    <NavbarSideList :isDemo="isDemo"/>
   </nav>
 </template>
 <script>
-import DemoNavbarSideLogo from "@/components/nav/DemoNavbarSideLogo.vue";
-import DemoNavbarSideList from "@/components/nav/DemoNavbarSideList.vue";
-import DemoNavbarSideProfile from "@/components/nav/DemoNavbarSideProfile.vue";
+import NavbarSideLogo from "@/components/nav/NavbarSideLogo.vue";
+import NavbarSideList from "@/components/nav/NavbarSideList.vue";
+import NavbarSideProfile from "@/components/nav/NavbarSideProfile.vue";
 
 export default {
   props: {
@@ -17,9 +17,9 @@ export default {
     }
   },
   components: {
-    DemoNavbarSideLogo,
-    DemoNavbarSideList,
-    DemoNavbarSideProfile
+    NavbarSideLogo,
+    NavbarSideList,
+    NavbarSideProfile
   }
 };
 </script>
