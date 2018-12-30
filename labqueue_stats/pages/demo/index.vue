@@ -11,10 +11,12 @@
     <PageHeader>
       <template slot="header">Dashboard</template>
     </PageHeader>
-    <div class="row">
-      <CardItemMain width="medium" height="medium">
+    <div id="index-card-row">
+      <CardItemMain height="medium">
         <IndexModuleLineGraph :isDemo="true"></IndexModuleLineGraph>
       </CardItemMain>
+    </div>
+    <div id="index-card-row">
       <CardItemMain width="small" height="medium">
         <IndexDoughnutReqPerMin :isDemo="true"></IndexDoughnutReqPerMin>
       </CardItemMain>
@@ -53,6 +55,9 @@ $laptop-padding: $margin-large;
   @include respond(laptop) {
     padding: $laptop-padding;
   }
+}
+#index-card-row {
+  @include row;
 }
 </style>
 

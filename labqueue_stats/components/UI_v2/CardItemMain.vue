@@ -33,26 +33,16 @@ export default {
   @include boxShadow-main;
   @include roundBorder;
 }
-//width
-.card-main-width-small {
-  width: 50%;
-  flex-grow: 0;
 
-  @include respond(laptop) {
-    flex-grow: initial;
-    width: 30rem;
-  }
+// width
+.card-main-width-small {
+  @include col-1-of-2;
 }
 
 .card-main-width-medium {
   width: 100%;
-  flex-grow: 1;
-
-  @include respond(laptop) {
-    flex-grow: initial;
-    width: 60rem;
-  }
 }
+
 // Height
 .card-main-height-small {
   height: 10rem;

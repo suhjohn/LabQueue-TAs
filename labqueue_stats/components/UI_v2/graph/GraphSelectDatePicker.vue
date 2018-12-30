@@ -145,6 +145,7 @@ $calendar-header-height: 6rem;
 .graph-select-date-picker-input-opened {
   @include selectedWeight;
 }
+
 // Datepicker Calendar
 .graph-select-date-picker-calendar {
   @include boxShadow-main;

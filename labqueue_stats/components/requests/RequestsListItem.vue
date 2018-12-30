@@ -1,5 +1,11 @@
 <template>
-  <nuxt-link tag="li" :to="{ name: 'requests-pk', params: { pk: pk }}" @click="onClick" class="request-list-item" :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}">
+  <nuxt-link
+    tag="li"
+    :to="{ name: 'requests-pk', params: { pk: pk }}"
+    @click="onClick"
+    class="request-list-item"
+    :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}"
+  >
     <div class="request-list-item-title">
       <h1 class="request-list-item-title-text">{{ pk }} - {{ descriptionString }}</h1>
       <div class="request-list-item-title-date-container">
@@ -7,9 +13,7 @@
       </div>
     </div>
     <div class="request-list-item-body">
-      <p class="request-list-item-body-text">
-        {{authorFullname}} | {{course}}
-      </p>
+      <p class="request-list-item-body-text">{{authorFullname}} | {{course}}</p>
     </div>
   </nuxt-link>
 </template>
@@ -58,7 +62,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/variables.scss";
+@import "@/assets/scss_v2/main.scss";
 .request-list-item {
   height: 10rem;
   padding: 2rem;
