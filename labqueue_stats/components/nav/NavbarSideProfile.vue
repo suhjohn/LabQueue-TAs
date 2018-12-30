@@ -7,9 +7,9 @@
     <!-- Name -->
     <p class="text-main-small">{{ username }}</p>
     <!-- Login Button -->
-    <a :href="labqueueLoginURL">
+    <a :href="loginButton.url">
       <ButtonText :width="-1" :height="4">
-        <template slot="text">Are you a TA? Log In!</template>
+        <template slot="text">{{ loginButton.text }}</template>
       </ButtonText>
     </a>
   </div>
@@ -25,11 +25,27 @@ export default {
   },
   mixins: [envVars, demo],
   computed: {
+    ...mapGetters({
+      isAuthenticated: "isAuthenticated"
+    }),
     username() {
       return this.self.full_name;
     },
     userPhoto() {
       return this.self.picture;
+    },
+    loginButton() {
+      if (this.isAuthenticated) {
+        return {
+          url: this.labqueueLogoutURL,
+          text: "Logout"
+        };
+      } else {
+        return {
+          url: this.labqueueLogoutURL,
+          text: "Are you a TA? Log In!"
+        };
+      }
     }
   }
 };

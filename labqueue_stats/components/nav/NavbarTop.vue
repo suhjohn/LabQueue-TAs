@@ -5,9 +5,9 @@
         <img class="logo-img" src="~/assets/static/Logo.svg">
       </nuxt-link>
       <ul id="demo-navbar-top-list-right">
-        <a class="demo-navbar-top-list-item" :href="labqueueLoginURL">
+        <a class="demo-navbar-top-list-item" :href="loginButton.url">
           <ButtonGhost fontSize="x-small" :width="8" :height="4">
-            <template slot="text">Log In</template>
+            <template slot="text">{{ loginButton.text }}</template>
           </ButtonGhost>
         </a>
         <a class="demo-navbar-top-list-item" :href="labqueueBaseURL">
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ButtonGhost from "@/components/UI/ButtonGhost.vue";
 import ButtonText from "@/components/UI/ButtonText.vue";
 import { envVars } from "@/mixins/envVars.js";
@@ -33,7 +34,24 @@ export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "isAuthenticated"
+    }),
+    loginButton() {
+      if (this.isAuthenticated) {
+        return {
+          url: this.labqueueLogoutURL,
+          text: "Logout"
+        };
+      } else {
+        return {
+          url: this.labqueueLogoutURL,
+          text: "Login"
+        };
+      }
+    }
+  },
   methods: {}
 };
 </script>
