@@ -29,6 +29,7 @@ export default {
       isAuthenticated: "isAuthenticated"
     }),
     username() {
+      console.log(this.self);
       return this.self.full_name;
     },
     userPhoto() {

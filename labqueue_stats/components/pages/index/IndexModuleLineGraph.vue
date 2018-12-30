@@ -251,6 +251,7 @@ export default {
 }
 #index-module-graph-tabs {
   height: 12rem;
+  display: flex;
   & :first-child {
     border-top-left-radius: $border-radius-round;
   }
