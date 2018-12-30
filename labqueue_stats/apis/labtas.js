@@ -16,7 +16,6 @@ export async function retrieveSelf(context) {
     console.log("[retrieveSelf] execute");
     const self = await this.$axios.$get("/labtas/self/");
     console.log("[retrieveSelf] success");
-    context.commit("setSelf", self);
     return self;
   } catch (error) {
     console.log("[retrieveSelf] fail");

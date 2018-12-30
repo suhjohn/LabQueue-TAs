@@ -60,12 +60,18 @@ const store = () =>
         return state.self != undefined;
       },
     },
-    mutations: {},
+    mutations: {
+      setSelf(state, self) {
+        Vue.set(state, "self", { ...self
+        });
+      },
+    },
     actions: {
       ...apis,
       async setRequests(context, params) {},
       async setSelf(context) {
-        await context.dispatch('retrieveSelf');
+        const self = await context.dispatch('retrieveSelf');
+        context.commit("setSelf", self);
       }
     }
   });

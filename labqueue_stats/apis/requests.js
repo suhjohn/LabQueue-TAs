@@ -36,7 +36,7 @@ export async function querySelfRequests(context, params) {
     console.log("[querySelfRequests] execute")
     const requestParams = createQuery(params);
     const requests = await this.$axios.$get(
-      "/requests/" + params.netid + "/query",
+      "labtas/self/requests/query",
       requestParams
     );
     console.log("[queryRequests] success")

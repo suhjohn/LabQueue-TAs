@@ -1,8 +1,7 @@
 export default async function (context) {
   if (!context.store.getters.isAuthenticated) {
     try {
-      const self = await context.store.dispatch("retrieveSelf");
-      console.log(self);
+      await context.store.dispatch("setSelf");
     } catch (error) {
       context.redirect({
         name: "login"
