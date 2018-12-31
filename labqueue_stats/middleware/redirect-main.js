@@ -4,7 +4,9 @@
  */
 export default async function (context) {
   console.log("[redirect-main] executed")
-  if (context.store.getters.isAuthenticated) {
-    context.redirect(301, "/")
+  if (!context.store.getters.isAuthenticated) {
+    context.redirect(301, {
+      name: "index"
+    })
   }
 }

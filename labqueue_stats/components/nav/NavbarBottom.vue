@@ -22,7 +22,7 @@ export default {
   data() {
     let relativeURLPrefix;
     if (this.isDemo) {
-      relativeURLPrefix = "/demo";
+      relativeURLPrefix = "demo-";
     } else {
       relativeURLPrefix = "";
     }
@@ -31,12 +31,12 @@ export default {
         {
           icon: "chart-line",
           text: "Dashboard",
-          relativeURL: `${relativeURLPrefix}`
+          relativeURL: { name: `${relativeURLPrefix}index` }
         },
         {
           icon: "list-ul",
           text: "Requests",
-          relativeURL: `${relativeURLPrefix}/requests`
+          relativeURL: { name: `${relativeURLPrefix}requests` }
         }
       ]
     };

@@ -60,17 +60,18 @@ export default {
   position: relative;
 }
 #profile-photo-img {
-  width: 5rem;
+  width: 7.5rem;
+  height: 10rem;
 }
 #profile-photo-frame {
   @include backgroundColor-light;
   position: absolute;
-  width: 7rem;
-  height: 5rem;
+  width: 10rem;
+  height: 10rem;
   transform: translateX(-50%);
   left: 50%;
   z-index: 1;
-  mask-image: radial-gradient(2.5rem at 50% 50%, transparent 95%, black 100%);
+  mask-image: radial-gradient(3.75rem at 50% 40%, transparent 95%, black 100%);
 }
 </style>
 
