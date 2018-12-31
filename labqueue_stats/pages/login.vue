@@ -40,6 +40,32 @@ export default {
     ...mapGetters({
       isAuthenticated: "isAuthenticated"
     })
+  },
+  methods: {
+    ...mapActions({
+      setSelf: "setSelf"
+    })
+  },
+  async created() {
+    console.log("[created] execute");
+    if (this.isAuthenticated) {
+      console.log("[created] authenticated");
+      this.$router.push({
+        name: "index"
+      });
+    } else {
+      console.log("[created] unauthenticated");
+      try {
+        console.log("[created] trying setSelf...");
+        await this.setSelf();
+        console.log("[created] setSelf success");
+        this.$router.push({
+          name: "index"
+        });
+      } catch (error) {
+        console.log("[created] setSelf fail");
+      }
+    }
   }
 };
 </script>

@@ -14,7 +14,7 @@ export default {
       type: String
     },
     relativeURL: {
-      type: String
+      type: Object
     }
   },
   computed: {
