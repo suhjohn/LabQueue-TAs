@@ -5,8 +5,21 @@
 export default async function (context) {
   console.log("[redirect-main] executed")
   if (context.store.getters.isAuthenticated) {
-    context.redirect(301, {
+    console.log("[created] authenticated");
+    context.redirect({
       name: "index"
-    })
+    });
+  } else {
+    console.log("[created] unauthenticated");
+    try {
+      console.log("[created] trying setSelf...");
+      await context.store.dispatch("setSelf");
+      console.log("[created] setSelf success");
+      context.redirect({
+        name: "index"
+      });
+    } catch (error) {
+      console.log("[created] setSelf fail");
+    }
   }
 }

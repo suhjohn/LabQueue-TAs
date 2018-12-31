@@ -5,8 +5,10 @@
       <div id="profile-photo-frame"></div>
       <img id="profile-photo-img" :src="userPhoto">
     </div>
+
     <!-- Name -->
     <p class="text-main-small">{{ username }}</p>
+
     <!-- Login Button -->
     <a :href="loginButton.url">
       <ButtonText :width="-1" :height="4">
@@ -45,7 +47,7 @@ export default {
       } else {
         return {
           url: this.labqueueLoginURL,
-          text: "Are you a TA? Log In!"
+          text: ""
         };
       }
     }
