@@ -3,9 +3,8 @@
  * @param {*} context 
  */
 export default async function (context) {
+  console.log("[redirect-main] executed")
   if (context.store.getters.isAuthenticated) {
-    context.redirect({
-      name: "index"
-    });
+    context.redirect(301, "/")
   }
 }

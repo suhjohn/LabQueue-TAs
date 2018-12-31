@@ -1,5 +1,5 @@
 <template>
-  <div id="page-demo">
+  <div id="page-container">
     <!-- <PageHeader>
       <template slot="header">Daily Review</template>
     </PageHeader>
@@ -50,7 +50,7 @@ export default {
 $mobile-padding: $margin-small;
 $laptop-padding: $margin-large;
 
-#page-demo {
+#page-container {
   padding: $mobile-padding;
 
   @include respond(laptop) {

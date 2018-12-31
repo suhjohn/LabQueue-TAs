@@ -1,8 +1,9 @@
 <template>
-  <div class="profile-container">
+  <div id="profile-container">
     <!-- Image -->
-    <div class="profile-photo-container">
-      <img class="profile-photo-img" :src="userPhoto">
+    <div>
+      <div id="profile-photo-frame"></div>
+      <img id="profile-photo-img" :src="userPhoto">
     </div>
     <!-- Name -->
     <p class="text-main-small">{{ username }}</p>
@@ -53,12 +54,23 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-.profile-container {
+#profile-container {
   @include flexCenter;
   height: $navbar-side-profile_height;
+  position: relative;
 }
-.profile-photo-img {
+#profile-photo-img {
+  width: 5rem;
+}
+#profile-photo-frame {
+  @include backgroundColor-light;
+  position: absolute;
+  width: 7rem;
   height: 5rem;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 1;
+  mask-image: radial-gradient(2.5rem at 50% 50%, transparent 95%, black 100%);
 }
 </style>
 
