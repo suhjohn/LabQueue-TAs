@@ -20,23 +20,27 @@ export default {
   },
   mixins: [envVars, demo],
   data() {
+    let dashboardURLName;
+    let requestsURLName;
     let relativeURLPrefix;
     if (this.isDemo) {
-      relativeURLPrefix = "demo-";
+      dashboardURLName = "demo-index";
+      requestsURLName = "demo-requests";
     } else {
-      relativeURLPrefix = "";
+      dashboardURLName = "index";
+      requestsURLName = "requests";
     }
     return {
       navItems: [
         {
           icon: "chart-line",
           text: "Dashboard",
-          relativeURL: { name: `${relativeURLPrefix}index` }
+          relativeURL: { name: dashboardURLName }
         },
         {
           icon: "list-ul",
           text: "Requests",
-          relativeURL: { name: `${relativeURLPrefix}requests` }
+          relativeURL: { name: requestsURLName }
         }
       ]
     };
