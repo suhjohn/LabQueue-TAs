@@ -1,5 +1,5 @@
 export default async function (context) {
-  console.log("[check-auth] executed")
+  // console.log("[check-auth] executed")
   if (!context.store.getters.isAuthenticated) {
     try {
       await context.store.dispatch("setSelf");

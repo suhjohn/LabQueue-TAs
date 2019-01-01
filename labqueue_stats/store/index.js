@@ -46,6 +46,8 @@ const store = () =>
       */
       requests_requestsArr: undefined,
       requests_requestsObj: undefined,
+      /* */
+      requestsListScrollHeight: 0,
     },
     getters: {
       /**
@@ -64,12 +66,15 @@ const store = () =>
         return state[`${page}_requestsArr`];
       },
       getRequest: state => (page, pk) => {
-        console.log("[getRequest] execute")
-        console.log(page, pk)
+        // console.log("[getRequest] execute")
+        // console.log(page, pk)
         const request = state[`${page}_requestsObj`][pk];
-        console.log("[getRequest] success")
-        console.log(request)
+        // console.log("[getRequest] success")
+        // console.log(request)
         return request
+      },
+      getRequestsListScrollHeight: state => {
+        return state.requestsListScrollHeight;
       }
     },
     mutations: {
@@ -82,8 +87,7 @@ const store = () =>
         requests
       }) {
         if (!requests || requests.length == 0) {
-          console.log("[setRequests] fail")
-          console.log(requests)
+          // console.log("[vuex:setRequests] fail")
           return
         }
         const requestsObj = {};
@@ -93,9 +97,12 @@ const store = () =>
         Vue.set(state, `${page}_requestsArr`, [...requests])
         Vue.set(state, `${page}_requestsObj`, { ...requestsObj
         })
-        console.log("[setRequests] success")
-        console.log(`${page}_requestsArr: ${requests.length}`)
-        console.log(`${page}_requestsObj: ${Object.keys(requestsObj).length}`)
+        // console.log("[vuex:setRequests] success")
+        // console.log(`${page}_requestsArr: ${requests.length}`)
+        // console.log(`${page}_requestsObj: ${Object.keys(requestsObj).length}`)
+      },
+      setRequestsListScrollHeight(state, height) {
+        state.requestsListScrollHeight = height;
       }
     },
     actions: {

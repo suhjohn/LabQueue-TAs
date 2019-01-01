@@ -68,11 +68,23 @@ export async function queryRequests_demo(context, params) {
   console.log("[queryRequests_demo] execute")
   const dateFrom = params.accepted_after;
   const dateTo = params.accepted_before;
+  const author = params.author;
+  let requests = queryData;
 
-  const requests = queryData.filter(
-    data => dateFrom < data.time_accepted && data.time_accepted < dateTo
-  );
+  if (dateFrom && dateTo) {
+    requests = requests.filter(
+      data => dateFrom < data.time_accepted && data.time_accepted < dateTo
+    );
+  }
+  if (author) {
+    requests = requests.filter(
+      request => {
+        return author === request.author_username
+      }
+    )
+  }
   console.log("[queryRequests_demo] success")
+  console.log(requests.length)
   return requests;
 }
 

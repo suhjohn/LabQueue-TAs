@@ -50,14 +50,7 @@ module.exports = {
     labqueueLoginURL: `${baseProtocol}://${baseURL}/login`,
     labqueueLogoutURL: `${baseProtocol}://${baseURL}/logout`,
   },
-  router: {
-    scrollBehavior: function (to, from, savedPosition) {
-      return {
-        x: 0,
-        y: 0
-      };
-    }
-  },
+  router: {},
   /*
   CSS Options  
   */

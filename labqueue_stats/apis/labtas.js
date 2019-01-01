@@ -13,14 +13,14 @@ Retrieves information about LabTA self.
 */
 export async function retrieveSelf(context) {
   try {
-    console.log("[retrieveSelf] execute");
+    // console.log("[retrieveSelf] execute");
     const self = await this.$axios.$get("/labtas/self/");
-    console.log("[retrieveSelf] success");
-    console.log(self);
+    // console.log("[retrieveSelf] success");
+    // console.log(self);
     return self;
   } catch (error) {
-    console.log("[retrieveSelf] fail");
-    console.log(error);
+    // console.log("[retrieveSelf] fail");
+    // console.log(error);
     throw error;
   }
 }

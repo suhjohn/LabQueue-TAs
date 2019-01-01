@@ -5,7 +5,9 @@
       placeholder="Type and press enter to search for a username..."
       type="text"
       v-model="query"
+      @keyup.enter="searchQuery"
     >
+    {{ query }}
     <ButtonText :width="5" :height="3">
       <template slot="text">
         <i class="fas fa-search"></i>
@@ -14,7 +16,10 @@
   </div>
 </template>
 <script>
+// Project
+import { demo } from "@/mixins/demo.js";
 import ButtonText from "@/components/UI/ButtonText";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   components: {
     ButtonText
@@ -23,6 +28,27 @@ export default {
     return {
       query: undefined
     };
+  },
+  mixins: [demo],
+  props: {
+    isDemo: {
+      type: Boolean
+    }
+  },
+  methods: {
+    ...mapMutations({
+      setRequests: "setRequests"
+    }),
+    async searchQuery() {
+      // console.log("[searchQuery] executed");
+      const query = {
+        author: this.query
+      };
+      const requests = await this.getRequests(query);
+      // console.log("[searchQuery] fetch success");
+      this.setRequests({ page: "requests", requests: requests });
+      // console.log("[searchQuery] set success");
+    }
   }
 };
 </script>

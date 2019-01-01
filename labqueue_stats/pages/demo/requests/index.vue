@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 import RequestList from "~/components/pages/requests/RequestsList";
 import RequestDetail from "~/components/pages/requests/RequestsDetail";
 import { demo } from "@/mixins/demo.js";
@@ -28,28 +28,27 @@ export default {
     RequestList,
     RequestDetail
   },
-  methods: {},
-  async asyncData(context) {
-    console.log("[demo-requests-pk:asyncData] Execute");
+  computed: {
+    ...mapGetters({
+      getRequests: "getRequests"
+    }),
+    requests() {
+      return this.getRequests("requests");
+    }
+  },
+  async fetch(context) {
     if (context.store.getters.getRequests("requests")) {
-      console.log("[demo-requests-pk:asyncData] Request exists");
-      const requests = context.store.getters.getRequests("requests");
-      return {
-        requests: requests
-      };
+      return;
     }
     const query = {
       accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
-      accepted_after: dateToString(INITIAL_DATE_FROM, DATE_FORMAT)
+      accepted_after: "2016-01-01"
     };
     const requests = await context.store.dispatch("queryRequests_demo", query);
     context.store.commit("setRequests", {
       page: "requests",
       requests: requests
     });
-    return {
-      requests: requests
-    };
   }
 };
 </script>
@@ -58,8 +57,11 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 #page-requests {
   border-right: 1px solid $color-grey-light;
+  box-sizing: border-box;
   height: 100vh;
-
+  display: flex;
+}
+#page-requests-list {
   @include respond(laptop) {
     width: 50rem;
   }

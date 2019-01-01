@@ -3,7 +3,6 @@
     <div id="page-requests-pk-list">
       <RequestList :requests="requests" :isDemo="true"/>
     </div>
-
     <nuxt-link id="page-requests-pk-button" :to="{name: 'demo-requests'}">
       <ButtonSolid :width="5" :height="5">
         <template slot="text">
@@ -40,26 +39,25 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getRequest: "getRequest"
+      getRequest: "getRequest",
+      getRequests: "getRequests"
     }),
     selectedData() {
       console.log("[requests-pk:selectedData] execute");
       const pk = Number(this.$route.params.pk);
-      console.log(pk);
+      // console.log(pk);
       const request = this.getRequest("requests", pk);
       console.log("[requests-pk:selectedData] success");
-      console.log(request);
+      // console.log(request);
       return request;
+    },
+    requests() {
+      return this.getRequests("requests");
     }
   },
-  async asyncData(context) {
-    console.log("[demo-requests-pk:asyncData] Execute");
+  async fetch(context) {
     if (context.store.getters.getRequests("requests")) {
-      console.log("[demo-requests-pk:asyncData] Request exists");
-      const requests = context.store.getters.getRequests("requests");
-      return {
-        requests: requests
-      };
+      return;
     }
     const query = {
       accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
@@ -70,9 +68,6 @@ export default {
       page: "requests",
       requests: requests
     });
-    return {
-      requests: requests
-    };
   }
 };
 </script>

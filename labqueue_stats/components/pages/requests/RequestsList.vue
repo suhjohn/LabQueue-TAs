@@ -4,7 +4,7 @@
       <PageHeader>
         <template slot="header">Requests</template>
       </PageHeader>
-      <RequestsListSearch/>
+      <RequestsListSearch :isDemo="isDemo"/>
     </div>
     <ul id="request-list-item-container">
       <RequestsListItem
@@ -48,10 +48,26 @@ export default {
     RequestsListItem,
     RequestsListSearch
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      getRequestsListScrollHeight: "getRequestsListScrollHeight"
+    })
+  },
+  destroyed() {
+    const height = document.getElementById("request-list-item-container")
+      .scrollTop;
+    this.setRequestsListScrollHeight(height);
+  },
+  mounted() {
+    const height = this.getRequestsListScrollHeight;
+    if (height != 0) {
+      document.getElementById("request-list-item-container").scrollTop = height;
+    }
+  },
   methods: {
     ...mapMutations({
-      setRequests: "setRequests"
+      setRequests: "setRequests",
+      setRequestsListScrollHeight: "setRequestsListScrollHeight"
     })
   }
 };

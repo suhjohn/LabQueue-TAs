@@ -53,17 +53,14 @@ export default {
   },
   methods: {
     toggleCalendar() {
-      console.log("date open");
       this.isOpen = true;
       this.$refs[this.label].showDayCalendar();
     },
     closeCalendar() {
-      console.log("date close");
       this.isOpen = false;
       this.$refs[this.label].close();
     },
     selectDate() {
-      console.log("date selected");
       this.closeCalendar();
       this.$emit("selectDate", this.label, this.date);
     }
