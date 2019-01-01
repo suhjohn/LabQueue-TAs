@@ -37,7 +37,7 @@ export default {
       defaultGradient.addColorStop(0.5, baseColor + "40");
       defaultGradient.addColorStop(1, baseColor + "10");
       return {
-        pointRadius: 0,
+        pointRadius: 2,
         borderWidth: 1,
         backgroundColor: defaultGradient,
         borderColor: baseColor + "CC",

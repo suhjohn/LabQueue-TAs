@@ -36,11 +36,17 @@ export default {
 
 // width
 .card-main-width-small {
-  @include col-1-of-3;
+  width: 100%;
+  @include respond(laptop) {
+    @include col-1-of-3;
+  }
 }
 
 .card-main-width-medium {
-  @include col-1-of-2;
+  width: 100%;
+  @include respond(laptop) {
+    @include col-1-of-2;
+  }
 }
 
 .card-main-width-large {

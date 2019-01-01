@@ -31,13 +31,13 @@ export default {
       summaries: {
         requests: {
           icon: "clipboard-list",
-          title: "Completed Requests",
+          title: "Requests",
           value: undefined,
           color: COLORS[0]
         },
         time: {
           icon: "business-time",
-          title: "Total Time",
+          title: "Worked Time",
           value: undefined,
           color: COLORS[1]
         },

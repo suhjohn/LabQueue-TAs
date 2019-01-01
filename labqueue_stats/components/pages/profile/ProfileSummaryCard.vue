@@ -49,14 +49,15 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 #profile-summary-card {
   width: 33%;
-  padding: 2rem;
   height: 15rem;
-  display: flex;
-  flex-direction: column;
   justify-content: space-around;
+  @include respond(laptop) {
+    padding: 2rem;
+  }
 }
 #profile-summary-card-icon-container {
   @include flexCenter;
+  height: 6rem;
 }
 #profile-summary-card-icon {
   font-size: 3rem;

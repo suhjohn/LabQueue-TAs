@@ -8,7 +8,7 @@
       <a :href="labqueueLoginURL">
         <ButtonSolid text="Log In" :width="30" :height="5"/>
       </a>
-      <nuxt-link :to="{name: 'demo'}">
+      <nuxt-link :to="{name: 'demo-profile'}">
         <ButtonGhost :width="30" :height="5">
           <template slot="text">See Demo</template>
         </ButtonGhost>

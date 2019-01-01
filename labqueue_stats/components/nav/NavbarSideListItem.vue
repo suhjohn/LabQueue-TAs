@@ -1,7 +1,7 @@
 <template>
   <nuxt-link id="demo-navbar-side-list-item" :to="navitemURL">
     <i class="fas text-small u-margin-small" :class="'fa-' + navitemIcon"></i>
-    <p class="text-small">{{ text }}</p>
+    <p>{{ text }}</p>
   </nuxt-link>
 </template>
 <script>
@@ -33,6 +33,7 @@ $padding-size: 2rem;
 
 #demo-navbar-side-list-item {
   @include backgroundColor-light;
+  @include text-small;
   display: flex;
   flex: 1;
   align-items: center;
