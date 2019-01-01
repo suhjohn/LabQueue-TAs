@@ -2,13 +2,13 @@
   <section class="requests-detail">
     <div class="requests-detail-header">
       <h1 class="requests-detail-header-text">{{ author_full_name }} | {{ author_username }}</h1>
-      <h2 class="requests-detail-header-subtext">Location: {{ location }}</h2>
-      <h4 class="requests-detail-header-subsubtext">Course: {{ course }}</h4>
-      <h4 class="requests-detail-header-subsubtext">Closer Username: {{ closer_username }}</h4>
-      <h4 class="requests-detail-header-subsubtext">time created: {{ time_created }}</h4>
-      <h4 class="requests-detail-header-subsubtext">time accepted: {{ time_accepted }}</h4>
-      <h4 class="requests-detail-header-subsubtext">time closed: {{ time_closed }}</h4>
-      <h4 class="requests-detail-header-subsubtext">Acceptor NetId: {{ acceptor_netid }}</h4>
+      <h4 class="requests-detail-header-subtext">Location: {{ location }}</h4>
+      <h4 class="requests-detail-header-subtext">Course: {{ course }}</h4>
+      <h4 class="requests-detail-header-subtext">Closer Username: {{ closer_username }}</h4>
+      <h4 class="requests-detail-header-subtext">time created: {{ time_created }}</h4>
+      <h4 class="requests-detail-header-subtext">time accepted: {{ time_accepted }}</h4>
+      <h4 class="requests-detail-header-subtext">time closed: {{ time_closed }}</h4>
+      <h4 class="requests-detail-header-subtext">Acceptor NetId: {{ acceptor_netid }}</h4>
     </div>
     <hr>
     <div class="requests-detail-body">{{ description }}</div>
@@ -73,21 +73,16 @@ export default {
       padding-bottom: 1.5rem;
     }
     &-subtext {
-      font-size: 1.8rem;
+      @include text-small;
       color: $color-grey-dark;
       font-weight: 300;
-      padding-bottom: 1rem;
-    }
-    &-subsubtext {
-      font-size: 1.8rem;
-      color: $color-grey-dark;
-      font-weight: 300;
-      padding-bottom: 1rem;
+      padding-bottom: $margin-x-small;
     }
   }
   &-body {
-    font-weight: 400;
-    font-size: 1.4rem;
+    @include text-x-small;
+    font-weight: 300;
+    color: $color-grey-dark;
   }
 }
 hr {

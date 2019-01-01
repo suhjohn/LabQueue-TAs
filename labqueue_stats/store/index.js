@@ -44,8 +44,8 @@ const store = () =>
         closer_username: Str
         time_closed: DateTime in String: "2017-10-24T19:26"
       */
-      requests_requestsArr: [],
-      requests_requestsObj: {},
+      requests_requestsArr: undefined,
+      requests_requestsObj: undefined,
     },
     getters: {
       /**

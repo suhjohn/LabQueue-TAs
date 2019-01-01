@@ -1,18 +1,20 @@
 <template>
-  <button id="button-solid" :style="{'min-width': width + 'rem', 'min-height': height + 'rem' }">
-    <span :class="fontSizeClass">{{ text }}</span>
+  <button id="button-solid" :style="{'width': _width, 'height': height + 'rem' }" @click="onClick">
+    <span :class="['text-' + fontSize, 'color-text-' + fontColor]">
+      <slot name="text"></slot>
+    </span>
   </button>
 </template>
 
 <script>
 export default {
   props: {
-    text: {
-      type: String
-    },
-    fontSizeClass: {
+    fontSize: {
       type: String,
-      default: "text-small"
+      default: "small"
+    },
+    fontColor: {
+      type: String
     },
     width: {
       type: Number,
@@ -21,6 +23,20 @@ export default {
     height: {
       type: Number,
       default: 6
+    }
+  },
+  computed: {
+    _width() {
+      if (this.width === -1) {
+        return 100 + "%";
+      } else {
+        return this.width + "rem";
+      }
+    }
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
     }
   }
 };

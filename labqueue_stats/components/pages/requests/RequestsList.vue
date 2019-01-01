@@ -60,6 +60,7 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 $header-height: 12rem;
 #request-list {
+  width: 100%;
   height: 100%;
   position: relative;
 }

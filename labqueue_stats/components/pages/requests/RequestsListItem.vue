@@ -5,17 +5,15 @@
     id="request-list-item"
     :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}"
   >
-    <div class="request-list-item-title">
-      <h1
-        class="request-list-item-title-text"
-      >{{ authorFullname }}({{authorUsername}}) in {{ course }}</h1>
-      <div class="request-list-item-title-date-container">
-        <h4 class="request-list-item-title-date">{{ timeAcceptedDate }}</h4>
-        <h4 class="request-list-item-title-date">{{ timeAcceptedTime }}</h4>
+    <div id="request-list-item-title">
+      <h1 id="request-list-item-title-text">{{ authorFullname }}({{authorUsername}}) in {{ course }}</h1>
+      <div id="request-list-item-title-date-container">
+        <h4 id="request-list-item-title-date">{{ timeAcceptedDate }}</h4>
+        <h4 id="request-list-item-title-date">{{ timeAcceptedTime }}</h4>
       </div>
     </div>
-    <div class="request-list-item-body-container">
-      <p class="request-list-item-body-text">{{descriptionString}}</p>
+    <div id="request-list-item-body-container">
+      <p id="request-list-item-body-text">{{descriptionString}}</p>
     </div>
   </nuxt-link>
 </template>
@@ -94,7 +92,8 @@ export default {
     border-bottom: none;
   }
 }
-.request-list-item-title {
+
+#request-list-item-title {
   display: flex;
   justify-content: space-between;
   &-date {
@@ -113,7 +112,7 @@ export default {
   }
 }
 
-.request-list-item-body {
+#request-list-item-body {
   &-container {
     margin-top: 1rem;
   }
@@ -124,17 +123,14 @@ export default {
   }
 }
 .nuxt-link-exact-active {
-  background-color: $color-crimson-main;
-  .request-list-item-title {
-    &-date {
-      color: $color-white;
-    }
-    &-text {
-      color: $color-white;
-    }
+  background-color: $color-crimson-main-lighter;
+  #request-list-item-title-date,
+  #request-list-item-title-text,
+  #request-list-item-body-text {
+    color: $color-white !important;
   }
   &:hover {
-    background-color: $color-crimson-main !important;
+    background-color: $color-crimson-main-lighter !important;
   }
 }
 </style>
