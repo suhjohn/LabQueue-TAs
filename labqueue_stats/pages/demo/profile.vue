@@ -45,6 +45,9 @@ $laptop-padding: $margin-large;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  > :not(:last-child) {
+    margin-bottom: $margin-base;
+  }
 }
 #page-profile-divider {
   border: 1px solid $color-grey-light;

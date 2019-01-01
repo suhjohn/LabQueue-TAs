@@ -4,7 +4,7 @@
       v-for="value in profileItems"
       :key="value[0]"
       :label="value[0]"
-      :value="value[1]"
+      :value="String(value[1])"
     ></ProfileDetailItem>
   </div>
 </template>
@@ -37,7 +37,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 #profile-detail {
-  width: 100%;
+  width: 40rem;
+  margin: 0 auto;
 }
 </style>
 

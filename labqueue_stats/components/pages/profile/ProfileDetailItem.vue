@@ -18,8 +18,6 @@ export default {
   font-size: 1.8rem;
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 5rem;
 }
 #profile-detail-item-label {

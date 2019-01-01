@@ -39,7 +39,7 @@ export default {
   computed: {
     profileSummaryCardStyle() {
       return {
-        "border-top": `5px solid ${this.color}`
+        "border-bottom": `5px solid ${this.color}`
       };
     }
   }
@@ -49,7 +49,6 @@ export default {
 @import "@/assets/scss_v2/main.scss";
 #profile-summary-card {
   width: 33%;
-  height: 15rem;
   justify-content: space-around;
   @include respond(laptop) {
     padding: 2rem;
@@ -70,10 +69,11 @@ export default {
   text-align: center;
 }
 #profile-summary-card-title {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 
   @include respond(phone) {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   @include respond(laptop) {
     font-size: 1.8rem;
@@ -86,11 +86,11 @@ export default {
 }
 
 #profile-summary-card-value {
-  font-size: 1.4rem;
-  font-weight: 400;
+  @include selectedWeight;
   @include respond(laptop) {
-    font-size: 1.8rem;
+    font-size: 2.8rem;
   }
+  font-size: 1.8rem;
 }
 </style>
 

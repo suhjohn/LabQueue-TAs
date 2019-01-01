@@ -55,6 +55,9 @@ $height: 16rem;
 #profile-username-text {
   @include text-x-large;
 }
+#profile-username-subtext {
+  @include text-medium;
+}
 </style>
 
 
