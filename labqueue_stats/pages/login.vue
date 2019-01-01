@@ -51,7 +51,7 @@ export default {
     if (this.isAuthenticated) {
       console.log("[created] authenticated");
       this.$router.push({
-        name: "index"
+        name: "dashboard"
       });
     } else {
       console.log("[created] unauthenticated");
@@ -60,7 +60,7 @@ export default {
         await this.setSelf();
         console.log("[created] setSelf success");
         this.$router.push({
-          name: "index"
+          name: "dashboard"
         });
       } catch (error) {
         console.log("[created] setSelf fail");

@@ -64,7 +64,7 @@ export default {
   top: 0;
   width: 100%;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   height: $navbar-top_height;
   line-height: $navbar-top_height;
   border-bottom: 1px solid $color-grey-light;

@@ -1,7 +1,9 @@
 import {
   Doughnut
 } from 'vue-chartjs'
-import styles from "~/assets/scss_v2/abstracts/_variables.scss";
+import {
+  COLORS
+} from "@/constants";
 
 export default {
   extends: Doughnut,
@@ -26,13 +28,7 @@ export default {
   },
   computed: {
     baseDataSet() {
-      const colors = [
-        styles.colorCrimsonMain,
-        styles.colorMainCompMarine,
-        styles.colorMainCompGreen,
-        styles.colorMainCompBlue,
-        styles.colorMainCompViolet
-      ]
+      const colors = COLORS;
       const ctx = this.$refs.canvas.getContext("2d")
       const gradientcolors = colors.map(color => {
         let gradient = ctx.createLinearGradient(0, 0, 300, 300);

@@ -3,10 +3,6 @@ import {
   mapActions
 } from "vuex";
 export const demo = {
-  /**
-   * datasets represents a chart.js format datasets.
-   * Returns a value that makes the current max being its 80%.
-   */
   props: {
     isDemo: {
       type: Boolean

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import styles from "~/assets/scss_v2/abstracts/_variables.scss";
 
 const defaultDateRange = {
   value: 2,
@@ -15,3 +16,11 @@ export const INITIAL_DATE_FROM = moment()
 export const INITIAL_DATE_TO = moment()
   .startOf("day")
   .toDate();
+
+export const COLORS = [
+  styles.colorCrimsonMain,
+  styles.colorMainCompMarine,
+  styles.colorMainCompGreen,
+  styles.colorMainCompBlue,
+  styles.colorMainCompViolet
+]

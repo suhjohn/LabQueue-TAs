@@ -36,18 +36,27 @@ export default {
 
 // width
 .card-main-width-small {
-  @include col-1-of-2;
+  @include col-1-of-3;
 }
 
 .card-main-width-medium {
+  @include col-1-of-2;
+}
+
+.card-main-width-large {
   width: 100%;
 }
 
 // Height
 .card-main-height-small {
-  height: 10rem;
+  height: 20rem;
 }
+
 .card-main-height-medium {
+  height: 30rem;
+}
+
+.card-main-height-large {
   height: 50rem;
 }
 </style>

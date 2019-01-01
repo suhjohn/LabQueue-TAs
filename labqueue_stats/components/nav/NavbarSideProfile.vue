@@ -32,7 +32,6 @@ export default {
       isAuthenticated: "isAuthenticated"
     }),
     username() {
-      console.log(this.self);
       return this.self.full_name;
     },
     userPhoto() {
@@ -73,7 +72,7 @@ export default {
   transform: translateX(-50%);
   left: 50%;
   z-index: 1;
-  mask-image: radial-gradient(3.75rem at 50% 40%, transparent 95%, black 100%);
+  mask-image: radial-gradient(3.75rem at 50% 40%, transparent 100%, black 100%);
 }
 </style>
 

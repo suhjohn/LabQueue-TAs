@@ -32,26 +32,26 @@ export default {
   mixins: [envVars, demo],
   data() {
     let dashboardURLName;
-    let requestsURLName;
+    let profileURLName;
     let relativeURLPrefix;
     if (this.isDemo) {
-      dashboardURLName = "demo";
-      requestsURLName = "demo-requests";
+      profileURLName = "demo-profile";
+      dashboardURLName = "demo-dashboard";
     } else {
-      dashboardURLName = "index";
-      requestsURLName = "requests";
+      profileURLName = "profile";
+      dashboardURLName = "dashboard";
     }
     return {
       navItems: [
         {
+          icon: "user-alt",
+          text: "Profile",
+          relativeURL: { name: profileURLName }
+        },
+        {
           icon: "chart-line",
           text: "Dashboard",
           relativeURL: { name: dashboardURLName }
-        },
-        {
-          icon: "list-ul",
-          text: "Requests",
-          relativeURL: { name: requestsURLName }
         }
       ]
     };

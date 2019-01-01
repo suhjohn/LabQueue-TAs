@@ -1,5 +1,5 @@
 <template>
-  <div id="page-demo">
+  <div id="page-container">
     <!-- <PageHeader>
       <template slot="header">Daily Review</template>
     </PageHeader>
@@ -12,16 +12,16 @@
       <template slot="header">Dashboard</template>
     </PageHeader>
     <div id="index-card-row">
-      <CardItemMain height="medium">
-        <IndexModuleLineGraph :isDemo="true"></IndexModuleLineGraph>
+      <CardItemMain width="large" height="large">
+        <IndexModuleLineGraph :isDemo="false"></IndexModuleLineGraph>
       </CardItemMain>
     </div>
     <div id="index-card-row">
-      <CardItemMain width="small" height="medium">
-        <IndexDoughnutReqPerMin :isDemo="true"></IndexDoughnutReqPerMin>
+      <CardItemMain width="medium" height="large">
+        <IndexDoughnutReqPerMin :isDemo="false"></IndexDoughnutReqPerMin>
       </CardItemMain>
-      <CardItemMain width="small" height="medium">
-        <IndexDoughnutCourse :isDemo="true"></IndexDoughnutCourse>
+      <CardItemMain width="medium" height="large">
+        <IndexDoughnutCourse :isDemo="false"></IndexDoughnutCourse>
       </CardItemMain>
     </div>
   </div>
@@ -40,7 +40,8 @@ export default {
     CardItemMain,
     PageHeader
   },
-  layout: "demo_dashboard"
+  layout: "dashboard",
+  middleware: ["check-auth"]
 };
 </script>
 
@@ -49,7 +50,7 @@ export default {
 $mobile-padding: $margin-small;
 $laptop-padding: $margin-large;
 
-#page-demo {
+#page-container {
   padding: $mobile-padding;
 
   @include respond(laptop) {
