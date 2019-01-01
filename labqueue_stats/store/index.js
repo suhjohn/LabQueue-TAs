@@ -44,7 +44,8 @@ const store = () =>
         closer_username: Str
         time_closed: DateTime in String: "2017-10-24T19:26"
       */
-      requests_requests: {},
+      requests_requestsArr: [],
+      requests_requestsObj: {},
     },
     getters: {
       /**
@@ -60,7 +61,15 @@ const store = () =>
         return state.self != undefined;
       },
       getRequests: state => page => {
-        return state[`${page}_requests`];
+        return state[`${page}_requestsArr`];
+      },
+      getRequest: state => (page, pk) => {
+        console.log("[getRequest] execute")
+        console.log(page, pk)
+        const request = state[`${page}_requestsObj`][pk];
+        console.log("[getRequest] success")
+        console.log(request)
+        return request
       }
     },
     mutations: {
@@ -68,8 +77,25 @@ const store = () =>
         Vue.set(state, "self", { ...self
         });
       },
-      setRequests(state, page, requests) {
-        Vue.set(state, `${page}_requests`, requests)
+      setRequests(state, {
+        page,
+        requests
+      }) {
+        if (!requests || requests.length == 0) {
+          console.log("[setRequests] fail")
+          console.log(requests)
+          return
+        }
+        const requestsObj = {};
+        requests.forEach(request => {
+          requestsObj[request.pk] = request;
+        })
+        Vue.set(state, `${page}_requestsArr`, [...requests])
+        Vue.set(state, `${page}_requestsObj`, { ...requestsObj
+        })
+        console.log("[setRequests] success")
+        console.log(`${page}_requestsArr: ${requests.length}`)
+        console.log(`${page}_requestsObj: ${Object.keys(requestsObj).length}`)
       }
     },
     actions: {

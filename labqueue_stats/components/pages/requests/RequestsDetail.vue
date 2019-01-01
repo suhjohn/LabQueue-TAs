@@ -1,14 +1,14 @@
 <template>
   <section class="requests-detail">
     <div class="requests-detail-header">
-      <h1 class="requests-detail-header-text">{{ authorFullname }} | {{ authorUsername }}</h1>
+      <h1 class="requests-detail-header-text">{{ author_full_name }} | {{ author_username }}</h1>
       <h2 class="requests-detail-header-subtext">Location: {{ location }}</h2>
       <h4 class="requests-detail-header-subsubtext">Course: {{ course }}</h4>
-      <h4 class="requests-detail-header-subsubtext">Closer Username: {{ closerUsername }}</h4>
-      <h4 class="requests-detail-header-subsubtext">time created: {{ timeCreated }}</h4>
-      <h4 class="requests-detail-header-subsubtext">time accepted: {{ timeAccepted }}</h4>
-      <h4 class="requests-detail-header-subsubtext">time closed: {{ timeClosed }}</h4>
-      <h4 class="requests-detail-header-subsubtext">Acceptor NetId: {{ acceptorNetId }}</h4>
+      <h4 class="requests-detail-header-subsubtext">Closer Username: {{ closer_username }}</h4>
+      <h4 class="requests-detail-header-subsubtext">time created: {{ time_created }}</h4>
+      <h4 class="requests-detail-header-subsubtext">time accepted: {{ time_accepted }}</h4>
+      <h4 class="requests-detail-header-subsubtext">time closed: {{ time_closed }}</h4>
+      <h4 class="requests-detail-header-subsubtext">Acceptor NetId: {{ acceptor_netid }}</h4>
     </div>
     <hr>
     <div class="requests-detail-body">{{ description }}</div>
@@ -17,38 +17,45 @@
 <script>
 export default {
   props: {
-    authorFullname: {
-      type: String
+    author_full_name: {
+      type: String,
+      default: ""
     },
-    authorUsername: {
-      type: String
+    author_username: {
+      type: String,
+      default: ""
     },
     location: {
       type: String,
-      default: "room 123"
+      default: ""
     },
     course: {
-      type: String
+      type: String,
+      default: ""
     },
     description: {
-      type: String
-    },
-    timeCreated: {
-      type: String
-    },
-    timeAccepted: {
-      type: String
-    },
-    timeClosed: {
-      type: String
-    },
-    acceptorNetId: {
       type: String,
-      default: "ssuh"
+      default: ""
     },
-    closerUsername: {
+    time_created: {
       type: String,
-      default: "ssuh"
+      default: ""
+    },
+    time_accepted: {
+      type: String,
+      default: ""
+    },
+    time_closed: {
+      type: String,
+      default: ""
+    },
+    acceptor_netid: {
+      type: String,
+      default: ""
+    },
+    closer_username: {
+      type: String,
+      default: ""
     }
   }
 };

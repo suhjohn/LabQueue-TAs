@@ -34,7 +34,10 @@ export default {
       accepted_after: dateToString(INITIAL_DATE_FROM, DATE_FORMAT)
     };
     const requests = await context.store.dispatch("queryRequests_demo", query);
-    context.store.commit("setRequests", "requests", requests);
+    context.store.commit("setRequests", {
+      page: "requests",
+      requests: requests
+    });
     return {
       requests: requests
     };

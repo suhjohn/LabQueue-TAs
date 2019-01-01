@@ -5,19 +5,7 @@
       <i class="fas fa-arrow-left"></i>
     </nuxt-link>
     <transition name="across">
-      <RequestDetail
-        class="request-detail"
-        :authorFullname="selectedData.author_full_name"
-        :authorUsername="selectedData.author_username"
-        :location="selectedData.location"
-        :course="selectedData.course"
-        :description="selectedData.description"
-        :timeCreated="selectedData.time_created"
-        :timeAccepted="selectedData.time_accepted"
-        :timeClosed="selectedData.time_closed"
-        :acceptorNetId="selectedData.acceptor_netid"
-        :closerUsername="selectedData.closerUsername"
-      />
+      <RequestDetail class="request-detail" v-bind="selectedData"/>
     </transition>
   </section>
 </template>
@@ -26,7 +14,6 @@
 import PageHeader from "~/components/pages/PageHeader";
 import RequestList from "~/components/pages/requests/RequestsList";
 import RequestDetail from "~/components/pages/requests/RequestsDetail";
-
 import { mapGetters } from "vuex";
 export default {
   layout: "demo_dashboard",
@@ -36,21 +23,17 @@ export default {
     RequestDetail
   },
   computed: {
+    ...mapGetters({
+      getRequest: "getRequest"
+    }),
     selectedData() {
-      return (
-        this.selfRequestsObj[this.$route.params.pk] || {
-          author_full_name: "",
-          author_username: "",
-          location: "",
-          course: "",
-          description: "",
-          time_created: "",
-          time_Accepted: "",
-          time_closed: "",
-          acceptor_netid: "",
-          closerUsername: ""
-        }
-      );
+      console.log("[requests-pk:selectedData] execute");
+      const pk = Number(this.$route.params.pk);
+      console.log(pk);
+      const request = this.getRequest("requests", pk);
+      console.log("[requests-pk:selectedData] success");
+      console.log(request);
+      return request;
     }
   }
 };

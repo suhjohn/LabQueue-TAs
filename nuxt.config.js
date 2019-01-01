@@ -21,11 +21,7 @@ module.exports = {
         content: ""
       }
     ],
-    link: [{
-        rel: "icon",
-        type: "image/x-icon",
-        href: "Logo.svg"
-      },
+    link: [
       /*
       FontAwesome CDN
       https://fontawesome.com/how-to-use/on-the-web/setup/getting-started?using=web-fonts-with-css

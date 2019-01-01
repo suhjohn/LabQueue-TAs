@@ -22,7 +22,6 @@ export async function queryRequests(context, params) {
       requestParams
     );
     console.log("[queryRequests] success")
-    console.log(requests);
     return requests
   } catch (error) {
     console.log("[queryRequests] fail")
@@ -45,7 +44,6 @@ export async function querySelfRequests(context, params) {
       results.push(item);
     })
     console.log("[queryRequests] success")
-    console.log(response);
     while (response.next) {
       console.log("[querySelfRequests] execute")
       let response = await this.$axios.$get(response.next);
@@ -75,7 +73,6 @@ export async function queryRequests_demo(context, params) {
     data => dateFrom < data.time_accepted && data.time_accepted < dateTo
   );
   console.log("[queryRequests_demo] success")
-  console.log(requests)
   return requests;
 }
 
