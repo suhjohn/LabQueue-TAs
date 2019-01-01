@@ -102,7 +102,7 @@ export default {
     color: $color-grey-darkest;
     font-weight: 400;
     &-container {
-      text-align: left;
+      text-align: right;
       width: 7rem;
     }
   }
