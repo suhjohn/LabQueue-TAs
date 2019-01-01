@@ -85,6 +85,7 @@ $list-width: 50rem;
   display: flex;
 }
 #page-requests-pk-list {
+  border-right: 1px solid $color-grey-light;
   width: 0;
   display: none;
   @include respond(laptop) {

@@ -70,7 +70,7 @@ export default {
   }
 }
 
-.nuxt-link-exact-active {
+.nuxt-link-active {
   @include textColor-highlight;
   padding-top: 0 !important;
   border-top: $hover-marker-size solid $color-crimson-main !important;
