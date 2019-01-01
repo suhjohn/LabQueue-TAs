@@ -13,38 +13,12 @@
 import NavbarSideListItem from "@/components/nav/NavbarSideListItem.vue";
 import { demo } from "@/mixins/demo.js";
 import { envVars } from "@/mixins/envVars.js";
-
+import { navigationItems } from "@/mixins/navigation-items.js";
 export default {
   components: {
     NavbarSideListItem
   },
-  mixins: [envVars, demo],
-  data() {
-    let dashboardURLName;
-    let profileURLName;
-    let relativeURLPrefix;
-    if (this.isDemo) {
-      profileURLName = "demo-profile";
-      dashboardURLName = "demo-dashboard";
-    } else {
-      profileURLName = "profile";
-      dashboardURLName = "dashboard";
-    }
-    return {
-      navItems: [
-        {
-          icon: "user-alt",
-          text: "Profile",
-          relativeURL: { name: profileURLName }
-        },
-        {
-          icon: "chart-line",
-          text: "Dashboard",
-          relativeURL: { name: dashboardURLName }
-        }
-      ]
-    };
-  }
+  mixins: [envVars, demo, navigationItems]
 };
 </script>
 

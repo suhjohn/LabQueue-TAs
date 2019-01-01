@@ -30,7 +30,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-$height: 16rem;
+$height: 14rem;
 @import "@/assets/scss_v2/main.scss";
 #profile-photo-container {
   @include flexCenter;
@@ -38,7 +38,7 @@ $height: 16rem;
 }
 
 #profile-photo-img {
-  height: 15rem;
+  height: 13rem;
 }
 #profile-photo-frame {
   background-color: transparent;

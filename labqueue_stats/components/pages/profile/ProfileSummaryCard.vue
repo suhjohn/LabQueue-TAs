@@ -72,11 +72,8 @@ export default {
   font-size: 1.2rem;
   font-weight: 500;
 
-  @include respond(phone) {
-    font-size: 1.4rem;
-  }
   @include respond(laptop) {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -88,7 +85,7 @@ export default {
 #profile-summary-card-value {
   @include selectedWeight;
   @include respond(laptop) {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
   }
   font-size: 1.8rem;
 }

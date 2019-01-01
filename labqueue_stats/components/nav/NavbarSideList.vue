@@ -23,39 +23,14 @@ import NavbarSideListItem from "@/components/nav/NavbarSideListItem.vue";
 import ButtonText from "@/components/UI/ButtonText.vue";
 import { envVars } from "@/mixins/envVars.js";
 import { demo } from "@/mixins/demo.js";
+import { navigationItems } from "@/mixins/navigation-items.js";
 
 export default {
   components: {
     NavbarSideListItem,
     ButtonText
   },
-  mixins: [envVars, demo],
-  data() {
-    let dashboardURLName;
-    let profileURLName;
-    let relativeURLPrefix;
-    if (this.isDemo) {
-      profileURLName = "demo-profile";
-      dashboardURLName = "demo-dashboard";
-    } else {
-      profileURLName = "profile";
-      dashboardURLName = "dashboard";
-    }
-    return {
-      navItems: [
-        {
-          icon: "user-alt",
-          text: "Profile",
-          relativeURL: { name: profileURLName }
-        },
-        {
-          icon: "chart-line",
-          text: "Dashboard",
-          relativeURL: { name: dashboardURLName }
-        }
-      ]
-    };
-  }
+  mixins: [envVars, demo, navigationItems]
 };
 </script>
 <style lang="scss" scoped>
