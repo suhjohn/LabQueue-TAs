@@ -29,8 +29,7 @@ import RequestDetail from "~/components/pages/requests/RequestsDetail";
 
 import { mapGetters } from "vuex";
 export default {
-  transition: "none",
-  middleware: ["auth-user"],
+  layout: "demo_dashboard",
   components: {
     PageHeader,
     RequestList,

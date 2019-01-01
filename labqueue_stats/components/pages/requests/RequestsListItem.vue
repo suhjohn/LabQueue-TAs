@@ -82,18 +82,16 @@ export default {
 #request-list-item {
   height: 10rem;
   display: block;
-  padding: 2rem;
+  padding: $margin-small;
   &:hover {
     cursor: pointer;
+    background-color: $color-crimson-main-light;
   }
   &:not(:first-child) {
     border-top: 1px solid $color-grey-light;
   }
   &:not(:last-child) {
     border-bottom: none;
-  }
-  &:hover {
-    background-color: $color-crimson-main-light;
   }
 }
 .request-list-item-title {
@@ -105,7 +103,7 @@ export default {
     font-weight: 400;
     &-container {
       text-align: left;
-      width: 12rem;
+      width: 7rem;
     }
   }
   &-text {
@@ -120,13 +118,13 @@ export default {
     margin-top: 1rem;
   }
   &-text {
-    font-size: 1.2rem;
+    @include text-x-small;
     font-weight: 300;
     color: $color-grey;
   }
 }
 .nuxt-link-exact-active {
-  background-color: $color-crimson-main-dark;
+  background-color: $color-crimson-main;
   .request-list-item-title {
     &-date {
       color: $color-white;
@@ -136,7 +134,7 @@ export default {
     }
   }
   &:hover {
-    background-color: $color-crimson-main-dark;
+    background-color: $color-crimson-main !important;
   }
 }
 </style>
