@@ -22,7 +22,8 @@ export default {
     ProfileDetail,
     PageHeader
   },
-  layout: "dashboard"
+  layout: "dashboard",
+  middleware: ["check-auth"]
 };
 </script>
 <style lang="scss" scoped>

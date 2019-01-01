@@ -15,17 +15,17 @@ import queryData from "@/assets/static/dummydata.json";
 
 export async function queryRequests(context, params) {
   try {
-    console.log("[queryRequests] execute")
+    // console.log("[queryRequests] execute")
     const requestParams = createQuery(params);
     const requests = await this.$axios.$get(
       "/requests/" + params.netid + "/query",
       requestParams
     );
-    console.log("[queryRequests] success")
+    // console.log("[queryRequests] success")
     return requests
   } catch (error) {
-    console.log("[queryRequests] fail")
-    console.log(error);
+    // console.log("[queryRequests] fail")
+    // console.log(error);
     throw error;
   }
 }
@@ -35,7 +35,7 @@ export async function querySelfRequests(context, params) {
     let response;
     let results = [];
     const requestParams = createQuery(params);
-    console.log("[querySelfRequests] execute")
+    // console.log("[querySelfRequests] execute")
     response = await this.$axios.$get(
       "labtas/self/requests/query",
       requestParams
@@ -43,20 +43,20 @@ export async function querySelfRequests(context, params) {
     response.results.forEach(item => {
       results.push(item);
     })
-    console.log("[queryRequests] success")
+    // console.log("[queryRequests] success")
     while (response.next) {
-      console.log("[querySelfRequests] execute")
+      // console.log("[querySelfRequests] execute")
       let response = await this.$axios.$get(response.next);
       response.results.forEach(item => {
         results.push(item);
       })
-      console.log("[queryRequests] success")
-      console.log(response);
+      // console.log("[queryRequests] success")
+      // console.log(response);
     }
     return results
   } catch (error) {
-    console.log("[querySelfRequests] fail")
-    console.log(error);
+    // console.log("[querySelfRequests] fail")
+    // console.log(error);
     throw error;
   }
 }
@@ -65,7 +65,7 @@ export async function querySelfRequests(context, params) {
  * Temporary dummy query function
  */
 export async function queryRequests_demo(context, params) {
-  console.log("[queryRequests_demo] execute")
+  // console.log("[queryRequests_demo] execute")
   const dateFrom = params.accepted_after;
   const dateTo = params.accepted_before;
   const author = params.author;
@@ -83,8 +83,8 @@ export async function queryRequests_demo(context, params) {
       }
     )
   }
-  console.log("[queryRequests_demo] success")
-  console.log(requests.length)
+  // console.log("[queryRequests_demo] success")
+  // console.log(requests.length)
   return requests;
 }
 

@@ -21,6 +21,7 @@ import {
 export default {
   layout: "demo_dashboard",
   mixins: [demo],
+  middleware: ["check-auth"],
   data() {
     return {};
   },
