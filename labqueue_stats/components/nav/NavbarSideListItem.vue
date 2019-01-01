@@ -55,7 +55,7 @@ export default {
     flex-direction: row;
     padding-top: 0;
     border-top: 0;
-    padding-left: $margin-small;
+    padding-left: $margin-base;
     height: 4rem;
     justify-content: unset;
     & :not(:first-child) {
@@ -63,9 +63,9 @@ export default {
       margin-left: $margin-x-small;
     }
     &:hover {
-      padding-left: $margin-small - $hover-marker-size;
-      border-top: none;
+      padding-left: $margin-base - $hover-marker-size;
       border-left: $hover-marker-size solid $color-crimson-main-light;
+      border-top: none;
     }
   }
 }
@@ -77,7 +77,7 @@ export default {
 
   @include respond(laptop) {
     @include backgroundColor-selected;
-    padding-left: $margin-small - $hover-marker-size !important;
+    padding-left: $margin-base - $hover-marker-size !important;
     border-left: $hover-marker-size solid $color-crimson-main !important;
     border-top: none !important;
   }

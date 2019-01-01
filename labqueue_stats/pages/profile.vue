@@ -45,7 +45,7 @@ $laptop-padding: $margin-large;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  &:not(:last-child) {
+  > :not(:last-child) {
     margin-bottom: $margin-base;
   }
 }
