@@ -19,7 +19,7 @@ import {
 } from "@/constants.js";
 
 export default {
-  layout: "demo_dashboard",
+  layout: "dashboard",
   mixins: [demo],
   middleware: ["check-auth"],
   data() {

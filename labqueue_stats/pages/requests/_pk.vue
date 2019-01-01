@@ -30,7 +30,7 @@ import {
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
 
 export default {
-  layout: "demo_dashboard",
+  layout: "dashboard",
   middleware: ["check-auth"],
   components: {
     PageHeader,
