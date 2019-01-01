@@ -1,76 +1,64 @@
 <template>
-  <section>
-    <loading :active.sync="isFetchingData" :is-full-page="false"></loading>
-    <keep-alive>
-      <IndexModuleGraph/>
-    </keep-alive>
-  </section>
+  <div id="page-container">
+    <!-- <PageHeader>
+      <template slot="header">Daily Review</template>
+    </PageHeader>
+    <div class="row">
+      <CardItemMain width="small" height="small"></CardItemMain>
+      <CardItemMain width="small" height="small"></CardItemMain>
+      <CardItemMain width="small" height="small"></CardItemMain>
+    </div>-->
+    <PageHeader>
+      <template slot="header">Dashboard</template>
+    </PageHeader>
+    <div id="index-card-row">
+      <CardItemMain width="large" height="large">
+        <IndexModuleLineGraph :isDemo="false"></IndexModuleLineGraph>
+      </CardItemMain>
+    </div>
+    <div id="index-card-row">
+      <CardItemMain width="medium" height="large">
+        <IndexDoughnutReqPerMin :isDemo="false"></IndexDoughnutReqPerMin>
+      </CardItemMain>
+      <CardItemMain width="medium" height="large">
+        <IndexDoughnutCourse :isDemo="false"></IndexDoughnutCourse>
+      </CardItemMain>
+    </div>
+  </div>
 </template>
-
 <script>
-import moment from "moment";
-import Loading from "vue-loading-overlay";
-import "vue-loading-overlay/dist/vue-loading.css";
-import { mapGetters, mapMutations, mapActions } from "vuex";
-import { DATE_FORMAT, API_TIME_FORMAT } from "@/constants.js";
-import IndexModuleGraph from "@/components/index/IndexModuleGraph";
-import PageHeader from "@/components/UI/PageHeader";
-
+import PageHeader from "@/components/pages/PageHeader.vue";
+import CardItemMain from "@/components/UI/CardItemMain.vue";
+import IndexModuleLineGraph from "@/components/pages/index/IndexModuleLineGraph.vue";
+import IndexDoughnutReqPerMin from "@/components/pages/index/IndexDoughnutReqPerMin.vue";
+import IndexDoughnutCourse from "@/components/pages/index/IndexDoughnutCourse.vue";
 export default {
-  middleware: ["auth-user"],
   components: {
-    IndexModuleGraph,
-    PageHeader,
-    Loading
+    IndexModuleLineGraph,
+    IndexDoughnutCourse,
+    IndexDoughnutReqPerMin,
+    CardItemMain,
+    PageHeader
   },
-  computed: {
-    ...mapGetters({
-      isFetchingData: "getIsFetchingData",
-      isDemo: "isDemo"
-    })
-  },
-  methods: {
-    ...mapMutations({
-      setIsInitialFetch: "setIsInitialFetch",
-      setSelf: "setSelf"
-    }),
-    ...mapActions({
-      retrieveSelf_demo: "retrieveSelf_demo",
-      retrieveSelf: "retrieveSelf",
-      setRequests: "setRequests"
-    })
-  },
-  async mounted() {
-    this.setIsInitialFetch(true);
-    let self = {};
-    if (this.isDemo) {
-      self = await this.retrieveSelf_demo();
-    } else {
-      self = await this.retrieveSelf();
-    }
-    this.setSelf(self);
-
-    // Calculate dateFrom = current date - 1 month, dateTo = current date
-    const DEFAULT_MONTH = 1;
-    const currentDate = moment()
-      .utc()
-      .startOf("day");
-    const dateTo = currentDate.format(DATE_FORMAT);
-    const dateFrom = currentDate
-      .subtract(DEFAULT_MONTH, "months")
-      .format(DATE_FORMAT);
-
-    const defaultParams = {
-      dateFrom: dateFrom,
-      dateTo: dateTo
-    };
-    await this.setRequests(defaultParams);
-    this.setIsInitialFetch(false);
-  }
+  layout: "dashboard",
+  middleware: ["check-auth"]
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/variables.scss";
+@import "@/assets/scss_v2/main.scss";
+$mobile-padding: $margin-small;
+$laptop-padding: $margin-large;
+
+#page-container {
+  padding: $mobile-padding;
+
+  @include respond(laptop) {
+    padding: $laptop-padding;
+  }
+}
+#index-card-row {
+  @include row;
+}
 </style>
 

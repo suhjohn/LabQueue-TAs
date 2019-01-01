@@ -13,30 +13,14 @@ Retrieves information about LabTA self.
 */
 export async function retrieveSelf(context) {
   try {
-    const requestParams = {
-      action: {
-        api_family: "lab_tas",
-        action_name: "get_self"
-      }
-    };
-    const self = await this.$axios.$get("/", requestParams);
-    context.commit("setSelf", self);
+    // console.log("[retrieveSelf] execute");
+    const self = await this.$axios.$get("/labtas/self/");
+    // console.log("[retrieveSelf] success");
+    // console.log(self);
     return self;
   } catch (error) {
-    console.log(error);
+    // console.log("[retrieveSelf] fail");
+    // console.log(error);
     throw error;
   }
-}
-
-export async function retrieveSelf_demo(context) {
-  return {
-    full_name: "Demo User",
-    netid: "demouser",
-    puid: "123456789",
-    major: "AB Computer Science",
-    grad_year: 2020,
-    type: "full",
-    picture: "",
-    is_active: true
-  };
 }

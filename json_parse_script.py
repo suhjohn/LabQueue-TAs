@@ -58,7 +58,7 @@ for request in requests:
     t_created += datetime.timedelta(days=46) 
     t_closed += datetime.timedelta(days=46)
     t_accepted += datetime.timedelta(days=46)
-
+    
     accepted_date = t_accepted.date().isoformat()
     date_ta_dic.setdefault(accepted_date, set()).add(accepted_by)
     date_set.add(accepted_date)
@@ -78,10 +78,16 @@ reqs = []
 i = 0
 i_max = len(date_list)
 while i < i_max:
+    # for random  incremented date
     date = date_list[i]
+    # get the requests and tas on that date
     date_requests, date_tas = date_dic[date], list(date_ta_dic[date])
+    # choose a random ta
     random_ta = random.choice(date_tas)
+
+    # Filter through the requests with the netid being ta
     random_ta_req_for_shift = [req for req in date_requests if req["acceptor_netid"] == random_ta]
+
     for req in random_ta_req_for_shift:
         req["acceptor_netid"], req["closer_username"] = DEMO_USERNAME, DEMO_USERNAME
     reqs += random_ta_req_for_shift

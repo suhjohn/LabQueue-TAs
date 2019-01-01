@@ -1,0 +1,84 @@
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: inherit;
+}
+
+html {
+  /*
+    Default browser setting is 16px. We want it to be set to 10 if nothing has been changed. 
+    100% = 16px if default setting, therefore
+    62.5% = 10px
+
+    If user default is greater or smaller, it would change accordingly. 
+    */
+  font-size: 62.5%; // This defines what 1 rem is.
+}
+
+/* Font is usually inherited, so font stuff is added in body */
+input {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
+  color: $color-grey-darkest;
+  border: none;
+  outline: none;
+  background-color: transparent;
+
+  &:hover &:active &:focus &:visited {
+    border: none;
+    outline: none;
+  }
+}
+
+input:focus {
+  border: none;
+  outline: none;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  list-style-type: none;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: $color-black;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:hover &:active &:focus &:visited {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: $color-black;
+  }
+}
+
+button {
+  padding: 0;
+  text-align: none;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover &:active &:focus &:visited {
+    border: none;
+    outline: none;
+  }
+}
+
+#__nuxt,
+#__layout {
+  height: 100%;
+}

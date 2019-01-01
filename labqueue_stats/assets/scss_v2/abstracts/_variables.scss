@@ -1,0 +1,103 @@
+/*--------------------------------------------------------------------*/
+/* Raw values                                                         */
+/*--------------------------------------------------------------------*/
+$raw-default-font-size: 1.6;
+$raw-navbar-height: 6;
+$raw-contained-medium-radius: 5;
+$raw-side-navbar-xl-width: 25;
+$raw-graph-height: 40;
+
+
+/*--------------------------------------------------------------------*/
+/* Colors                                                             */
+/*--------------------------------------------------------------------*/
+$color-crimson-main-darkest: #832a29;
+$color-crimson-main-dark: #d10302;
+$color-crimson-main: #ff5a5f;
+$color-crimson-main-lighter: #ffbcbe;
+$color-crimson-main-light: #ffe3e4;
+$color-crimson-main-lightest: #fff7f7;
+
+$color-turquoise-main:#008489;
+$color-indigo-main: #30415d;
+$color-ultramarine-main: #031424;
+
+$color-white: #fdfdfd;
+$color-grey-darkest: #484848;
+$color-grey-dark: #7f7f7f;
+$color-grey: #c2c2c2;
+$color-grey-lighter: #d6d6d6;
+$color-grey-light: #ebe7e7;
+$color-grey-lightest: #fbfbfb;
+$color-black: #0f0000;
+
+/* Contrast Color Options */
+$color-main-comp-blue: #5ab2ff;
+$color-main-comp-green: #5affa8;
+$color-main-comp-marine: #5a5fff;
+$color-main-comp-violet: #a85aff;
+$color-main-comp-red: #ff0e15;
+
+
+/*--------------------------------------------------------------------*/
+/* Font                                                               */
+/*--------------------------------------------------------------------*/
+$default-font-size: $raw-default-font-size+0rem;
+
+
+/*--------------------------------------------------------------------*/
+/* Navbar                                                             */
+/*--------------------------------------------------------------------*/
+$navbar-top_height: 6rem;
+$navbar-side_width: 25rem;
+$navbar-side_height: 100vh;
+$navbar-bottom_height: 7rem;
+$navbar-side-logo_height: 8rem;
+$navbar-side-profile_height: 20rem;
+$navbar-side-list_height: calc(#{$navbar-side_height} - #{$navbar-side-logo_height} - #{$navbar-side-profile_height});
+$hover-marker-size: 0.5rem;
+
+/*--------------------------------------------------------------------*/
+/* Graph                                                              */
+/*--------------------------------------------------------------------*/
+$graph-height: $raw-graph-height+0rem;
+
+/*--------------------------------------------------------------------*/
+/* Margin                                                             */
+/*--------------------------------------------------------------------*/
+$margin-x-small: 0.8rem;
+$margin-small: 1.6rem;
+$margin-base: 2.4rem;
+$margin-large: 4.8rem;
+$margin-x-large:6.4rem;
+
+/*--------------------------------------------------------------------*/
+/* Border                                                             */
+/*--------------------------------------------------------------------*/
+$border-radius-round: 1rem;
+
+
+/*--------------------------------------------------------------------*/
+/* Grid                                                               */
+/*--------------------------------------------------------------------*/
+$grid-width: 114rem;
+$gutter-vertical: 4rem;
+$gutter-vertical-small: 4rem;
+$gutter-horizontal: 3rem;
+
+/*--------------------------------------------------------------------*/
+/* JS Export                                                          */
+/*--------------------------------------------------------------------*/
+:export {
+  colorCrimsonMainDark: $color-crimson-main-dark;
+  colorCrimsonMain: $color-crimson-main;
+  colorCrimsonMainLight: $color-crimson-main-light;
+  colorMainCompRed: $color-main-comp-red;
+  colorMainCompMarine: $color-main-comp-marine;
+  colorMainCompGreen: $color-main-comp-green;
+  colorMainCompBlue: $color-main-comp-blue;
+  colorMainCompViolet: $color-main-comp-violet;
+  colorGreyLighter: $color-grey-lighter;
+  colorGreyLight: $color-grey-light;
+  colorGrey: $color-grey;
+}
