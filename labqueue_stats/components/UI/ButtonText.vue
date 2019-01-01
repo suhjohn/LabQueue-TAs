@@ -1,5 +1,5 @@
 <template>
-  <button id="button-text" :style="{'width': _width, 'height': height + 'rem' }">
+  <button id="button-text" :style="{'width': _width, 'height': height + 'rem' }" @click="onClick">
     <span :class="['text-' + fontSize, 'color-text-' + fontColor]">
       <slot name="text"></slot>
     </span>
@@ -32,6 +32,11 @@ export default {
       } else {
         return this.width + "rem";
       }
+    }
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
     }
   }
 };

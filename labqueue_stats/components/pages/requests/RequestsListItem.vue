@@ -1,7 +1,7 @@
 <template>
   <nuxt-link
     tag="li"
-    :to="{ name: 'requests-pk', params: { pk: pk }}"
+    :to="detailLink"
     @click="onClick"
     class="request-list-item"
     :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}"
@@ -43,6 +43,10 @@ export default {
     },
     selected: {
       type: Boolean
+    },
+    isDemo: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -52,6 +56,15 @@ export default {
         description += "...";
       }
       return description;
+    },
+    detailLink() {
+      let detailURLName;
+      if (this.isDemo) {
+        detailURLName = "demo-requests-pk";
+      } else {
+        detailURLName = "requests-pk";
+      }
+      return { name: detailURLName, params: { pk: this.pk } };
     }
   },
   methods: {
@@ -89,9 +102,8 @@ export default {
   }
 
   &-unselected {
-    transition: 0.1s all;
     &:hover {
-      background-color: $color-grey;
+      background-color: $color-crimson-main-light;
     }
   }
   &:not(:first-child) {

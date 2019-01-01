@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav id="navbar-side">
     <NavbarSideLogo/>
     <NavbarSideProfile :isDemo="isDemo"/>
     <NavbarSideList :isDemo="isDemo"/>
@@ -25,8 +25,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-nav {
+#navbar-side {
   @include backgroundColor-light;
+  border-right: 1px solid $color-grey-light;
+  box-sizing: content-box;
   height: $navbar-side_height;
   width: $navbar-side_width;
   display: none;

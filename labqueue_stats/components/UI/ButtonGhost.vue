@@ -3,6 +3,7 @@
     id="button-ghost"
     :class="{hover:'button-hover'}"
     :style="{'width': width + 'rem', 'height': height + 'rem', 'line-height': height + 'rem'}"
+    @click="onClick"
   >
     <span :class="['text-' + fontSize]">
       <slot name="text"></slot>
@@ -28,6 +29,11 @@ export default {
     hover: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    onClick() {
+      this.$emit("click");
     }
   }
 };

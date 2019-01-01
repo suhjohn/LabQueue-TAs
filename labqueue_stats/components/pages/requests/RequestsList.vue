@@ -1,7 +1,13 @@
 <template>
   <ul ref="request-list" class="request-list">
+    <div id="requests-list-header">
+      <PageHeader>
+        <template slot="header">Requests</template>
+      </PageHeader>
+      <RequestsListSearch/>
+    </div>
     <RequestsListItem
-      v-for="(request, index) in selfRequestsFormatted"
+      v-for="(request, index) in requests"
       :key="request.pk"
       :authorFullname="request.author_full_name"
       :pk="request.pk"
@@ -10,68 +16,54 @@
       :description="request.description"
       :timeAccepted="request.time_accepted"
       :selected="index===selectedRequestItem"
+      :isDemo="isDemo"
     />
   </ul>
 </template>
 <script>
+import PageHeader from "~/components/pages/PageHeader";
 import RequestsListItem from "./RequestsListItem";
+import RequestsListSearch from "./RequestsListSearch";
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 
 export default {
   data() {
     return {
-      selectedRequestItem: null,
-      scrolling: false
+      selectedRequestItem: null
     };
   },
+  props: {
+    requests: {
+      type: Array
+    },
+    isDemo: {
+      type: Boolean
+    }
+  },
   components: {
-    RequestsListItem
+    PageHeader,
+    RequestsListItem,
+    RequestsListSearch
   },
-  computed: {
-    ...mapGetters({
-      selfRequests: "getSelfRequests"
-    }),
-    selfRequestsFormatted() {
-      const req = [...this.selfRequests];
-      req.reverse();
-      return req;
-    }
-  },
-  methods: {
-    ...mapActions({
-      setRequests: "setRequests",
-      setSelectedRequest: "setSelectedRequest"
-    }),
-
-    async loadMore() {
-      this.busy = true;
-      const mostRecent = this.selfRequestsFormatted[0];
-      const leastRecent = this.selfRequestsFormatted[
-        this.selfRequestsFormatted.length - 1
-      ];
-      const dateTo = mostRecent;
-      const dateFrom = moment(leastRecent)
-        .add(1, "months")
-        .format("YYYY-MM-DD");
-      await this.setRequests({
-        dateFrom: dateFrom,
-        dateTo: dateTo
-      });
-      this.busy = false;
-    }
-  }
+  computed: {},
+  methods: {}
 };
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
 
 .request-list {
-  width: 30rem;
-  height: 100vh;
-  border-right: 1px solid $color-grey-light;
+  height: 100%;
   background-color: $color-white;
   overflow: scroll;
+}
+#requests-list-header {
+  position: sticky;
+  top: 0;
+  padding: $margin-small;
+  background-color: $color-white;
+  border-bottom: 1px solid $color-grey-light;
 }
 </style>
 

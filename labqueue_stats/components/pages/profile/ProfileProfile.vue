@@ -46,7 +46,7 @@ $height: 14rem;
   width: 20rem;
   height: $height;
   z-index: 1;
-  mask-image: radial-gradient(6rem at 50% 45%, transparent 100%, black 100%);
+  mask-image: radial-gradient(6rem at 50% 40%, transparent 100%, black 100%);
 }
 
 #profile-username-container {
