@@ -6,13 +6,16 @@
     :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}"
   >
     <div class="request-list-item-title">
-      <h1 class="request-list-item-title-text">{{ pk }} - {{ descriptionString }}</h1>
+      <h1
+        class="request-list-item-title-text"
+      >{{ authorFullname }}({{authorUsername}}) in {{ course }}</h1>
       <div class="request-list-item-title-date-container">
-        <h4 class="request-list-item-title-date">{{ timeAccepted }}</h4>
+        <h4 class="request-list-item-title-date">{{ timeAcceptedDate }}</h4>
+        <h4 class="request-list-item-title-date">{{ timeAcceptedTime }}</h4>
       </div>
     </div>
     <div class="request-list-item-body-container">
-      <p class="request-list-item-body-text">{{authorFullname}} | {{course}}</p>
+      <p class="request-list-item-body-text">{{descriptionString}}</p>
     </div>
   </nuxt-link>
 </template>
@@ -64,6 +67,12 @@ export default {
         detailURLName = "requests-pk";
       }
       return { name: detailURLName, params: { pk: this.pk } };
+    },
+    timeAcceptedDate() {
+      return this.timeAccepted.split("T")[0];
+    },
+    timeAcceptedTime() {
+      return this.timeAccepted.split("T")[1];
     }
   }
 };
