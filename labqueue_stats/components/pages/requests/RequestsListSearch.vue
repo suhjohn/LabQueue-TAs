@@ -6,7 +6,7 @@
       type="text"
       v-model="query"
     >
-    <ButtonText width="5" height="3">
+    <ButtonText :width="5" :height="3">
       <template slot="text">
         <i class="fas fa-search"></i>
       </template>

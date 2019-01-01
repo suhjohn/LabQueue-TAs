@@ -37,9 +37,6 @@ export default {
     RequestDetail
   },
   computed: {
-    ...mapGetters({
-      selfRequestsObj: "getSelfRequestsObj"
-    }),
     selectedData() {
       return (
         this.selfRequestsObj[this.$route.params.pk] || {

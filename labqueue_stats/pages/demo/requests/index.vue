@@ -1,12 +1,13 @@
 <template>
   <div id="page-requests">
-    <RequestList :requests="requests"/>
+    <RequestList :requests="requests" :isDemo="true"/>
   </div>
 </template>
 
 <script>
 import RequestList from "~/components/pages/requests/RequestsList";
 import RequestDetail from "~/components/pages/requests/RequestsDetail";
+import { mapMutations } from "vuex";
 import { demo } from "@/mixins/demo.js";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
 
@@ -26,12 +27,14 @@ export default {
     RequestList,
     RequestDetail
   },
+  methods: {},
   async asyncData(context) {
     const query = {
       accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
       accepted_after: dateToString(INITIAL_DATE_FROM, DATE_FORMAT)
     };
     const requests = await context.store.dispatch("queryRequests_demo", query);
+    context.store.commit("setRequests", "requests", requests);
     return {
       requests: requests
     };

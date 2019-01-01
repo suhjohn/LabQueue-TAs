@@ -44,7 +44,7 @@ const store = () =>
         closer_username: Str
         time_closed: DateTime in String: "2017-10-24T19:26"
       */
-      selfRequests: {},
+      requests_requests: {},
     },
     getters: {
       /**
@@ -59,12 +59,18 @@ const store = () =>
       isAuthenticated: state => {
         return state.self != undefined;
       },
+      getRequests: state => page => {
+        return state[`${page}_requests`];
+      }
     },
     mutations: {
       setSelf(state, self) {
         Vue.set(state, "self", { ...self
         });
       },
+      setRequests(state, page, requests) {
+        Vue.set(state, `${page}_requests`, requests)
+      }
     },
     actions: {
       ...apis,

@@ -1,9 +1,8 @@
 <template>
   <nuxt-link
-    tag="li"
+    tag="a"
     :to="detailLink"
-    @click="onClick"
-    class="request-list-item"
+    id="request-list-item"
     :class="{'request-list-item-selected':selected, 'request-list-item-unselected':!selected}"
   >
     <div class="request-list-item-title">
@@ -12,7 +11,7 @@
         <h4 class="request-list-item-title-date">{{ timeAccepted }}</h4>
       </div>
     </div>
-    <div class="request-list-item-body">
+    <div class="request-list-item-body-container">
       <p class="request-list-item-body-text">{{authorFullname}} | {{course}}</p>
     </div>
   </nuxt-link>
@@ -66,45 +65,17 @@ export default {
       }
       return { name: detailURLName, params: { pk: this.pk } };
     }
-  },
-  methods: {
-    onClick() {
-      this.$emit("click");
-    }
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
-.request-list-item {
+#request-list-item {
   height: 10rem;
+  display: block;
   padding: 2rem;
   &:hover {
     cursor: pointer;
-  }
-  .request-list-item-title {
-    display: flex;
-    justify-content: space-between;
-    &-date {
-      font-size: 1.2rem;
-      color: $color-grey-darkest;
-      font-weight: 400;
-      &-container {
-        text-align: left;
-        width: 12rem;
-      }
-    }
-    &-text {
-      font-size: 1.4rem;
-      color: $color-grey-darkest;
-      font-weight: 300;
-    }
-  }
-
-  &-unselected {
-    &:hover {
-      background-color: $color-crimson-main-light;
-    }
   }
   &:not(:first-child) {
     border-top: 1px solid $color-grey-light;
@@ -112,14 +83,37 @@ export default {
   &:not(:last-child) {
     border-bottom: none;
   }
-  /* */
-  &-body {
-    margin-top: 1rem;
-    &-text {
-      font-size: 1.2rem;
-      font-weight: 300;
-      color: $color-grey;
+  &:hover {
+    background-color: $color-crimson-main-light;
+  }
+}
+.request-list-item-title {
+  display: flex;
+  justify-content: space-between;
+  &-date {
+    font-size: 1.2rem;
+    color: $color-grey-darkest;
+    font-weight: 400;
+    &-container {
+      text-align: left;
+      width: 12rem;
     }
+  }
+  &-text {
+    font-size: 1.4rem;
+    color: $color-grey-darkest;
+    font-weight: 300;
+  }
+}
+
+.request-list-item-body {
+  &-container {
+    margin-top: 1rem;
+  }
+  &-text {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: $color-grey;
   }
 }
 .nuxt-link-exact-active {
