@@ -30,6 +30,9 @@ export default {
     };
   },
   mixins: [demo],
+  created() {
+    this.query = this.$route.query.search;
+  },
   props: {
     isDemo: {
       type: Boolean
@@ -40,14 +43,16 @@ export default {
       setRequests: "setRequests"
     }),
     async searchQuery() {
-      // console.log("[searchQuery] executed");
-      const query = {
-        author: this.query
-      };
-      const requests = await this.getRequests(query);
-      // console.log("[searchQuery] fetch success");
-      this.setRequests({ page: "requests", requests: requests });
-      // console.log("[searchQuery] set success");
+      let routeName;
+      if (this.isDemo) {
+        routeName = "demo-requests";
+      } else {
+        routeName = "requests";
+      }
+      this.$router.push({
+        name: routeName,
+        query: { search: this.query }
+      });
     }
   }
 };

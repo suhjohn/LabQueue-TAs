@@ -38,14 +38,26 @@ export default {
     }
   },
   async fetch(context) {
-    if (context.store.getters.getRequests("requests")) {
+    // console.log("[requests:fetch] execute");
+    if (Object.keys(context.query).length > 0 && context.query.search !== "") {
+      // console.log("[requests:fetch] has search query");
+      const searchQuery = context.query.search;
+      const query = {
+        author: searchQuery
+      };
+      const requests = await context.store.dispatch("querySelfRequests", query);
+      // console.log(requests);
+      context.store.commit("setRequests", {
+        page: "requests",
+        requests: requests
+      });
       return;
     }
     const query = {
       accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
       accepted_after: "2016-01-01"
     };
-    const requests = await context.store.dispatch("queryRequests_demo", query);
+    const requests = await context.store.dispatch("querySelfRequests", query);
     context.store.commit("setRequests", {
       page: "requests",
       requests: requests
@@ -59,10 +71,11 @@ export default {
 #page-requests {
   border-right: 1px solid $color-grey-light;
   box-sizing: border-box;
-  height: 100vh;
+  height: calc(100vh - #{$navbar-top_height} - #{$navbar-bottom_height});
   display: flex;
 }
 #page-requests-list {
+  width: 100%;
   @include respond(laptop) {
     width: 50rem;
   }

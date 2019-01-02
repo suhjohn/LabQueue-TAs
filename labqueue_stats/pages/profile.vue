@@ -1,11 +1,15 @@
 <template>
   <div id="page-profile">
-    <PageHeader>
-      <template slot="header">Profile</template>
-    </PageHeader>
-    <div id="page-profile-wrapper">
+    <div id="page-profile-page-header-wrapper">
+      <PageHeader>
+        <template slot="header">Profile</template>
+      </PageHeader>
+    </div>
+    <div id="page-profile-header-wrapper">
       <ProfileProfile :isDemo="false"/>
       <ProfileSummary :isDemo="false"/>
+    </div>
+    <div id="page-profile-body-wrapper">
       <ProfileDetail :isDemo="false"/>
     </div>
   </div>
@@ -29,17 +33,24 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
 
-$mobile-padding: $margin-small;
+$mobile-padding: 0;
 $laptop-padding: $margin-large;
-
+$background-color: $color-crimson-main-lighter;
 #page-profile {
   height: 100%;
-  padding: $mobile-padding;
+}
+#page-profile-page-header-wrapper {
+  display: none;
+  background-color: $background-color;
+  color: $color-white;
   @include respond(laptop) {
+    background-color: $color-white;
+    color: $color-grey-darkest;
+    display: block;
     padding: $laptop-padding;
   }
 }
-#page-profile-wrapper {
+#page-profile-header-wrapper {
   height: 100%;
   width: 100%;
   display: flex;
@@ -47,7 +58,7 @@ $laptop-padding: $margin-large;
   align-items: center;
   justify-content: center;
   > :not(:last-child) {
-    margin-bottom: $margin-base;
+    padding-bottom: $margin-base;
   }
 }
 #page-profile-divider {

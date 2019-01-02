@@ -6,7 +6,9 @@
         <img src="~/assets/static/Logo.svg">
       </div>
       <a :href="labqueueLoginURL">
-        <ButtonSolid text="Log In" :width="30" :height="5"/>
+        <ButtonSolid :width="30" :height="5">
+          <template slot="text">Log In</template>
+        </ButtonSolid>
       </a>
       <nuxt-link :to="{name: 'demo-profile'}">
         <ButtonGhost :width="30" :height="5">
@@ -51,7 +53,7 @@ export default {
     if (this.isAuthenticated) {
       // console.log("[created] authenticated");
       this.$router.push({
-        name: "dashboard"
+        name: "profile"
       });
     } else {
       // console.log("[created] unauthenticated");
@@ -60,7 +62,7 @@ export default {
         await this.setSelf();
         // console.log("[created] setSelf success");
         this.$router.push({
-          name: "dashboard"
+          name: "profile"
         });
       } catch (error) {
         // console.log("[created] setSelf fail");

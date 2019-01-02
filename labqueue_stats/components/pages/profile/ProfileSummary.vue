@@ -17,7 +17,7 @@ import moment from "moment";
 import { envVars } from "@/mixins/envVars.js";
 import { demo } from "@/mixins/demo.js";
 import { dateToString, getShiftRequests, filter_shifts } from "@/utils.js";
-import { COLORS } from "@/constants";
+import { COLORS, API_TIME_FORMAT } from "@/constants";
 
 import ProfileSummaryCard from "@/components/pages/profile/ProfileSummaryCard.vue";
 
@@ -37,7 +37,7 @@ export default {
         },
         time: {
           icon: "business-time",
-          title: "Worked Time",
+          title: "Total Working Time",
           value: undefined,
           color: COLORS[1]
         },
@@ -71,8 +71,8 @@ export default {
     setTimeValue(requests) {
       const handletimeSum = requests
         .reduce((total, request) => {
-          let time_accepted = moment(request.time_accepted);
-          let time_closed = moment(request.time_closed);
+          let time_accepted = moment(request.time_accepted, API_TIME_FORMAT);
+          let time_closed = moment(request.time_closed, API_TIME_FORMAT);
           let handleTime = time_closed.subtract(time_accepted).minutes();
           let handleTimeMoment = moment.duration(handleTime, "minutes");
           return moment.duration(total, "minutes").add(handleTimeMoment);

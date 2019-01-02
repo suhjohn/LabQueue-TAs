@@ -3,7 +3,7 @@
     <div id="page-requests-pk-list">
       <RequestList :requests="requests" :isDemo="false"/>
     </div>
-    <nuxt-link id="page-requests-pk-button" :to="{name: 'demo-requests'}">
+    <nuxt-link id="page-requests-pk-button" :to="{name: 'requests'}">
       <ButtonSolid :width="5" :height="5">
         <template slot="text">
           <i class="fas fa-chevron-left"></i>
@@ -57,6 +57,21 @@ export default {
     }
   },
   async fetch(context) {
+    // console.log("[requests:fetch] execute");
+    if (Object.keys(context.query).length > 0 && context.query.search !== "") {
+      // console.log("[requests:fetch] has search query");
+      const searchQuery = context.query.search;
+      const query = {
+        author: searchQuery
+      };
+      const requests = await context.store.dispatch("querySelfRequests", query);
+      // console.log(requests);
+      context.store.commit("setRequests", {
+        page: "requests",
+        requests: requests
+      });
+      return;
+    }
     if (context.store.getters.getRequests("requests")) {
       return;
     }
@@ -64,7 +79,7 @@ export default {
       accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
       accepted_after: dateToString(INITIAL_DATE_FROM, DATE_FORMAT)
     };
-    const requests = await context.store.dispatch("queryRequests_demo", query);
+    const requests = await context.store.dispatch("querySelfRequests", query);
     context.store.commit("setRequests", {
       page: "requests",
       requests: requests

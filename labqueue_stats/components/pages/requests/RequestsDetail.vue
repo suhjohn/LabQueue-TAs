@@ -2,6 +2,8 @@
   <section class="requests-detail">
     <div class="requests-detail-header">
       <h1 class="requests-detail-header-text">{{ author_full_name }} | {{ author_username }}</h1>
+      <h4 class="requests-detail-header-subtext">Author Full Name: {{ author_full_name }}</h4>
+      <h4 class="requests-detail-header-subtext">Author Username: {{ author_username }}</h4>
       <h4 class="requests-detail-header-subtext">Location: {{ location }}</h4>
       <h4 class="requests-detail-header-subtext">Course: {{ course }}</h4>
       <h4 class="requests-detail-header-subtext">Closer Username: {{ closer_username }}</h4>
@@ -27,11 +29,11 @@ export default {
     },
     location: {
       type: String,
-      default: ""
+      default: "unknown"
     },
     course: {
       type: String,
-      default: ""
+      default: "unknown"
     },
     description: {
       type: String,
