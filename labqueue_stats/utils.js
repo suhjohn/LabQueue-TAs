@@ -19,7 +19,7 @@ export function groupBy(arr, key) {
 }
 
 export function dateToString(date, format) {
-  return moment(date).format(format)
+  return moment(date, API_TIME_FORMAT).format(format)
 }
 
 
@@ -41,7 +41,7 @@ export function filter_requests(requests, query) {
  */
 export function filter_shifts(requests) {
   let shifts = requests.map(request => {
-    return moment(request.time_accepted).format(DATE_FORMAT);
+    return moment(request.time_accepted, API_TIME_FORMAT).format(DATE_FORMAT);
   });
   shifts = [...new Set(shifts)];
   shifts.sort();
@@ -58,7 +58,7 @@ export function getShiftRequests(requests) {
     shiftRequests[shift] = [];
   });
   selfRequests.forEach(request => {
-    const request_shift = moment(request.time_accepted).format(
+    const request_shift = moment(request.time_accepted, API_TIME_FORMAT).format(
       DATE_FORMAT
     );
     shiftRequests[request_shift].push(request);
@@ -76,8 +76,8 @@ function clean_requests(requests) {
   );
 
   let selfRequests = requests.map(request => {
-    let moment_accepted = moment(request.time_accepted);
-    let moment_closed = moment(request.time_closed);
+    let moment_accepted = moment(request.time_accepted, API_TIME_FORMAT);
+    let moment_closed = moment(request.time_closed, API_TIME_FORMAT);
     let diff = moment_closed.diff(moment_accepted);
 
     if (diff < limit_duration) {
@@ -91,8 +91,8 @@ function clean_requests(requests) {
   });
 
   selfRequests.sort((a, b) => {
-    let base = moment(a.time_accepted);
-    let comp = moment(b.time_closed);
+    let base = moment(a.time_accepted, API_TIME_FORMAT);
+    let comp = moment(b.time_closed, API_TIME_FORMAT);
     return base.diff(comp);
   });
   return selfRequests

@@ -32,6 +32,7 @@ import { mapGetters, mapActions } from "vuex";
 // Project
 import {
   DATE_FORMAT,
+  API_TIME_FORMAT,
   INITIAL_DATE_FROM,
   INITIAL_DATE_TO
 } from "@/constants.js";
@@ -85,8 +86,8 @@ export default {
       });
       Object.values(shiftRequests).forEach(requests => {
         requests.forEach(request => {
-          let time_accepted = moment(request.time_accepted);
-          let time_closed = moment(request.time_closed);
+          let time_accepted = moment(request.time_accepted, API_TIME_FORMAT);
+          let time_closed = moment(request.time_closed, API_TIME_FORMAT);
           let diff = time_closed.subtract(time_accepted).minutes();
           let index;
           if (diff < minSegments[0]) {
