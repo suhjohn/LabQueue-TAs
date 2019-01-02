@@ -19,8 +19,8 @@ import {
 } from "@/constants.js";
 
 export default {
+  watchQuery: ["search"],
   layout: "demo_dashboard",
-  mixins: [demo],
   data() {
     return {};
   },
@@ -37,6 +37,24 @@ export default {
     }
   },
   async fetch(context) {
+    // console.log("[demo-requests:fetch] execute");
+    if (Object.keys(context.query).length > 0 && context.query.search !== "") {
+      console.log("[demo-requests:fetch] has search query");
+      const searchQuery = context.query.search;
+      const query = {
+        author: searchQuery
+      };
+      const requests = await context.store.dispatch(
+        "queryRequests_demo",
+        query
+      );
+      // console.log(requests);
+      context.store.commit("setRequests", {
+        page: "requests",
+        requests: requests
+      });
+      return;
+    }
     if (context.store.getters.getRequests("requests")) {
       return;
     }

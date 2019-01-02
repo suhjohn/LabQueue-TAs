@@ -22,11 +22,54 @@ export function dateToString(date, format) {
   return moment(date).format(format)
 }
 
+
+export function filter_requests(requests, query) {
+  let _requests = []
+  Object.entries(query).forEach(q => {
+    let filteredRequests = requests.filter(request => {
+      return q[1] == request[q[0]]
+    })
+    _requests = [..._requests,
+      filteredRequests
+    ]
+  })
+  return _requests
+}
+/**
+ * Filters shifts from the given requests
+ * @param {Array} requests 
+ */
+export function filter_shifts(requests) {
+  let shifts = requests.map(request => {
+    return moment(request.time_accepted).format(DATE_FORMAT);
+  });
+  shifts = [...new Set(shifts)];
+  shifts.sort();
+  return shifts
+}
+
+export function getShiftRequests(requests) {
+  const selfRequests = _filter_requests(requests);
+  const selfShifts = filter_shifts(requests);
+
+  // {shift: [request, request,...], shift2: [request, request,...]}
+  let shiftRequests = {};
+  selfShifts.forEach(shift => {
+    shiftRequests[shift] = [];
+  });
+  selfRequests.forEach(request => {
+    const request_shift = moment(request.time_accepted).format(
+      DATE_FORMAT
+    );
+    shiftRequests[request_shift].push(request);
+  });
+  return shiftRequests
+}
 /**
  * Filters requests to select proper requests only
  * @param {Array} requests 
  */
-export function filter_requests(requests) {
+function _filter_requests(requests) {
   const limit_duration = moment.duration(
     BUGGY_REQUEST_FILTER_LIMIT,
     "minutes"
@@ -53,34 +96,4 @@ export function filter_requests(requests) {
     return base.diff(comp);
   });
   return selfRequests
-}
-/**
- * Filters shifts from the given requests
- * @param {Array} requests 
- */
-export function filter_shifts(requests) {
-  let shifts = requests.map(request => {
-    return moment(request.time_accepted).format(DATE_FORMAT);
-  });
-  shifts = [...new Set(shifts)];
-  shifts.sort();
-  return shifts
-}
-
-export function getShiftRequests(requests) {
-  const selfRequests = filter_requests(requests);
-  const selfShifts = filter_shifts(requests);
-
-  // {shift: [request, request,...], shift2: [request, request,...]}
-  let shiftRequests = {};
-  selfShifts.forEach(shift => {
-    shiftRequests[shift] = [];
-  });
-  selfRequests.forEach(request => {
-    const request_shift = moment(request.time_accepted).format(
-      DATE_FORMAT
-    );
-    shiftRequests[request_shift].push(request);
-  });
-  return shiftRequests
 }

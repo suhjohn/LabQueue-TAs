@@ -65,12 +65,12 @@ export async function querySelfRequests(context, params) {
  * Temporary dummy query function
  */
 export async function queryRequests_demo(context, params) {
-  // console.log("[queryRequests_demo] execute")
+  console.log("[queryRequests_demo] execute")
   const dateFrom = params.accepted_after;
   const dateTo = params.accepted_before;
   const author = params.author;
   let requests = queryData;
-
+  console.log(params)
   if (dateFrom && dateTo) {
     requests = requests.filter(
       data => dateFrom < data.time_accepted && data.time_accepted < dateTo
