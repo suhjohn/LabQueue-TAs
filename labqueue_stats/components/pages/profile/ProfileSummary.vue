@@ -37,7 +37,7 @@ export default {
         },
         time: {
           icon: "business-time",
-          title: "Worked Time",
+          title: "Total Working Time",
           value: undefined,
           color: COLORS[1]
         },

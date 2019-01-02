@@ -1,18 +1,13 @@
 <template>
-  <div class id="profile-summary-card" :style="profileSummaryCardStyle">
-    <div id="profile-summary-card-icon-container">
-      <i
-        id="profile-summary-card-icon"
-        class="fas text-small u-margin-small"
-        :class="'fa-' + icon"
-        :style="{color:color}"
-      ></i>
+  <div class id="profile-summary-card">
+    <!-- <div id="profile-summary-card-icon-container">
+      <i id="profile-summary-card-icon" class="fas text-small u-margin-small" :class="'fa-' + icon"></i>
+    </div>-->
+    <div id="profile-summary-card-value-container">
+      <h3 id="profile-summary-card-value">{{ value }}</h3>
     </div>
     <div id="profile-summary-card-title-container">
       <h1 id="profile-summary-card-title">{{ title }}</h1>
-    </div>
-    <div id="profile-summary-card-value-container">
-      <h3 id="profile-summary-card-value">{{ value }}</h3>
     </div>
   </div>
 </template>
@@ -47,16 +42,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
+
 #profile-summary-card {
   width: 33%;
+  box-sizing: content-box;
   justify-content: space-around;
+  background-color: $color-crimson-main-light;
+  padding: $margin-x-small;
   @include respond(laptop) {
-    padding: 2rem;
+    background-color: $color-white;
+    padding: $margin-small;
   }
 }
 #profile-summary-card-icon-container {
   @include flexCenter;
-  height: 6rem;
+  height: 4rem;
 }
 #profile-summary-card-icon {
   font-size: 3rem;
@@ -70,24 +70,28 @@ export default {
 }
 #profile-summary-card-title {
   font-size: 1.2rem;
-  font-weight: 500;
-
+  font-weight: 300;
+  color: $color-grey-lightest;
   @include respond(laptop) {
+    color: $color-grey-darkest;
     font-size: 1.4rem;
   }
 }
 
 #profile-summary-card-value-container {
   @include flexCenter;
+  height: 6rem;
   text-align: center;
 }
 
 #profile-summary-card-value {
-  @include selectedWeight;
+  font-weight: 500;
+  color: $color-white;
+  font-size: 1.4rem;
   @include respond(laptop) {
-    font-size: 2.4rem;
+    color: $color-grey-darkest;
+    font-size: 1.8rem;
   }
-  font-size: 1.8rem;
 }
 </style>
 

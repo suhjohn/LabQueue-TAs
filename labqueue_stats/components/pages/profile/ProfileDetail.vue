@@ -36,8 +36,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "@/assets/scss_v2/main.scss";
 #profile-detail {
-  width: 40rem;
+  padding: $margin-base;
+  width: 100%;
   margin: 0 auto;
 }
 </style>
