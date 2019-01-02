@@ -27,12 +27,13 @@ export default {
   },
   data() {
     let query = "";
-    // if (Object.keys(this.$route.query).length > 0 && this.$route.query.search) {
-    //   query = this.$route.query.search;
-    // }
     return {
       query: query
     };
+  },
+  created() {
+    console.log(this.$router);
+    this.query = this.$route.query.search;
   },
   props: {
     isDemo: {

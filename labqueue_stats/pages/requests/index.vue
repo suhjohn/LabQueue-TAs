@@ -72,12 +72,13 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss_v2/main.scss";
 #page-requests {
-  border-right: 1px solid $color-grey-light;
+  height: calc(100vh - #{$navbar-top_height} - #{$navbar-bottom_height});
   box-sizing: border-box;
   height: 100vh;
   display: flex;
 }
 #page-requests-list {
+  width: 100%;
   @include respond(laptop) {
     width: 50rem;
   }
