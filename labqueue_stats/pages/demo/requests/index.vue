@@ -39,7 +39,7 @@ export default {
   async fetch(context) {
     // console.log("[demo-requests:fetch] execute");
     if (Object.keys(context.query).length > 0 && context.query.search !== "") {
-      console.log("[demo-requests:fetch] has search query");
+      // console.log("[demo-requests:fetch] has search query");
       const searchQuery = context.query.search;
       const query = {
         author: searchQuery
@@ -53,9 +53,6 @@ export default {
         page: "requests",
         requests: requests
       });
-      return;
-    }
-    if (context.store.getters.getRequests("requests")) {
       return;
     }
     const query = {
@@ -76,10 +73,11 @@ export default {
 #page-requests {
   border-right: 1px solid $color-grey-light;
   box-sizing: border-box;
-  height: 100vh;
+  height: calc(100vh - #{$navbar-top_height} - #{$navbar-bottom_height});
   display: flex;
 }
 #page-requests-list {
+  width: 100%;
   @include respond(laptop) {
     width: 50rem;
   }

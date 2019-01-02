@@ -46,14 +46,10 @@ export default {
         author: searchQuery
       };
       const requests = await context.store.dispatch("querySelfRequests", query);
-      // console.log(requests);
       context.store.commit("setRequests", {
         page: "requests",
         requests: requests
       });
-      return;
-    }
-    if (context.store.getters.getRequests("requests")) {
       return;
     }
     const query = {
@@ -78,6 +74,8 @@ export default {
   display: flex;
 }
 #page-requests-list {
+  width: 100%;
+
   @include respond(laptop) {
     width: 50rem;
   }

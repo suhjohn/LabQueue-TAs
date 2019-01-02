@@ -43,11 +43,11 @@ export default {
       getRequests: "getRequests"
     }),
     selectedData() {
-      console.log("[requests-pk:selectedData] execute");
+      // console.log("[requests-pk:selectedData] execute");
       const pk = Number(this.$route.params.pk);
       // console.log(pk);
       const request = this.getRequest("requests", pk);
-      console.log("[requests-pk:selectedData] success");
+      // console.log("[requests-pk:selectedData] success");
       // console.log(request);
       return request;
     },
@@ -58,7 +58,7 @@ export default {
   async fetch(context) {
     // console.log("[demo-requests:fetch] execute");
     if (Object.keys(context.query).length > 0 && context.query.search !== "") {
-      console.log("[demo-requests:fetch] has search query");
+      // console.log("[demo-requests:fetch] has search query");
       const searchQuery = context.query.search;
       const query = {
         author: searchQuery
