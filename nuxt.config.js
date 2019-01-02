@@ -22,6 +22,14 @@ module.exports = {
       }
     ],
     link: [
+      /**
+       * Favicon
+       */
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: 'logo.svg',
+      },
       /*
       FontAwesome CDN
       https://fontawesome.com/how-to-use/on-the-web/setup/getting-started?using=web-fonts-with-css

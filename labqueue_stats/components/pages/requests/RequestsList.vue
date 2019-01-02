@@ -79,19 +79,26 @@ $header-height: 12rem;
   width: 100%;
   height: 100%;
   position: relative;
+  border-right: 1px solid $color-grey-light;
 }
 #request-list-item-container {
   height: calc(100% - #{$header-height});
   background-color: $color-white;
   overflow: scroll;
+  @include respond(laptop) {
+    height: 100%;
+  }
 }
 #requests-list-header {
   height: $header-height;
   position: sticky;
-  top: 0;
+  top: 0 + $navbar-top_height;
   padding: $margin-small;
   background-color: $color-white;
   border-bottom: 1px solid $color-grey-light;
+  @include respond(laptop) {
+    top: 0;
+  }
 }
 </style>
 

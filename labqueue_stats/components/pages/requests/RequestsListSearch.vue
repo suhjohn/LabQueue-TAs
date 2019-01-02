@@ -20,34 +20,46 @@
 import { demo } from "@/mixins/demo.js";
 import ButtonText from "@/components/UI/ButtonText";
 import { mapGetters, mapMutations } from "vuex";
+
 export default {
   components: {
     ButtonText
   },
   data() {
+    let query = "";
     return {
-      query: undefined
+      query: query
     };
   },
-  mixins: [demo],
+  created() {
+    // console.log(this.$router);
+    this.query = this.$route.query.search;
+  },
   props: {
     isDemo: {
       type: Boolean
     }
   },
+  computed: {
+    ...mapGetters({
+      getRequests: "getRequests"
+    })
+  },
   methods: {
     ...mapMutations({
       setRequests: "setRequests"
     }),
-    async searchQuery() {
-      // console.log("[searchQuery] executed");
-      const query = {
-        author: this.query
-      };
-      const requests = await this.getRequests(query);
-      // console.log("[searchQuery] fetch success");
-      this.setRequests({ page: "requests", requests: requests });
-      // console.log("[searchQuery] set success");
+    searchQuery() {
+      let routeName;
+      if (this.isDemo) {
+        routeName = "demo-requests";
+      } else {
+        routeName = "requests";
+      }
+      this.$router.push({
+        name: routeName,
+        query: { search: this.query }
+      });
     }
   }
 };

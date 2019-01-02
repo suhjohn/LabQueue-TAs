@@ -81,15 +81,10 @@ export default {
   height: 10rem;
   display: block;
   padding: $margin-small;
+  border-bottom: 1px solid $color-grey-light;
   &:hover {
     cursor: pointer;
     background-color: $color-crimson-main-light;
-  }
-  &:not(:first-child) {
-    border-top: 1px solid $color-grey-light;
-  }
-  &:not(:last-child) {
-    border-bottom: none;
   }
 }
 

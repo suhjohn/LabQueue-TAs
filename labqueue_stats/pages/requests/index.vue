@@ -19,8 +19,8 @@ import {
 } from "@/constants.js";
 
 export default {
+  watchQuery: ["search"],
   layout: "dashboard",
-  mixins: [demo],
   middleware: ["check-auth"],
   data() {
     return {};
@@ -38,14 +38,25 @@ export default {
     }
   },
   async fetch(context) {
-    if (context.store.getters.getRequests("requests")) {
+    // console.log("[demo-requests:fetch] execute");
+    if (Object.keys(context.query).length > 0 && context.query.search !== "") {
+      console.log("[demo-requests:fetch] has search query");
+      const searchQuery = context.query.search;
+      const query = {
+        author: searchQuery
+      };
+      const requests = await context.store.dispatch("querySelfRequests", query);
+      context.store.commit("setRequests", {
+        page: "requests",
+        requests: requests
+      });
       return;
     }
     const query = {
       accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
       accepted_after: "2016-01-01"
     };
-    const requests = await context.store.dispatch("queryRequests_demo", query);
+    const requests = await context.store.dispatch("querySelfRequests", query);
     context.store.commit("setRequests", {
       page: "requests",
       requests: requests
@@ -63,6 +74,8 @@ export default {
   display: flex;
 }
 #page-requests-list {
+  width: 100%;
+
   @include respond(laptop) {
     width: 50rem;
   }
