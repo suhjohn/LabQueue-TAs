@@ -79,6 +79,7 @@ $header-height: 12rem;
   width: 100%;
   height: 100%;
   position: relative;
+  border-right: 1px solid $color-grey-light;
 }
 #request-list-item-container {
   height: calc(100% - #{$header-height});
