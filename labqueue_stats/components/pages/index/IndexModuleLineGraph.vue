@@ -42,6 +42,7 @@ import { mapGetters, mapActions } from "vuex";
 // Project
 import {
   DATE_FORMAT,
+  API_TIME_FORMAT,
   INITIAL_DATE_FROM,
   INITIAL_DATE_TO
 } from "@/constants.js";
@@ -194,8 +195,8 @@ export default {
       }
       const handletimeSum = this.requests
         .reduce((total, request) => {
-          let time_accepted = moment(request.time_accepted);
-          let time_closed = moment(request.time_closed);
+          let time_accepted = moment(request.time_accepted, API_TIME_FORMAT);
+          let time_closed = moment(request.time_closed, API_TIME_FORMAT);
           let handleTime = time_closed.subtract(time_accepted).minutes();
           let handleTimeMoment = moment.duration(handleTime, "minutes");
           return moment.duration(total, "minutes").add(handleTimeMoment);
@@ -212,8 +213,8 @@ export default {
         let shiftReqCount = reqsForShift.length;
         let shiftTotalDur = 0; // in minutes
         reqsForShift.forEach(req => {
-          let from = moment(req.time_accepted);
-          let to = moment(req.time_closed);
+          let from = moment(req.time_accepted, API_TIME_FORMAT);
+          let to = moment(req.time_closed, API_TIME_FORMAT);
           let duration = moment.duration(to.diff(from));
           shiftTotalDur += duration.asMinutes();
         });
