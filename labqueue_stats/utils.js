@@ -49,7 +49,7 @@ export function filter_shifts(requests) {
 }
 
 export function getShiftRequests(requests) {
-  const selfRequests = _filter_requests(requests);
+  const selfRequests = clean_requests(requests);
   const selfShifts = filter_shifts(requests);
 
   // {shift: [request, request,...], shift2: [request, request,...]}
@@ -69,7 +69,7 @@ export function getShiftRequests(requests) {
  * Filters requests to select proper requests only
  * @param {Array} requests 
  */
-function _filter_requests(requests) {
+function clean_requests(requests) {
   const limit_duration = moment.duration(
     BUGGY_REQUEST_FILTER_LIMIT,
     "minutes"

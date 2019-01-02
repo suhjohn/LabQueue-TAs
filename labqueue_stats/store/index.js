@@ -46,7 +46,6 @@ const store = () =>
       */
       requests_requestsArr: undefined,
       requests_requestsObj: undefined,
-      requests_requestsArr_copy: undefined,
       /* */
       requestsListScrollHeight: 0,
     },
@@ -66,9 +65,6 @@ const store = () =>
       getRequests: state => page => {
         return state[`${page}_requestsArr`];
       },
-      getFilteredRequests: state => page => {
-        return state[`${page}_requestsArr_filtered`];
-      },
       getRequest: state => (page, pk) => {
         // console.log("[getRequest] execute")
         // console.log(page, pk)
@@ -87,26 +83,6 @@ const store = () =>
         });
       },
       setRequests(state, {
-        page,
-        requests
-      }) {
-        if (!requests || requests.length == 0) {
-          // console.log("[vuex:setRequests] fail")
-          return
-        }
-        const requestsObj = {};
-        requests.forEach(request => {
-          requestsObj[request.pk] = request;
-        })
-        Vue.set(state, `${page}_requestsArr`, [...requests])
-        Vue.set(state, `${page}_requestsArr_copy`, [...requests])
-        Vue.set(state, `${page}_requestsObj`, { ...requestsObj
-        })
-        // console.log("[vuex:setRequests] success")
-        // console.log(`${page}_requestsArr: ${requests.length}`)
-        // console.log(`${page}_requestsObj: ${Object.keys(requestsObj).length}`)
-      },
-      setFilteredRequests(state, {
         page,
         requests
       }) {

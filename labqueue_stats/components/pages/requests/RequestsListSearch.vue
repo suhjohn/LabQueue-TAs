@@ -20,17 +20,16 @@
 import { demo } from "@/mixins/demo.js";
 import ButtonText from "@/components/UI/ButtonText";
 import { mapGetters, mapMutations } from "vuex";
-import { filter_requests } from "@/utils.js";
 
 export default {
   components: {
     ButtonText
   },
   data() {
-    let query = undefined;
-    if (Object.keys(this.$route.query).length > 0 && this.$route.query.search) {
-      query = this.$route.query.search;
-    }
+    let query = "";
+    // if (Object.keys(this.$route.query).length > 0 && this.$route.query.search) {
+    //   query = this.$route.query.search;
+    // }
     return {
       query: query
     };
