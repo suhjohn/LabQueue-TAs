@@ -49,18 +49,18 @@ export default {
     })
   },
   async created() {
-    console.log("[created] execute");
+    // console.log("[created] execute");
     if (this.isAuthenticated) {
-      console.log("[created] authenticated");
+      // console.log("[created] authenticated");
       this.$router.push({
         name: "dashboard"
       });
     } else {
-      console.log("[created] unauthenticated");
+      // console.log("[created] unauthenticated");
       try {
-        console.log("[created] trying setSelf...");
+        // console.log("[created] trying setSelf...");
         await this.setSelf();
-        console.log("[created] setSelf success");
+        // console.log("[created] setSelf success");
         this.$router.push({
           name: "dashboard"
         });
