@@ -32,7 +32,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$router);
+    // console.log(this.$router);
     this.query = this.$route.query.search;
   },
   props: {
