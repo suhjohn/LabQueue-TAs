@@ -3,7 +3,7 @@
     <div id="page-requests-pk-list">
       <RequestList :requests="requests" :isDemo="false"/>
     </div>
-    <nuxt-link id="page-requests-pk-button" :to="{name: 'demo-requests'}">
+    <nuxt-link id="page-requests-pk-button" :to="{name: 'requests'}">
       <ButtonSolid :width="5" :height="5">
         <template slot="text">
           <i class="fas fa-chevron-left"></i>

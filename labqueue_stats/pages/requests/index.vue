@@ -71,10 +71,11 @@ export default {
 #page-requests {
   border-right: 1px solid $color-grey-light;
   box-sizing: border-box;
-  height: 100vh;
+  height: calc(100vh - #{$navbar-top_height} - #{$navbar-bottom_height});
   display: flex;
 }
 #page-requests-list {
+  width: 100%;
   @include respond(laptop) {
     width: 50rem;
   }

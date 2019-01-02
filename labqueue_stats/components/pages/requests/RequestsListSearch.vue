@@ -30,6 +30,9 @@ export default {
     };
   },
   mixins: [demo],
+  created() {
+    this.query = this.$route.query.search;
+  },
   props: {
     isDemo: {
       type: Boolean

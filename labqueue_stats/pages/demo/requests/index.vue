@@ -78,6 +78,7 @@ export default {
   display: flex;
 }
 #page-requests-list {
+  width: 100%;
   @include respond(laptop) {
     width: 50rem;
   }
