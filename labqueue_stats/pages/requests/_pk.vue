@@ -56,31 +56,63 @@ export default {
       return this.getRequests("requests");
     }
   },
-  async fetch(context) {
+  // async fetch(context) {
+  //   // console.log("[demo-requests:fetch] execute");
+  //   if (Object.keys(context.query).length > 0 && context.query.search !== "") {
+  //     console.log("[demo-requests:fetch] has search query");
+  //     const searchQuery = context.query.search;
+  //     const query = {
+  //       author: searchQuery
+  //     };
+  //     const requests = await context.store.dispatch("querySelfRequests", query);
+  //     // console.log(requests);
+  //     context.store.commit("setRequests", {
+  //       page: "requests",
+  //       requests: requests
+  //     });
+  //     return;
+  //   }
+  //   if (context.store.getters.getRequests("requests")) {
+  //     return;
+  //   }
+  //   const query = {
+  //     accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
+  //     accepted_after: "2016-01-01"
+  //   };
+  //   const requests = await context.store.dispatch("querySelfRequests", query);
+  //   context.store.commit("setRequests", {
+  //     page: "requests",
+  //     requests: requests
+  //   });
+  // }
+  async created() {
     // console.log("[demo-requests:fetch] execute");
-    if (Object.keys(context.query).length > 0 && context.query.search !== "") {
+    if (
+      Object.keys(this.$route.query).length > 0 &&
+      this.$route.query.search !== ""
+    ) {
       console.log("[demo-requests:fetch] has search query");
-      const searchQuery = context.query.search;
+      const searchQuery = this.$route.query.search;
       const query = {
         author: searchQuery
       };
-      const requests = await context.store.dispatch("queryRequests", query);
+      const requests = await this.$store.dispatch("querySelfRequests", query);
       // console.log(requests);
-      context.store.commit("setRequests", {
+      this.$store.commit("setRequests", {
         page: "requests",
         requests: requests
       });
       return;
     }
-    if (context.store.getters.getRequests("requests")) {
+    if (this.$store.getters.getRequests("requests")) {
       return;
     }
     const query = {
       accepted_before: dateToString(INITIAL_DATE_TO, DATE_FORMAT),
       accepted_after: "2016-01-01"
     };
-    const requests = await context.store.dispatch("queryRequests", query);
-    context.store.commit("setRequests", {
+    const requests = await this.$store.dispatch("querySelfRequests", query);
+    this.$store.commit("setRequests", {
       page: "requests",
       requests: requests
     });
